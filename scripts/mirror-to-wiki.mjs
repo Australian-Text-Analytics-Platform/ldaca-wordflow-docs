@@ -65,24 +65,11 @@ const walkMarkdown = (dir, acc = []) => {
   return acc;
 };
 
-// Build a map from file path → best display label using registry.json.
-// Prefers entries whose key ends with .tab, .overview, or .section
-// (the section-level entries); falls back to the first entry for the file.
-const buildFileLabels = () => {
-  try {
-    const registry = JSON.parse(readFileSync(join(ROOT, 'registry.json'), 'utf8'));
-    const labels = new Map();
-    const PREFER = ['.tab', '.overview', '.section'];
-    for (const kind of ['tutorial', 'info', 'reference']) {
-      for (const [key, entry] of Object.entries(registry[kind] ?? {})) {
-        const isPreferred = PREFER.some((s) => key.endsWith(s));
-        if (!labels.has(entry.file) || isPreferred) labels.set(entry.file, entry.label);
-      }
-    }
-    return labels;
-  } catch {
-    return new Map();
-  }
+// Extract the first H1 heading from markdown content — used as the page
+// display label in the sidebar and home page.
+const labelFromH1 = (content) => {
+  const m = content.match(/^#\s+(.+)$/m);
+  return m ? m[1].trim() : null;
 };
 
 // All kind dirs that could appear in cross-file links (including information/,
@@ -129,12 +116,12 @@ const groupBy = (arr, key) =>
 
 const renderSidebar = (entries) => {
   const grouped = groupBy(entries, (e) => e.kindDir);
-  const lines = ['**[[Home]]**', ''];
+  const lines = ['[Home](Home)', ''];
   for (const kind of WIKI_KIND_DIRS) {
     const items = grouped[kind];
     if (!items?.length) continue;
-    lines.push('---', `**${KIND_LABELS[kind]}**`, '');
-    for (const e of sortEntries(items)) lines.push(`- [[${e.slug}|${e.label}]]`);
+    lines.push(`**${KIND_LABELS[kind]}**`, '');
+    for (const e of sortEntries(items)) lines.push(`- [${e.label}](${e.slug})`);
     lines.push('');
   }
   return lines.join('\n');
@@ -152,7 +139,7 @@ const renderHome = (entries) => {
     const items = grouped[kind];
     if (!items?.length) continue;
     lines.push(`## ${KIND_LABELS[kind]}`, '');
-    for (const e of sortEntries(items)) lines.push(`- [[${e.slug}|${e.label}]]`);
+    for (const e of sortEntries(items)) lines.push(`- [${e.label}](${e.slug})`);
     lines.push('');
   }
   return lines.join('\n');
@@ -164,16 +151,15 @@ const run = (cmd, opts = {}) => {
 };
 
 const main = () => {
-  const fileLabels = buildFileLabels();
-
   const entries = [];
   for (const kindDir of WIKI_KIND_DIRS) {
     for (const fullPath of walkMarkdown(join(ROOT, kindDir))) {
       const file = fullPath.slice(ROOT.length + 1);
       const slug = slugForFile(file);
-      const label = fileLabels.get(file)
+      const src = readFileSync(fullPath, 'utf8');
+      const label = labelFromH1(src)
         ?? titleCase(file.split('/')[1].replace(/\.md$/, ''));
-      entries.push({ fullPath, file, kindDir, slug, label });
+      entries.push({ file, kindDir, slug, label, src });
     }
   }
   if (entries.length === 0) {
@@ -190,8 +176,7 @@ const main = () => {
     }
 
     for (const e of entries) {
-      const src = readFileSync(e.fullPath, 'utf8');
-      writeFileSync(join(workDir, `${e.slug}.md`), rewriteContent(src, e.file));
+      writeFileSync(join(workDir, `${e.slug}.md`), rewriteContent(e.src, e.file));
     }
 
     writeFileSync(join(workDir, 'Home.md'), renderHome(entries));
