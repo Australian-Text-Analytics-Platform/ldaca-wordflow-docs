@@ -1,0 +1,48 @@
+name: Publish docs
+
+on:
+  push:
+    branches: [main, 'v*.*']
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+# Allow only one concurrent deployment per branch; pages serves the latest
+# successful build per published path.
+concurrency:
+  group: pages-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+      - name: Validate registry against markdown
+        run: node scripts/build-registry.mjs
+      - name: Stage Pages artifact under versioned path
+        # Each branch publishes to /<branch>/ — `main` → /main/, v0.3 →
+        # /v0.3/. The app reads VITE_DOCS_BASE_URL=<host>/v0.3 (etc) so
+        # the path segment maps to the app's minor version.
+        run: |
+          mkdir -p _site/${GITHUB_REF_NAME}
+          rsync -a --exclude='_site' --exclude='.github' --exclude='node_modules' --exclude='.git' --exclude='scripts' ./ _site/${GITHUB_REF_NAME}/
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: _site
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - id: deployment
+        uses: actions/deploy-pages@v4

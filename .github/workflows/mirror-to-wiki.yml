@@ -1,0 +1,26 @@
+name: Mirror to master-repo wiki
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+jobs:
+  mirror:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+      - name: Mirror markdown to master repo's wiki
+        env:
+          # Personal access token with `contents:write` on the master
+          # repo's wiki. Create as a fine-grained PAT scoped to
+          # `ldaca_text_analytics_tools`; store as `WIKI_PAT` secret on
+          # this repo.
+          WIKI_PAT: ${{ secrets.WIKI_PAT }}
+          WIKI_REMOTE: https://x-access-token:${{ secrets.WIKI_PAT }}@github.com/Australian-Text-Analytics-Platform/ldaca_text_analytics_tools.wiki.git
+          DOCS_RAW_BASE: https://raw.githubusercontent.com/Australian-Text-Analytics-Platform/ldaca-analytics-docs/main
+          GITHUB_SHA: ${{ github.sha }}
+        run: node scripts/mirror-to-wiki.mjs
