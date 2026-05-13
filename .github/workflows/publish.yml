@@ -6,18 +6,14 @@ on:
   workflow_dispatch:
 
 permissions:
-  contents: read
-  pages: write
-  id-token: write
+  contents: write
 
-# Allow only one concurrent deployment per branch; pages serves the latest
-# successful build per published path.
 concurrency:
   group: pages-${{ github.ref }}
   cancel-in-progress: true
 
 jobs:
-  build:
+  publish:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -26,23 +22,25 @@ jobs:
           node-version: 20
       - name: Validate registry against markdown
         run: node scripts/build-registry.mjs
-      - name: Stage Pages artifact under versioned path
-        # Each branch publishes to /<branch>/ — `main` → /main/, v0.3 →
-        # /v0.3/. The app reads VITE_DOCS_BASE_URL=<host>/v0.3 (etc) so
-        # the path segment maps to the app's minor version.
+      - name: Stage docs content
+        # Exclude repo internals so they don't end up on the Pages site.
         run: |
-          mkdir -p _site/${GITHUB_REF_NAME}
-          rsync -a --exclude='_site' --exclude='.github' --exclude='node_modules' --exclude='.git' --exclude='scripts' ./ _site/${GITHUB_REF_NAME}/
-      - uses: actions/upload-pages-artifact@v3
+          mkdir -p _site
+          rsync -a \
+            --exclude='_site' \
+            --exclude='.github' \
+            --exclude='node_modules' \
+            --exclude='.git' \
+            --exclude='scripts' \
+            --exclude='package.json' \
+            ./ _site/
+      - name: Deploy to gh-pages (versioned path)
+        # Each branch writes to its own subdirectory of the persistent
+        # gh-pages branch. keep_files preserves other versions' directories
+        # so v0.3/ and v0.4/ coexist without clobbering each other.
+        uses: peaceiris/actions-gh-pages@v3
         with:
-          path: _site
-
-  deploy:
-    needs: build
-    runs-on: ubuntu-latest
-    environment:
-      name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
-    steps:
-      - id: deployment
-        uses: actions/deploy-pages@v4
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./_site
+          destination_dir: ${{ github.ref_name }}
+          keep_files: true
