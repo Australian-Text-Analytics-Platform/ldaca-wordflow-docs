@@ -129,12 +129,12 @@ const groupBy = (arr, key) =>
 
 const renderSidebar = (entries) => {
   const grouped = groupBy(entries, (e) => e.kindDir);
-  const lines = ['**[[Home]]**', ''];
+  const lines = ['[Home](Home)', ''];
   for (const kind of WIKI_KIND_DIRS) {
     const items = grouped[kind];
     if (!items?.length) continue;
-    lines.push('---', `**${KIND_LABELS[kind]}**`, '');
-    for (const e of sortEntries(items)) lines.push(`- [[${e.slug}|${e.label}]]`);
+    lines.push(`**${KIND_LABELS[kind]}**`, '');
+    for (const e of sortEntries(items)) lines.push(`- [${e.label}](${e.slug})`);
     lines.push('');
   }
   return lines.join('\n');
@@ -152,7 +152,7 @@ const renderHome = (entries) => {
     const items = grouped[kind];
     if (!items?.length) continue;
     lines.push(`## ${KIND_LABELS[kind]}`, '');
-    for (const e of sortEntries(items)) lines.push(`- [[${e.slug}|${e.label}]]`);
+    for (const e of sortEntries(items)) lines.push(`- [${e.label}](${e.slug})`);
     lines.push('');
   }
   return lines.join('\n');
