@@ -1,7 +1,8 @@
 {
   "meta": {
     "version": "0.3.2",
-    "generated": "2026-05-13"
+    "generated": "2026-05-13",
+    "eolDate": "2027-05-14"
   },
   "tutorial": {
     "ui.tool-choice": {
