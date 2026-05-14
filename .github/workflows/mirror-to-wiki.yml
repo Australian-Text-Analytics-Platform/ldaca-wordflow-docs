@@ -21,6 +21,6 @@ jobs:
           # this repo.
           WIKI_PAT: ${{ secrets.WIKI_PAT }}
           WIKI_REMOTE: https://x-access-token:${{ secrets.WIKI_PAT }}@github.com/Australian-Text-Analytics-Platform/ldaca_text_analytics_tools.wiki.git
-          DOCS_RAW_BASE: https://raw.githubusercontent.com/Australian-Text-Analytics-Platform/ldaca-analytics-docs/main
+          DOCS_RAW_BASE: https://raw.githubusercontent.com/Australian-Text-Analytics-Platform/ldaca-wordflow-docs/main
           GITHUB_SHA: ${{ github.sha }}
         run: node scripts/mirror-to-wiki.mjs

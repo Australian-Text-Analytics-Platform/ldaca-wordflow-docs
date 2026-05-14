@@ -1,9 +1,9 @@
 {
-  "name": "ldaca-analytics-docs",
+  "name": "ldaca-wordflow-docs",
   "version": "0.3.2",
   "private": true,
   "type": "module",
-  "description": "Externalised docs for the LDaCA Text Analytics web app.",
+  "description": "Externalised docs for the LDaCA Wordflow web app.",
   "scripts": {
     "validate": "node scripts/build-registry.mjs",
     "mirror-wiki": "node scripts/mirror-to-wiki.mjs"
