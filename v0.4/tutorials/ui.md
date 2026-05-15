@@ -50,7 +50,7 @@ The **Workspace Graph View** occupies the top-right area and visualises how data
 
 - Click a node to select that data block across the entire interface. Click it again to deselect. Selections made here are reflected immediately in the Data Blocks panel (section 2) and vice versa.
 - Use **Rename** to rename the active workspace.
-- Use **Save** to persist the workspace to disk. The workspace is also auto-saved on any change; this button is for peace of mind.
+- Use **Delete (n)** to batch-remove all currently multi-selected nodes in one call. (Replaces the previous *Save* button, which is now redundant — workspaces autosave on every change.)
 - Pan and zoom the graph with your mouse to navigate large workspaces. A control panel sits at the top-right corner of the graph with the following buttons:
   - <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" width="13" height="13" style="display:inline;vertical-align:text-bottom"><path d="M32 18.133H18.133V32h-4.266V18.133H0v-4.266h13.867V0h4.266v13.867H32z"/></svg> **Zoom in** — increases the zoom level.
   - <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 5" width="13" height="2" style="display:inline;vertical-align:middle"><path d="M0 0h32v4.2H0z"/></svg> **Zoom out** — decreases the zoom level.
@@ -59,6 +59,58 @@ The **Workspace Graph View** occupies the top-right area and visualises how data
   - **□ / ▣ Overview** — toggles a minimap in the bottom-right corner of the graph, giving a bird's-eye view of the full workspace layout. Click again to hide it.
   - **⊘ Clear selection** — deselects all currently selected data blocks at once. Greyed out when nothing is selected.
 - Asterisked nodes indicate the currently selected data blocks.
+- **Multiple roots** in the same workspace (e.g. two unrelated imports) are now left-aligned uniformly via a virtual super-source rather than stair-cased. This makes side-by-side projects easier to compare visually.
+
+<h3 id="help-ui-workspace-node-colours">Node colours, focus, and the new-node outline</h3>
+
+![Node colour states (Active / Focus / Unselected)](tutorials/assets/ui/node_colours_states.png)
+
+Every node on the workspace graph carries an X/Y shade pair drawn from a 12-colour palette. The colour is **per workspace** and persisted in a small `ui_state.json` sidecar so it survives reloads, workspace switches, and shared workspace ZIPs.
+
+Three visual states tell you at a glance how a node relates to the analysis you're running:
+
+| State | What it means | How it looks |
+|---|---|---|
+| Active | Currently being analysed in the right-hand tool | Full saturation; node name in solid colour |
+| Focus | Selected via click / multi-select but not the active analysis input | Mid-saturation fill |
+| Unselected | Not currently part of any selection | Greyed body; if a colour has been assigned, the **name text** keeps a tint so the assignment is still visible |
+
+![Per-tab colour picker with preview state](tutorials/assets/ui/colour_picker_preview.png)
+
+- **Manual picks** via the per-tab colour picker preview *before* you click **Run** — committed only when the analysis actually starts on that node. This lets you experiment without polluting the persisted colour map.
+- The colour assignment is **global within the workspace**: a node always renders in the same colour everywhere — graph, sidebar, analysis tabs, Juxtorpus, dispersion legend, statistics-table captions, etc.
+
+![Newly-created node with a 3-px black outline](tutorials/assets/ui/new_node_outline.png)
+
+- **Newly-created nodes** (from *Detach*, *Clone*, *Join*, *Stack*, *Tokenise*) get a 3-px black outer outline until you first interact with them. That makes a fresh derivation easy to spot amid many similar grey blocks. The outline clears the first time you click or select the node.
+
+<h3 id="help-ui-workspace-node-actions">Node actions (right-click menu)</h3>
+
+![Right-click context menu on a graph node](tutorials/assets/ui/node_context_menu.png)
+
+Right-click any node to open its action menu. In addition to the standard *Select*, *Rename*, *Delete* entries, two v0.4 actions appear on data-bearing nodes:
+
+- **Tokenise** — opens the [Tokenise dialog](#help-ui-workspace-tokenise) below.
+- **Manage derived columns** — opens a per-node dialog listing every derivation registered on that node (e.g. one row per `__derived__.tokens` column added by Tokenise), with the source column, tokeniser model, and a delete control for each. The dialog reactively reflects deletions without a reopen.
+
+<h3 id="help-ui-workspace-tokenise">Tokenise action</h3>
+
+![Tokenise dialog with Japanese + dictionary picker](tutorials/assets/ui/tokenise_dialog.png)
+
+The **Tokenise** action adds a hidden `__derived__.tokens` column on the node so Concordance (tokens-mode) and Token Frequency can share a single segmentation. The operation is **idempotent** on `(source column, model)` — re-running with the same model replaces the previous derived column rather than stacking copies.
+
+The dialog has four fields:
+
+1. **Source column** — which text column to tokenise. Only string-typed columns are listed.
+2. **Language** — pre-populated from the node's stored language (set at import time, see [Data Loader → Language tag](./data-loader.md#help-data-loader-language)). Change it here if you need to override.
+3. **Dictionary** *(Japanese only at present)* — pick **IPADIC** (~15 MB, recommended general purpose) or **UniDic** (~50 MB, higher morphological accuracy). The chosen dict's model ID populates the model field.
+4. **Tokenizer model** — defaults to the recommended model for the chosen language. Accepts HuggingFace model IDs, the special `jieba` backend, or any of `lindera-ja-ipadic`, `lindera-ja-unidic`, `lindera-ko-dic`. **First-use note:** Lindera dicts are downloaded into the local cache (~15 MB for IPADIC, ~50 MB for UniDic, ~34 MB for ko-dic) the first time they're requested.
+
+**What happens after tokenise**
+
+- A new derivation appears in the node's *Manage derived columns* dialog and the Concordance / Token Frequency tabs auto-pick it when the source column is selected.
+- Tokens are persisted in a per-user content-addressed cache so re-tokenising the same `(text, tokeniser, model)` finishes in a fraction of the first-run time, even after a backend restart. The cache is swept on workspace / node / derived-column delete and at backend startup, so it never leaks orphans.
+- The `__derived__.tokens` column is **hidden from the Data Viewer, detach dialogs, Row Details, and exported files** — manage it via *Manage derived columns*. The derivation propagates correctly across `clone`, `filter`, `slice`, `concat`, `join`, and Polars-expression operations.
 
 <h2 id="help-ui-data-viewer">5. Data Viewer</h2>
 

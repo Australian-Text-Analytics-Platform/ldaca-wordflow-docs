@@ -14,7 +14,36 @@ The Concordance tool searches for a word or phrase in a text collection and disp
 
 Use the data-block selector to choose which corpus (or corpora) to search. You can select up to two data blocks for a comparative concordance. For each selected block, pick the **text column** to search.
 
-<h3 id="help-concordance-search-term">Step 2 — Enter a search term</h3>
+<h3 id="help-concordance-search-mode">Step 2 — Search mode (text vs tokens)</h3>
+
+![Search-mode toggle with model picker](tutorials/assets/concordance/search_mode_toggle.png)
+
+A segmented **Search mode** toggle at the top of the parameter panel switches between two underlying match strategies:
+
+- **Text** *(default)* — substring search over the raw text column. Use for English and other languages where character-level matching is meaningful. *Whole Word* and *Use Regular Expression* apply to this mode only.
+- **Tokens** — exact-token match against the derived `__derived__.tokens` column added by the [Tokenise action](./ui.md#help-ui-workspace-tokenise). Required for accurate concordance on CJK languages, where character-level substring matching is meaningless (a kanji can appear inside larger words without representing the same lexical item). The Tokens segment is **disabled until at least one selected node has a tokens column**; hover over it to see the disabled-reason tooltip.
+
+When more than one tokens column exists on the same source node — for example, you tokenised once with `lindera-ja-ipadic` and once with `lindera-ja-unidic` — a small **model dropdown** appears next to the toggle. Pick which tokeniser's output you want to walk. With two data blocks selected, the dropdown lists the **intersection** of available models across both sides so a Combined-view search runs against a single shared segmentation.
+
+**Tokens-mode multi-keyword syntax**
+
+The search box in Tokens mode accepts multiple alternatives separated by **space**, **comma**, or `|`. Each alternative is still an exact-token match (not a substring), so CJK results stay clean.
+
+| Input | Matches |
+|---|---|
+| `猫\|犬\|魚` | every hit of *cat*, *dog*, or *fish* (Japanese) |
+| `cat dog fish` | same idea in English — three exact tokens, OR-combined |
+| `child,children,kid` | three alternatives with a comma separator |
+
+The placeholder in the search box and the toggle tooltip both show this hint.
+
+<h3 id="help-concordance-tokens-mismatch">Mismatch nudge — wrong column tokenised</h3>
+
+![Amber notice when the picked column has no tokens but another column does](tutorials/assets/concordance/tokens_mismatch_nudge.png)
+
+When the column you pick for analysis has no derived tokens but a *different* column on the same node does, an amber notice appears below the column picker listing the existing tokens columns. This prevents the common foot-gun of having tokenised the wrong column (e.g. *ID* instead of *text*), which would otherwise silently force the analysis tools back onto whitespace tokenisation against tens of thousands of non-language values.
+
+<h3 id="help-concordance-search-term">Step 3 — Enter a search term</h3>
 
 Type the word or phrase you want to study. The search is case-insensitive by default (enable **Case Sensitive** to override). Each match is shown with the surrounding left and right context.
 
@@ -35,20 +64,20 @@ Use [regexr.com](https://regexr.com/) to build and test patterns before running 
 
 **Other search options**
 
-- **Whole Word** — only matches where the search term appears as a complete word (not as part of a longer word).
+- **Whole Word** — only matches where the search term appears as a complete word (not as part of a longer word). Text-mode only; tokens-mode is exact-token by design and the option is suppressed (with a tooltip explaining why) on CJK-language nodes.
 - **Case Sensitive** — treat uppercase and lowercase as distinct.
 
-<h3 id="help-concordance-context">Step 3 — Set context window</h3>
+<h3 id="help-concordance-context">Step 4 — Set context window</h3>
 
 The **Left Context** and **Right Context** inputs control how many tokens are shown on either side of the match. The range is 0–50 tokens; both default to 10. Increase the context to see more surrounding text; decrease it for a tighter focus on the match itself.
 
-<h3 id="help-concordance-batch-size">Step 4 — Documents per batch</h3>
+<h3 id="help-concordance-batch-size">Step 5 — Documents per batch</h3>
 
 The concordance searches documents in pages. The **Documents per batch** dropdown sets how many source documents are processed per page (options: 10, 20, 50, 100, 200, 400, 800). Larger batches show more results per page but may take longer to load.
 
 The pagination footer shows **Documents searched / N matches found**, telling you how many source documents were searched on the current page and how many matches they produced. If a search term is uncommon and no documents on the current page contain it, the results for that page will be empty — continue to the next page.
 
-<h2 id="help-concordance-run">Step 5 — Run the search</h2>
+<h2 id="help-concordance-run">Step 6 — Run the search</h2>
 
 Click **Run** to start the concordance search. The button changes to **Update** once results exist; change the search term or settings and click **Update** to re-run. Updating the search creates a new analysis task and clears any previously cached "Process All" outcome (see [Process All](#help-concordance-process-all)) — re-run only when you actually want fresh results, since you'll need to re-process to get whole-corpus aggregation again.
 
@@ -68,7 +97,9 @@ Each row represents one match. If a document contains multiple matches, each app
 
 ![Dispersion view screenshot](tutorials/assets/concordance/dispersion_view.png)
 
-Each row represents one document, and all matches within that document are plotted as vertical lines on a horizontal bar. The position of each line shows the relative location of the match within the document.
+Each row represents **one source document**, and every match inside that document is plotted as a vertical line on a horizontal bar. The position of each line shows the relative location of the match within the document.
+
+> **Updated in v0.4:** the dispersion view now collapses consecutive same-document hits into a single bar per document (matching the cross-document distribution analysis users expect). Previously each hit drew its own bar, so a document with twenty hits became twenty rows. Grouping runs at materialise time on the document column carried through the source node.
 
 **Bar length**
 
@@ -78,10 +109,21 @@ By default every bar is the same length so positions can be compared visually ac
 
 ![Coloured dispersion bars with legend](tutorials/assets/concordance/colour_matches.png)
 
-When the search returns multiple distinct matched strings (most often via a regex pattern), tick **Colour matches** to colour each occurrence by which exact text it matched. A legend appears between the bars and the aggregated summary plot listing every matched text in its assigned colour. The legend is shared by both the bars and the line plot.
+When the search returns multiple distinct matched strings (most often via a regex pattern, or via tokens-mode multi-keyword search), tick **Colour matches** to colour each occurrence by which exact text it matched. A legend appears between the bars and the aggregated summary plot listing every matched text in its assigned colour. The legend is shared by both the bars and the line plot.
 
 - **Click a legend entry** to hide that matched text from both the bars and the plot. The entry is dimmed and struck through; click again to bring it back.
 - Tick **Lowercase matches** to fold case variants together — e.g. *Hello* and *hello* aggregate as a single legend entry rather than two.
+
+<h4 id="help-concordance-legend-counts">Per-text counts on the legend</h4>
+
+![Legend with per-text counts and selection sub-totals](tutorials/assets/concordance/dispersion_legend_counts.png)
+
+Each legend item now carries a count after the label:
+
+- **`(n)`** — the total hits contributed by that matched text across the whole displayed graph. Hidden items keep their number frozen instead of recomputing to zero, so the count always reflects the underlying weight of the filter you just turned off.
+- **`(m/n)`** — appears when a region of the plot is brush-selected (see [Selecting bins](#help-concordance-bin-selection)). `m` is the per-source count *inside the selection*; `n` remains the unfiltered total.
+
+This makes it immediately obvious which matched-text variants dominate a bin selection, and how big a slice of each variant you're about to detach with **Add to Workspace**.
 
 <h4 id="help-concordance-tooltip">Hover tooltip on matches</h4>
 
@@ -180,7 +222,7 @@ The **Add to Workspace** button extracts results as a new derived data block in 
 
 In Combined view both buttons operate across both source blocks at once and produce one detached block per source.
 
-**Bin selection** — if you've selected bins on the dispersion chart, the detach is restricted to hits inside those bins. The button label shows the bin count, e.g. *Add to Workspace (3 bins)*.
+**Bin selection** — if you've selected bins on the dispersion chart, the detach is restricted to hits inside those bins. The button label shows the bin count, e.g. *Add to Workspace (3 bins)*. Until the corpus has been **materialised** (via Process All), the detach button is **disabled when a bin selection is active** — hovering reveals the reason: *"Materialise the corpus first (Process All) to safely apply this bin selection across all documents."*
 
 **Legend filter** — hidden legend entries (matched texts you've toggled off in the legend) are excluded from the detached block, so the workspace data block always matches what's visible in the chart.
 
@@ -210,14 +252,19 @@ Concordance results are saved in the backend so the tab can reload and preserve 
 | Bin selection vanished when I changed Bin No. | Expected — the selection is cleared when the bucketing changes so older bin indices don't silently re-map onto different hits | Re-select bins under the new bin count |
 | Two-block summary plot shows only matches from one block in Split mode | The other block isn't materialised yet | Click **Process Both** in the Combined header |
 | Legend item doesn't visibly hide a line on the plot | The line is hidden but you may have many lines stacked at zero | Check that the y-axis scale is appropriate; legend filters work, but lines plotted as zero may visually coincide with the baseline |
+| Tokens search-mode toggle is greyed out | No tokens column on any selected node | Right-click the node → **Tokenise** to add one (see [Tokenise action](./ui.md#help-ui-workspace-tokenise)) |
+| Amber notice "Derived tokens exist on: *other_column*" appears | You picked a column with no derived tokens, but a sibling column on the same node does have them | Switch the analysis to the listed column, or run **Tokenise** on the current one |
+| Add to Workspace is disabled with a bin selection active even though there are matches | Process All hasn't been run yet; bin selection requires materialisation to be safe across all documents | Click **Process All** (or detach without a bin selection first to materialise as a side-effect) |
 
 <h2 id="help-concordance-defaults">Quick-reference defaults</h2>
 
 | Setting | Default | Notes |
 |---|---|---|
+| Search mode | Text | Tokens mode requires a Tokenise run on at least one selected node |
+| Tokens-mode model | Auto (single model: silent; multiple models: dropdown) | When two nodes are selected, only the intersection of models is offered |
 | Left / Right context | 10 tokens each | Range 0–50 |
-| Whole Word | Off | Enable to avoid partial matches |
-| Use Regular Expression | Off | — |
+| Whole Word | Off | Text-mode only; suppressed on CJK-language nodes |
+| Use Regular Expression | Off | Text-mode only |
 | Case Sensitive | Off | — |
 | Documents per batch | 20 | Larger batches show more per page |
 | View mode | Table | Switch via the View tabs |
