@@ -16,7 +16,6 @@ Use the data-block selector to choose which corpus (or corpora) to search. You c
 
 <h3 id="help-concordance-search-mode">Step 2 — Search mode (text vs tokens)</h3>
 
-<!-- TODO(screenshot): the Search-mode segmented toggle with the Tokens segment selected and the per-source model dropdown visible to its right (active node has been tokenised with both IPADIC and UniDic, so both options appear). Save as tutorials/assets/concordance/search_mode_toggle.png -->
 ![Search-mode toggle with model picker](tutorials/assets/concordance/search_mode_toggle.png)
 
 A segmented **Search mode** toggle at the top of the parameter panel switches between two underlying match strategies:
@@ -40,7 +39,6 @@ The placeholder in the search box and the toggle tooltip both show this hint.
 
 <h3 id="help-concordance-tokens-mismatch">Mismatch nudge — wrong column tokenised</h3>
 
-<!-- TODO(screenshot): amber notice block visible in the analysis area, listing one or two columns that DO have derived tokens (e.g. "Derived tokens exist on: text"). Save as tutorials/assets/concordance/tokens_mismatch_nudge.png -->
 ![Amber notice when the picked column has no tokens but another column does](tutorials/assets/concordance/tokens_mismatch_nudge.png)
 
 When the column you pick for analysis has no derived tokens but a *different* column on the same node does, an amber notice appears below the column picker listing the existing tokens columns. This prevents the common foot-gun of having tokenised the wrong column (e.g. *ID* instead of *text*), which would otherwise silently force the analysis tools back onto whitespace tokenisation against tens of thousands of non-language values.
@@ -118,7 +116,6 @@ When the search returns multiple distinct matched strings (most often via a rege
 
 <h4 id="help-concordance-legend-counts">Per-text counts on the legend</h4>
 
-<!-- TODO(screenshot): legend showing items like "education (124)" with no selection, plus the same legend after a brush-select on the dispersion summary plot, now reading "education (37/124)". Save as tutorials/assets/concordance/dispersion_legend_counts.png -->
 ![Legend with per-text counts and selection sub-totals](tutorials/assets/concordance/dispersion_legend_counts.png)
 
 Each legend item now carries a count after the label:

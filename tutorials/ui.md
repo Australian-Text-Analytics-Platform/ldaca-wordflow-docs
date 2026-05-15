@@ -63,7 +63,6 @@ The **Workspace Graph View** occupies the top-right area and visualises how data
 
 <h3 id="help-ui-workspace-node-colours">Node colours, focus, and the new-node outline</h3>
 
-<!-- TODO(screenshot): Workspace graph showing two derivation chains with assigned X/Y shade pairs; include at least one Active node (currently in an analysis tab), one Focus node (selected but not active), and one Unselected node. Save as tutorials/assets/ui/node_colours_states.png -->
 ![Node colour states (Active / Focus / Unselected)](tutorials/assets/ui/node_colours_states.png)
 
 Every node on the workspace graph carries an X/Y shade pair drawn from a 12-colour palette. The colour is **per workspace** and persisted in a small `ui_state.json` sidecar so it survives reloads, workspace switches, and shared workspace ZIPs.
@@ -76,20 +75,17 @@ Three visual states tell you at a glance how a node relates to the analysis you'
 | Focus | Selected via click / multi-select but not the active analysis input | Mid-saturation fill |
 | Unselected | Not currently part of any selection | Greyed body; if a colour has been assigned, the **name text** keeps a tint so the assignment is still visible |
 
-<!-- TODO(screenshot): Per-tab colour picker panel above an analysis tab, with a temp pick highlighted (showing preview before Run promotes it). Save as tutorials/assets/ui/colour_picker_preview.png -->
 ![Per-tab colour picker with preview state](tutorials/assets/ui/colour_picker_preview.png)
 
 - **Manual picks** via the per-tab colour picker preview *before* you click **Run** — committed only when the analysis actually starts on that node. This lets you experiment without polluting the persisted colour map.
 - The colour assignment is **global within the workspace**: a node always renders in the same colour everywhere — graph, sidebar, analysis tabs, Juxtorpus, dispersion legend, statistics-table captions, etc.
 
-<!-- TODO(screenshot): A graph view immediately after a Detach / Join / Stack action, with the freshly-created node carrying the 3-px black outer outline. Save as tutorials/assets/ui/new_node_outline.png -->
 ![Newly-created node with a 3-px black outline](tutorials/assets/ui/new_node_outline.png)
 
 - **Newly-created nodes** (from *Detach*, *Clone*, *Join*, *Stack*, *Tokenise*) get a 3-px black outer outline until you first interact with them. That makes a fresh derivation easy to spot amid many similar grey blocks. The outline clears the first time you click or select the node.
 
 <h3 id="help-ui-workspace-node-actions">Node actions (right-click menu)</h3>
 
-<!-- TODO(screenshot): right-click context menu on a workspace graph node, with Tokenise and "Manage derived columns" entries visible. Save as tutorials/assets/ui/node_context_menu.png -->
 ![Right-click context menu on a graph node](tutorials/assets/ui/node_context_menu.png)
 
 Right-click any node to open its action menu. In addition to the standard *Select*, *Rename*, *Delete* entries, two v0.4 actions appear on data-bearing nodes:
@@ -99,7 +95,6 @@ Right-click any node to open its action menu. In addition to the standard *Selec
 
 <h3 id="help-ui-workspace-tokenise">Tokenise action</h3>
 
-<!-- TODO(screenshot): Tokenise dialog at default state — Source column dropdown, Language dropdown (showing Japanese selected), Dictionary dropdown (showing IPADIC + UniDic), Tokenizer model input populated with lindera-ja-ipadic, and the first-use download hint. Save as tutorials/assets/ui/tokenise_dialog.png -->
 ![Tokenise dialog with Japanese + dictionary picker](tutorials/assets/ui/tokenise_dialog.png)
 
 The **Tokenise** action adds a hidden `__derived__.tokens` column on the node so Concordance (tokens-mode) and Token Frequency can share a single segmentation. The operation is **idempotent** on `(source column, model)` — re-running with the same model replaces the previous derived column rather than stacking copies.

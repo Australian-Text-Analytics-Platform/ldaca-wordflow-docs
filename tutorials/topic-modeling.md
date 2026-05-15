@@ -117,7 +117,6 @@ How many representative words to display for each topic in the results.
 
 <h3 id="help-topic-modeling-language-stopwords">Multi-language stopwords + view list</h3>
 
-<!-- TODO(screenshot): the stopword section showing the "View list" expandable panel open with the merged stopwords (e.g. JA + EN) visible in a read-only list. Save as tutorials/assets/topic_modelling/stopwords_view_list.png -->
 ![Multi-language stopword pool with the View-list panel open](tutorials/assets/topic_modelling/stopwords_view_list.png)
 
 When the working set spans multiple corpus languages, the stopword pool **merges per-corpus language-specific lists** so each language is fairly filtered. A read-only **View list** disclosure exposes exactly which stopwords are currently active across the merged set — useful for confirming that the right language packs are being applied and for spotting accidental over-filtering before a long run.
@@ -161,7 +160,6 @@ A quick wildcard filter can be applied using the **text input** in the right ("A
 
 <h3 id="help-topic-modeling-post-fit">Post-fit stopword filter & word expansion</h3>
 
-<!-- TODO(screenshot): topic-modelling result panel with a "Post-fit stopwords" textarea visible and an Apply button. Show the bubble chart labels updating after applying a small post-fit list (e.g. removing "said" and "would"). Save as tutorials/assets/topic_modelling/post_fit_stopwords.png -->
 ![Post-fit stopword filter on topic-modelling representative words](tutorials/assets/topic_modelling/post_fit_stopwords.png)
 
 After a topic-modelling run, you can clean up the **representative words** displayed for each topic without re-running the embedder. Two controls are available in the result panel:

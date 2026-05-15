@@ -73,7 +73,6 @@ Supported file types can be previewed before being added to the workspace as a d
 
 <h2 id="help-data-loader-import-sample-button">Import sample data</h2>
 
-<!-- TODO(screenshot): sample-data catalogue picker dialog showing the multi-collection checkbox list and per-dataset README icon. Save as tutorials/assets/data_loader/sample_data_catalogue.png -->
 ![Sample data catalogue picker](tutorials/assets/data_loader/sample_data_catalogue.png)
 
 Opens the **sample-data catalogue picker** — a multi-collection dialog populated from a remote catalogue published alongside the app (`ldaca-analytics-sample-data`). For each collection it shows a status chip (*Bundled* / *Available* / *Not installed*), a one-line description, and an eye icon that opens the dataset README.
@@ -110,7 +109,6 @@ Once a file is uploaded, imported, or downloaded, the following actions are avai
 
 <h2 id="help-data-loader-language">Language tag (multilingual support)</h2>
 
-<!-- TODO(screenshot): Add-to-workspace dialog showing the Language dropdown with the supported-language list visible. Save as tutorials/assets/data_loader/language_selector.png -->
 ![Language selector in the Add-to-Workspace panel](tutorials/assets/data_loader/language_selector.png)
 
 The **Language** dropdown in the Add-to-Workspace panel tags every data block at ingest time with the language of its text content. The chosen language flows through every downstream analysis tool — Concordance, Token Frequency, Topic Modelling, AI Annotation, and Quotation Extraction — and drives:

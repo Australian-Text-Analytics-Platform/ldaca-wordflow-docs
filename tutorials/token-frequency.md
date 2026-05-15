@@ -20,7 +20,6 @@ For each selected block, choose the **text column** that contains the documents 
 
 <h4 id="help-token-frequency-model-picker">Tokens-model picker (CJK corpora)</h4>
 
-<!-- TODO(screenshot): the model dropdown rendered next to the column picker when the selected node has both lindera-ja-ipadic and lindera-ja-unidic derived tokens columns. Save as tutorials/assets/token_frequency/model_picker.png -->
 ![Model picker for nodes with multiple tokenisations](tutorials/assets/token_frequency/model_picker.png)
 
 When the selected node has been tokenised **more than once on the same source column** (e.g. once with `lindera-ja-ipadic` and once with `lindera-ja-unidic`), a **model dropdown** appears next to the text-column picker. Choose which tokenisation to count against. With two data blocks selected, the dropdown lists the intersection of available models so the comparison runs against a shared segmentation. Nodes with a single tokenisation auto-pick silently — the dropdown only appears when there's an actual choice to make.
@@ -47,7 +46,6 @@ Stop words are terms you want to exclude from the frequency count — commonly w
 
 <h4 id="help-token-frequency-language-stopwords">Language-aware default stop-word lists</h4>
 
-<!-- TODO(screenshot): two-corpus token-frequency run where one block is tagged Japanese and one is English; the stopword field shows the merged JA + EN list after clicking Fill Default. Save as tutorials/assets/token_frequency/language_stopwords.png -->
 ![Merged language stopword list across two corpora](tutorials/assets/token_frequency/language_stopwords.png)
 
 The **Fill Default** action now reads the **language tag set on each data block** at import time (see [Data Loader → Language tag](./data-loader.md#help-data-loader-language)) and uses the corresponding built-in list:
