@@ -57,6 +57,18 @@ Most operations (filtering, sampling, joining, stacking, detaching etc.) on a da
 
 > **Placeholder (image):** Add a hero screenshot of the workspace with highlighted side panels.
 
+## What's new in v0.4
+
+Wordflow v0.4 introduces end-to-end multilingual support and a workspace-graph refresh:
+
+- **Multilingual analyses** — Concordance, Token Frequency, Topic Modelling, and AI Annotation now work natively with English, Japanese, Korean, Simplified/Traditional Chinese, Vietnamese, French, German, Spanish, Portuguese, Italian, and Indonesian. Set the language on the [Data Loader → Language tag](./data-loader.md#help-data-loader-language) at import time and it flows through every downstream tool.
+- **Tokenise** action on the workspace graph (Lindera for JA/KO, Jieba for ZH, whitespace+lowercase elsewhere) — see [Workspace Graph View → Tokenise](./ui.md#help-ui-workspace-tokenise).
+- **Concordance Tokens-mode** (exact word match, required for CJK) with multi-keyword search — see [Concordance → Search mode](./concordance.md#help-concordance-search-mode).
+- **Workspace node colours** with Active / Focus / Unselected states — see [Workspace Graph View → Node colours](./ui.md#help-ui-workspace-node-colours).
+- **Sample-data catalogue picker** replacing the single bulk-import button — see [Data Loader → Import sample data](./data-loader.md#help-data-loader-import-sample-button).
+- **Topic-modelling post-fit stopword filter and word expansion** — see [Topic modelling → Post-fit stopword filter](./topic-modeling.md#help-topic-modeling-post-fit).
+- **Quotation Extraction** is now explicitly **English-only** with a disabled-with-tooltip gate on non-English data blocks — see [Quotation → English-only](./quotation.md#help-quotation-english-only).
+
 ## Tutorial sections
 
 - [User Interface Overview](./ui.md) — learn what each section of the main screen does.

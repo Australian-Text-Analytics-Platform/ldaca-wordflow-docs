@@ -12,6 +12,18 @@ Quotation Extraction is a specialised tool for identifying quoted speech, the sp
 
 <h2 id="help-quotation-parameters">Parameter panel</h2>
 
+<h3 id="help-quotation-english-only">English-only — language gate</h3>
+
+<!-- TODO(screenshot): Quotation tab tile in the tool sidebar disabled-with-tooltip for a Japanese-tagged active data block; tooltip text visible. Save as tutorials/assets/quotation_tool/english_only_disabled.png -->
+![Quotation tab disabled with tooltip on a non-English corpus](tutorials/assets/quotation_tool/english_only_disabled.png)
+
+Quotation Extraction is **English-only**. The underlying rule-based model (from the Gender Gap Tracker project) hard-codes English speech verbs, pronouns, and grammar; running it on non-English text produces near-zero useful output. As of v0.4 the tool detects the language tag on the selected data block (set at import time — see [Data Loader → Language tag](./data-loader.md#help-data-loader-language)) and:
+
+- Greys out the **Quotation Extraction** entry in the tool sidebar with a tooltip explaining why, if the active data block is tagged non-English.
+- Disables the **Run** button in the parameter panel with the same tooltip if you somehow reach the panel with a non-English block selected (e.g. by tagging it incorrectly).
+
+If your text genuinely is English but is mis-tagged, either re-import with the correct language or — for a quick override — use the **Tokenise** action's *Language* dropdown to retag the node (see [Tokenise action](./ui.md#help-ui-workspace-tokenise)).
+
 <h3 id="help-quotation-data-block">Step 1 — Select your data</h3>
 
 Use the data-block selector to choose the data block to analyse. Quotation Extraction processes one data block at a time. For each selected block, pick the **text column** that contains the news article text.

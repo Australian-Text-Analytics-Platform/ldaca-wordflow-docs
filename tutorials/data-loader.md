@@ -73,7 +73,14 @@ Supported file types can be previewed before being added to the workspace as a d
 
 <h2 id="help-data-loader-import-sample-button">Import sample data</h2>
 
-Use this option to load curated sample datasets bundled with the application. These are intended for first-time users to explore the app's capabilities. All sample data is publicly available and may be freely tested or removed. If sample data is used in a research output, please cite <img alt="citemark" src="references/assets/mark_ref.png" style="display: inline; height: 1em; vertical-align: middle;"> the dataset appropriately.
+<!-- TODO(screenshot): sample-data catalogue picker dialog showing the multi-collection checkbox list and per-dataset README icon. Save as tutorials/assets/data_loader/sample_data_catalogue.png -->
+![Sample data catalogue picker](tutorials/assets/data_loader/sample_data_catalogue.png)
+
+Opens the **sample-data catalogue picker** — a multi-collection dialog populated from a remote catalogue published alongside the app (`ldaca-analytics-sample-data`). For each collection it shows a status chip (*Bundled* / *Available* / *Not installed*), a one-line description, and an eye icon that opens the dataset README.
+
+- Tick the collections you want and click **Import selected**. Bundled datasets are copied instantly; larger remote datasets download in the background and appear in the file browser when ready.
+- **Why the change in v0.4?** Previously a single button copied everything bundled with the app; the new picker lets the catalogue grow without inflating the app install size, and gives you per-dataset citation context up front. See [Citation and licensing notices](#help-data-loader-citation-notice) below.
+- All sample data is publicly available and may be freely tested or removed. If sample data is used in a research output, please cite <img alt="citemark" src="references/assets/mark_ref.png" style="display: inline; height: 1em; vertical-align: middle;"> the dataset appropriately.
 
 <h2 id="help-data-loader-import-ldaca-button">Import from LDaCA</h2>
 
@@ -100,6 +107,28 @@ Once a file is uploaded, imported, or downloaded, the following actions are avai
 - **Add to Workspace** to load the file as a data block in the active workspace.
 - **Download** the original file to your local machine.
 - **Remove** the file from the application.
+
+<h2 id="help-data-loader-language">Language tag (multilingual support)</h2>
+
+<!-- TODO(screenshot): Add-to-workspace dialog showing the Language dropdown with the supported-language list visible. Save as tutorials/assets/data_loader/language_selector.png -->
+![Language selector in the Add-to-Workspace panel](tutorials/assets/data_loader/language_selector.png)
+
+The **Language** dropdown in the Add-to-Workspace panel tags every data block at ingest time with the language of its text content. The chosen language flows through every downstream analysis tool — Concordance, Token Frequency, Topic Modelling, AI Annotation, and Quotation Extraction — and drives:
+
+- which **tokeniser** is selected by default (e.g. Lindera for Japanese/Korean, Jieba for Chinese, whitespace+lowercase fall-back for English and others);
+- the matching **stopword list** picked up by Token Frequency and Topic Modelling;
+- whether the **Quotation Extraction** tool is enabled on the data block (the underlying model is English-only — see [Quotation tutorial](./quotation.md));
+- the prompt hint passed to **AI Annotation** when calling an LLM.
+
+| Code | Label | Notes |
+|---|---|---|
+| `en` | English | Default; uses the bundled `bert-base-uncased` tokeniser. |
+| `zh` | Chinese | Jieba segmenter; simplified and traditional supported. |
+| `ja` | Japanese | Lindera with IPADIC (~15 MB) by default; UniDic (~50 MB) available for higher accuracy. Dict is downloaded on first use. |
+| `ko` | Korean | Lindera with ko-dic (~34 MB). Dict is downloaded on first use. |
+| `multi` | Other / Multilingual | XLM-RoBERTa tokeniser; use this for European languages or mixed-language corpora. |
+
+If you forget to set the language at import time, you can still pick one later on a per-tokenise basis via the **Tokenise** action on the workspace graph (see [User Interface Overview → Workspace Graph View](./ui.md#help-ui-workspace-graph-view)). The language stored on the data block is what surfaces in tooltips and gates the per-tool defaults.
 
 <h2 id="help-data-loader-file-organisation">Organising files</h2>
 
