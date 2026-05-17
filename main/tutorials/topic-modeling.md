@@ -108,10 +108,20 @@ A number that controls the randomness in the process. Using the **same seed on t
 
 How many representative words to display for each topic in the results.
 
-- Default: **15**. Range: 1–50.
+- Default: **15**. Range at run time: 1–50.
 - More words help you interpret ambiguous topics, but too many words can clutter the display.
 - **10–20** is a good range for most use cases.
 - This parameter only affects the visualisation; the underlying topics are unchanged.
+
+> **Post-fit expansion (v0.4):** the result panel can request up to **`max(50, 2 × setting)`** words per topic after fitting, without re-running the model. This is useful when a topic is ambiguous at 15 words but clearer at 30 — you don't have to commit upfront to a long list. See [Post-fit stopword filter & expansion](#help-topic-modeling-post-fit) under the result panel.
+
+<h3 id="help-topic-modeling-language-stopwords">Multi-language stopwords + view list</h3>
+
+![Multi-language stopword pool with the View-list panel open](tutorials/assets/topic_modelling/stopwords_view_list.png)
+
+When the working set spans multiple corpus languages, the stopword pool **merges per-corpus language-specific lists** so each language is fairly filtered. A read-only **View list** disclosure exposes exactly which stopwords are currently active across the merged set — useful for confirming that the right language packs are being applied and for spotting accidental over-filtering before a long run.
+
+The full active stopword list is also included in the **topic-modelling zip download** alongside the topics CSV and the bubble-chart image, so a run is reproducible end-to-end.
 
 <h2 id="help-topic-modeling-run">Step 4 — Run and interpret results</h2>
 
@@ -148,9 +158,26 @@ A quick wildcard filter can be applied using the **text input** in the right ("A
 
 **Topic −1 (outliers)** is the group of documents that did not fit well into any topic. A small outlier group is normal; a very large one (e.g. more than a third of documents) may mean the topics are too narrow, the corpus is very diverse, or the sample is too small.
 
+<h3 id="help-topic-modeling-post-fit">Post-fit stopword filter & word expansion</h3>
+
+![Post-fit stopword filter on topic-modelling representative words](tutorials/assets/topic_modelling/post_fit_stopwords.png)
+
+After a topic-modelling run, you can clean up the **representative words** displayed for each topic without re-running the embedder. Two controls are available in the result panel:
+
+- **Post-fit stopwords** — type words to suppress from the representative-word lists across every topic. Apply runs in milliseconds; remove or edit the list to undo.
+- **Words per topic** *(post-fit)* — set the displayed number of representative words up to **`max(50, 2 × the original setting)`**. The underlying model is unchanged; this just exposes a wider tail of words ranked by the same scoring function. Useful for inspecting ambiguous topics in detail without committing to a long list at run time.
+
+Both controls operate on the live cached result. Detach a topic (or topics) after applying them to bake the cleaned label set into the resulting data block.
+
 <h3 id="help-topic-modeling-clear-results">Clear results</h3>
 
 Topic modelling results are saved in the backend so this tab can reload and keep persistent pages of the last run. **Clear Results** clears the cached result in the backend and resets the tab.
+
+<h3 id="help-topic-modeling-snapshot">Save / open a snapshot</h3>
+
+The Topic Modelling card header carries **Save snapshot** and **Open snapshot** buttons. A snapshot freezes the fitted topics + per-topic representative words into a small `.ldaca-snapshot` bundle. In snapshot view the **post-fit stopword filter**, the **Words per topic** slider (adjustable up to the cap stored at fit time — `max(50, fit_value × 2)`), the bubble-chart zoom / pan / legend, and the topic selection still work; Run, Update, Clear Results, and Add to Workspace are disabled.
+
+See the [Demo Snapshots tutorial](./snapshots.md) for the full Save / Open flow.
 
 <h3 id="help-topic-modeling-embedding-cache">Embedding cache</h3>
 

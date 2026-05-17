@@ -1,6 +1,6 @@
-# ldaca-analytics-docs
+# ldaca-wordflow-docs
 
-User-facing documentation for the **LDaCA Text Analytics** web app.
+User-facing documentation for the **LDaCA Wordflow** web app (renamed from "LDaCA Text Analytics" / `ldaca-web-app` at v0.4.2).
 Hosts the markdown content + the `registry.json` consumed by the app's
 runtime doc-link registry at
 `@/tutorials/{tutorialRegistry,infoRegistry,referenceRegistry}.ts`.
@@ -25,7 +25,7 @@ runtime doc-link registry at
 ## How the app loads docs
 
 The web app reads `VITE_DOCS_BASE_URL` at build time (e.g.
-`https://australian-text-analytics-platform.github.io/ldaca-analytics-docs/v0.3`).
+`https://australian-text-analytics-platform.github.io/ldaca-wordflow-docs/v0.3`).
 At app start it fetches `${VITE_DOCS_BASE_URL}/registry.json`, merges the
 payload over the in-bundle fallback, and caches it in `localStorage`
 with a schema-version stamp. Markdown is fetched lazily per modal open

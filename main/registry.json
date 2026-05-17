@@ -1,7 +1,7 @@
 {
   "meta": {
-    "version": "0.3.2",
-    "generated": "2026-05-13"
+    "version": "0.5.0",
+    "generated": "2026-05-17"
   },
   "tutorial": {
     "ui.tool-choice": {
@@ -38,6 +38,21 @@
       "file": "tutorials/ui.md",
       "anchor": "help-ui-help-feedback",
       "label": "Help and Feedback"
+    },
+    "ui.workspace.node-colours": {
+      "file": "tutorials/ui.md",
+      "anchor": "help-ui-workspace-node-colours",
+      "label": "Workspace node colours (Active / Focus / Unselected)"
+    },
+    "ui.workspace.node-actions": {
+      "file": "tutorials/ui.md",
+      "anchor": "help-ui-workspace-node-actions",
+      "label": "Node right-click actions (Tokenise / Manage derived columns)"
+    },
+    "ui.workspace.tokenise": {
+      "file": "tutorials/ui.md",
+      "anchor": "help-ui-workspace-tokenise",
+      "label": "Tokenise action"
     },
     "data-loader.active-workspace.section": {
       "file": "tutorials/data-loader.md",
@@ -89,6 +104,16 @@
       "anchor": "help-data-loader-import-sample-button",
       "label": "Import sample data"
     },
+    "data-loader.import-demo-snapshots": {
+      "file": "tutorials/data-loader.md",
+      "anchor": "help-data-loader-import-demo-snapshots",
+      "label": "Import demo snapshots"
+    },
+    "data-loader.dtype-normalization": {
+      "file": "tutorials/data-loader.md",
+      "anchor": "help-data-loader-dtype-normalization",
+      "label": "Column type normalisation on load"
+    },
     "data-loader.import-ldaca.button": {
       "file": "tutorials/data-loader.md",
       "anchor": "help-data-loader-import-ldaca-button",
@@ -98,6 +123,11 @@
       "file": "tutorials/data-loader.md",
       "anchor": "help-data-loader-add-button",
       "label": "Add file to workspace"
+    },
+    "data-loader.language": {
+      "file": "tutorials/data-loader.md",
+      "anchor": "help-data-loader-language",
+      "label": "Language tag (multilingual support)"
     },
     "preprocessing.join.tab": {
       "file": "tutorials/preprocessing.md",
@@ -239,6 +269,11 @@
       "anchor": "help-token-frequency-clear-results",
       "label": "Clear results"
     },
+    "analysis.token-frequency.snapshot": {
+      "file": "tutorials/token-frequency.md",
+      "anchor": "help-token-frequency-snapshot",
+      "label": "Save / open a snapshot"
+    },
     "analysis.token-frequency.reference": {
       "file": "tutorials/token-frequency.md",
       "anchor": "help-token-frequency-reference",
@@ -279,6 +314,16 @@
       "anchor": "help-token-frequency-run",
       "label": "Run token frequency"
     },
+    "analysis.token-frequency.model-picker": {
+      "file": "tutorials/token-frequency.md",
+      "anchor": "help-token-frequency-model-picker",
+      "label": "Tokens-model picker (CJK)"
+    },
+    "analysis.token-frequency.language-stopwords": {
+      "file": "tutorials/token-frequency.md",
+      "anchor": "help-token-frequency-language-stopwords",
+      "label": "Language-aware default stopwords"
+    },
     "analysis.concordance.tab": {
       "file": "tutorials/concordance.md",
       "anchor": "help-concordance-section",
@@ -299,6 +344,11 @@
       "anchor": "help-concordance-clear-results",
       "label": "Clear results"
     },
+    "analysis.concordance.snapshot": {
+      "file": "tutorials/concordance.md",
+      "anchor": "help-concordance-snapshot",
+      "label": "Save / open a snapshot"
+    },
     "analysis.concordance.search-term": {
       "file": "tutorials/concordance.md",
       "anchor": "help-concordance-search-term",
@@ -308,6 +358,21 @@
       "file": "tutorials/concordance.md",
       "anchor": "help-concordance-regex-toggle",
       "label": "Regex mode toggle"
+    },
+    "analysis.concordance.search-mode": {
+      "file": "tutorials/concordance.md",
+      "anchor": "help-concordance-search-mode",
+      "label": "Search mode (text vs tokens)"
+    },
+    "analysis.concordance.tokens-mismatch": {
+      "file": "tutorials/concordance.md",
+      "anchor": "help-concordance-tokens-mismatch",
+      "label": "Mismatch nudge — column has no derived tokens"
+    },
+    "analysis.concordance.legend-counts": {
+      "file": "tutorials/concordance.md",
+      "anchor": "help-concordance-legend-counts",
+      "label": "Dispersion legend — per-text counts"
     },
     "analysis.topic-modeling.tab": {
       "file": "tutorials/topic-modeling.md",
@@ -323,6 +388,11 @@
       "file": "tutorials/topic-modeling.md",
       "anchor": "help-topic-modeling-clear-results",
       "label": "Clear results"
+    },
+    "analysis.topic-modeling.snapshot": {
+      "file": "tutorials/topic-modeling.md",
+      "anchor": "help-topic-modeling-snapshot",
+      "label": "Save / open a snapshot"
     },
     "analysis.topic-modeling.results": {
       "file": "tutorials/topic-modeling.md",
@@ -369,6 +439,16 @@
       "anchor": "help-topic-modeling-words-per-topic",
       "label": "Words per topic"
     },
+    "analysis.topic-modeling.post-fit": {
+      "file": "tutorials/topic-modeling.md",
+      "anchor": "help-topic-modeling-post-fit",
+      "label": "Post-fit stopword filter & word expansion"
+    },
+    "analysis.topic-modeling.language-stopwords": {
+      "file": "tutorials/topic-modeling.md",
+      "anchor": "help-topic-modeling-language-stopwords",
+      "label": "Multi-language stopwords + view list"
+    },
     "analysis.sequential-analysis.tab": {
       "file": "tutorials/sequential-analysis.md",
       "anchor": "help-sequential-section",
@@ -388,6 +468,16 @@
       "file": "tutorials/sequential-analysis.md",
       "anchor": "help-sequential-clear-results",
       "label": "Clear results"
+    },
+    "analysis.sequential-analysis.snapshot": {
+      "file": "tutorials/sequential-analysis.md",
+      "anchor": "help-sequential-snapshot",
+      "label": "Save snapshot — capture at the finest bin"
+    },
+    "analysis.sequential-analysis.snapshot-reagg": {
+      "file": "tutorials/sequential-analysis.md",
+      "anchor": "help-sequential-snapshot-reagg",
+      "label": "Open snapshot — re-aggregate locally"
     },
     "analysis.sequential-analysis.time-column": {
       "file": "tutorials/sequential-analysis.md",
@@ -414,6 +504,11 @@
       "anchor": "help-quotation-results",
       "label": "Quotation results"
     },
+    "analysis.quotation.snapshot": {
+      "file": "tutorials/quotation.md",
+      "anchor": "help-quotation-snapshot",
+      "label": "Save / open a snapshot"
+    },
     "analysis.quotation.clear-results": {
       "file": "tutorials/quotation.md",
       "anchor": "help-quotation-clear-results",
@@ -423,6 +518,46 @@
       "file": "tutorials/quotation.md",
       "anchor": "help-quotation-context-length",
       "label": "Quotation context length"
+    },
+    "analysis.quotation.english-only": {
+      "file": "tutorials/quotation.md",
+      "anchor": "help-quotation-english-only",
+      "label": "Quotation — English-only language gate"
+    },
+    "snapshots.tab": {
+      "file": "tutorials/snapshots.md",
+      "anchor": "help-snapshots-section",
+      "label": "Demo Snapshots overview"
+    },
+    "snapshots.save": {
+      "file": "tutorials/snapshots.md",
+      "anchor": "help-snapshots-save",
+      "label": "Save a snapshot"
+    },
+    "snapshots.open": {
+      "file": "tutorials/snapshots.md",
+      "anchor": "help-snapshots-open",
+      "label": "Open a snapshot"
+    },
+    "snapshots.read-only": {
+      "file": "tutorials/snapshots.md",
+      "anchor": "help-snapshots-read-only",
+      "label": "What's read-only in snapshot view"
+    },
+    "snapshots.trends": {
+      "file": "tutorials/snapshots.md",
+      "anchor": "help-snapshots-trends",
+      "label": "Trends snapshots: capture configuration"
+    },
+    "snapshots.trends-reagg": {
+      "file": "tutorials/snapshots.md",
+      "anchor": "help-snapshots-trends-reagg",
+      "label": "Trends snapshots: re-aggregate locally"
+    },
+    "snapshots.import": {
+      "file": "tutorials/snapshots.md",
+      "anchor": "help-snapshots-import",
+      "label": "Import demo snapshots from the sample catalogue"
     },
     "analysis.export.tab": {
       "file": "tutorials/export.md",

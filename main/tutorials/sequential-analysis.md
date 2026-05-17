@@ -150,6 +150,32 @@ The new data block will contain all documents from the selected periods that bel
 
 Trends and Sequence results are saved in the backend so the tab can reload and retain previous results. **Clear Results** removes the cached result from the backend and resets the analysis.
 
+<h3 id="help-sequential-snapshot">Save snapshot — capture at the finest bin</h3>
+
+![Trends snapshot configuration dialog](tutorials/assets/snapshots/trends_capture_dialog.png)
+
+The Trends card header carries **Save snapshot** and **Open snapshot** buttons, like every other tool, but Trends uses a richer Save dialog. The dialog asks for:
+
+- **Finest time bin** — the smallest unit the snapshot captures (down to per-second). Coarser bins make smaller bundles; the viewer can never re-aggregate finer than what you save here.
+- **Group-by columns** (up to 3) — categorical / text columns the viewer can group on. Each ticked column shows its real cardinality next to its name.
+- **Numeric bin origin/step** — for numeric x-axes, the captured bin alignment.
+
+The estimated row count updates as you tick / untick columns. The cap is **200 000 rows** (Trends carries more granular detail than other tools because the viewer re-aggregates from it). A **Verify actual row count** button appears when the estimate creeps near the cap.
+
+<h3 id="help-sequential-snapshot-reagg">Open snapshot — re-aggregate locally</h3>
+
+![Trends snapshot frequency dropdown showing only coarser options](tutorials/assets/snapshots/trends_reagg_dropdown.png)
+
+Trends is the only tool where the parameter panel stays interactive in snapshot view. Because the snapshot captured rows at the finest bin and at all group dimensions, the viewer can:
+
+- **Coarsen the time axis** — pick any frequency coarser-or-equal to the captured bin. Finer options are greyed out.
+- **Drop group dimensions** — uncheck any captured group-by column to collapse it into the legend. You can't add new groups; only remove or keep the captured ones.
+- **Toggle case-sensitivity** — merges legend values that differ only by case (e.g. "Alice" and "alice" become one series).
+
+All of this happens locally without a backend round-trip — re-aggregation is instant, even on 200 000-row bundles. Min Group Size and the chart legend update with each change.
+
+See the [Demo Snapshots tutorial](./snapshots.md) for the full Save / Open flow, the bundle format, and import via the Sample Data dialog's Demo Snapshots tab.
+
 <h2 id="help-sequential-troubleshooting">Troubleshooting</h2>
 
 | Symptom | Likely cause | What to try |

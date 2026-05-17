@@ -12,7 +12,9 @@ Export lets you download one or more data blocks from your workspace as files fo
 
 <h3 id="help-export-data-blocks">Step 1 — Select your data</h3>
 
-Select one or more data blocks in the workspace. All selected blocks appear in the export list, showing each block's name, ID, and dimensions (rows × columns).
+Select one or more data blocks in the workspace. All selected blocks appear in the export list, showing each block's **name** and dimensions (rows × columns).
+
+> **Updated in v0.4:** the panel header shows the **workspace name** instead of the internal UUID, and the per-block UUID line has been dropped. The human-readable name plus shape is enough context for the export action — UUIDs only appeared in the URL and confused users who looked for the workspace name there.
 
 <h3 id="help-export-format">Step 2 — Choose a format</h3>
 

@@ -21,6 +21,9 @@ Yes, you can adjust how many words you want to be included on the left and on th
 
 In addition, you can choose to view the dispersion – how the search expression is distributed in the individual texts. You can also choose which metadata you want to display in the concordance.
 
+**What about CJK (Chinese, Japanese, Korean) and other non-English languages?**
+v0.4 introduces a **Tokens** search mode that walks a derived tokens column produced by a one-off **Tokenise** action on the workspace graph (Lindera for Japanese/Korean, Jieba for Chinese). This gives exact word-level matching where character-level substring matching is meaningless. See the [Concordance tutorial → Search mode](../tutorials/concordance.md#help-concordance-search-mode) for the details.
+
 - Where can I read more about this method?
 Concordancer: link to LDACA resource? https://www.atap.edu.au/text-analysis/methods/
 

@@ -18,6 +18,14 @@ When two are selected, the tool runs in comparison mode and produces the Juxtorp
 
 For each selected block, choose the **text column** that contains the documents you want to count. Only columns that hold plain text are available.
 
+<h4 id="help-token-frequency-model-picker">Tokens-model picker (CJK corpora)</h4>
+
+![Model picker for nodes with multiple tokenisations](tutorials/assets/token_frequency/model_picker.png)
+
+When the selected node has been tokenised **more than once on the same source column** (e.g. once with `lindera-ja-ipadic` and once with `lindera-ja-unidic`), a **model dropdown** appears next to the text-column picker. Choose which tokenisation to count against. With two data blocks selected, the dropdown lists the intersection of available models so the comparison runs against a shared segmentation. Nodes with a single tokenisation auto-pick silently — the dropdown only appears when there's an actual choice to make.
+
+If the chosen column has no derived tokens at all, the same **mismatch nudge** described in the [Concordance tutorial](./concordance.md#help-concordance-tokens-mismatch) appears here, listing the columns that *do* carry tokens.
+
 <h3 id="help-token-frequency-reference">Step 2 — Reference Data Block (comparison mode)</h3>
 
 When two data blocks are selected, a **Reference Data Block** toggle appears below the data-block selectors. Click the coloured circle next to a block to designate it as the reference (Corpus 1).
@@ -31,10 +39,22 @@ The reference block provides the baseline for the statistical keyword analysis: 
 Stop words are terms you want to exclude from the frequency count — commonly words like *the*, *and*, or domain-specific filler that would otherwise dominate the results.
 
 - Type words separated by spaces into the stop words field. Matching is case-insensitive.
-- Click **Fill Default** to populate the field with a built-in list of common English stop words.
+- Click **Fill Default** to populate the field with a built-in stop-word list **for the corpus language** (see below). When two data blocks are selected with different languages, the merged union of their per-language lists is loaded so each side is fairly filtered.
 - Click **Sort** to sort the current stop-word list alphabetically.
 - Click **Apply Stop Words** to apply the current list to the results. Removing stop words does not change the statistical measures of remaining tokens — they are excluded as a post-processing step.
 - Right-click any word in the word cloud or frequency list to add it directly to the stop-word list. Words added this way are **inserted at the start of the list** so they are easy to find and remove. The list is not re-sorted until you click **Sort**.
+
+<h4 id="help-token-frequency-language-stopwords">Language-aware default stop-word lists</h4>
+
+![Merged language stopword list across two corpora](tutorials/assets/token_frequency/language_stopwords.png)
+
+The **Fill Default** action now reads the **language tag set on each data block** at import time (see [Data Loader → Language tag](./data-loader.md#help-data-loader-language)) and uses the corresponding built-in list:
+
+- English → the bundled NLTK-derived English list
+- Japanese / Korean / Chinese / French / German / Spanish / Portuguese / Italian / Indonesian / Vietnamese → the matching per-language list bundled in the backend
+- *Other / Multilingual* → no default; the field is left empty
+
+When two data blocks with different languages are selected, **Fill Default** loads the union of both lists so each corpus sees its own stopwords filtered out. The resulting list is editable as before.
 
 <h2 id="help-token-frequency-run">Step 4 — Run the analysis</h2>
 
@@ -66,6 +86,8 @@ Word size in each per-block cloud corresponds to frequency. Interaction:
 - **Right-click** any word to add it to the stop-word list (it is inserted at the start of the list).
 
 A download button is available for each cloud (PNG, SVG, or PDF). You can optionally include the associated stop-word list in the download as a zip file.
+
+> **v0.4 — responsive sizing.** Word clouds now measure their container and scale the font envelope as a fraction of canvas width (clamped on both ends). Wide panels fill cleanly; narrow ones no longer cut off the longest word. Layout is also re-cached so typing in the stopword textbox doesn't trigger a re-layout of the d3 spiral on every keystroke.
 
 <h3 id="help-token-frequency-unified-word-cloud">Juxtorpus</h3>
 
@@ -121,6 +143,12 @@ The full table can be downloaded as a CSV file. For further reading on keyword a
 <h3 id="help-token-frequency-clear-results">Clear results</h3>
 
 Token Frequency results are saved in the backend so the tab can reload and retain your last run. **Clear Results** removes the cached result and resets the tab. You must clear first before switching to a different data block.
+
+<h3 id="help-token-frequency-snapshot">Save / open a snapshot</h3>
+
+The Token Frequency card header carries **Save snapshot** and **Open snapshot** buttons. A snapshot freezes the captured tokens + frequencies into a small `.ldaca-snapshot` bundle. In snapshot view the **stop-words filter**, **sort**, **cloud / list display caps**, and the **right-click add-to-stop-words** action stay live — these are all frontend-only projections of the captured rows, so re-applying them doesn't require a fresh fit. Run, Apply Stop Words (server-side), Tokenise, and Add to Workspace are disabled.
+
+See the [Demo Snapshots tutorial](./snapshots.md) for the full Save / Open flow.
 
 <h2 id="help-token-frequency-troubleshooting">Troubleshooting</h2>
 
