@@ -76,13 +76,34 @@ const labelFromH1 = (content) => {
 // even though we don't mirror it, so existing cross-links don't break).
 const ALL_KIND_DIRS = ['tutorials', 'information', 'references', 'warnings'];
 
+// Asset dirs at the docs-repo root (NOT under a tutorials/ subdir).
+// Top-level `assets/` carries brand-level assets — the logo files +
+// favicon used by the tutorial index hero. We rewrite their paths
+// the same way as kind-dir paths so the wiki resolves them via
+// raw.githubusercontent.com instead of looking for the dir alongside
+// the (flat) wiki pages.
+const ASSET_DIRS = ['assets'];
+const REWRITE_DIRS = [...ALL_KIND_DIRS, ...ASSET_DIRS];
+
 const rewriteContent = (markdown, sourceRelPath) => {
   let out = markdown;
 
-  // Image paths → absolute raw-content URLs.
-  const assetRe = new RegExp(`\\]\\((${ALL_KIND_DIRS.join('|')})/([^)]+)\\)`, 'g');
+  // Markdown image / link paths → absolute raw-content URLs.
+  const assetRe = new RegExp(`\\]\\((${REWRITE_DIRS.join('|')})/([^)]+)\\)`, 'g');
   out = out.replace(assetRe, (_m, kindDir, rest) =>
     `](${DOCS_RAW_BASE}/${kindDir}/${rest})`
+  );
+
+  // HTML <img src="kindDir/..."> tags — the mirror script previously
+  // skipped these, so a centred-hero <img> stayed literal in the wiki
+  // and 404'd against `/wiki/<sourceDir>/<…>`. Rewrite to the same
+  // absolute raw URL; preserve any other attributes (width, alt, etc.).
+  const htmlImgRe = new RegExp(
+    `(<img\\b[^>]*?\\ssrc=)(["'])(${REWRITE_DIRS.join('|')})/([^"']+)(["'])`,
+    'gi'
+  );
+  out = out.replace(htmlImgRe, (_m, pre, quote, kindDir, rest, quote2) =>
+    `${pre}${quote}${DOCS_RAW_BASE}/${kindDir}/${rest}${quote2}`
   );
 
   // Sibling links: (./preprocessing.md) or (preprocessing.md#anchor)
