@@ -6,7 +6,7 @@
 
 The LDaCA app interface is organised into three columns containing eight main sections. This page describes each section and how they work together.
 
-![LDaCA main app](assets/LDaCA_logo_Main.png)
+![LDaCA main app](tutorials/assets/ldaca_main.png)
 
 <h2 id="help-ui-tool-choice">1. Tool Choice</h2>
 
