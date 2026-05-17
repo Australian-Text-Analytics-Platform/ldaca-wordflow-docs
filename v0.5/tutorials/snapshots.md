@@ -6,7 +6,6 @@
 
 Snapshots are the LDaCA Wordflow way of freezing an in-progress analysis for sharing, teaching, or future reference. Every one of the five analysis tools — Concordance, Quotation, Trends, Token Frequency, Topic Modelling — supports the same Save / Open buttons in its header, and produces a self-contained bundle that another Wordflow user (or the same user on a different machine) can load without access to the original source data.
 
-<!-- TODO(screenshot): the AnalysisFeatureHeader of any tool (e.g. Concordance) with the Save and Open snapshot buttons visible to the right of the title. Save as tutorials/assets/snapshots/header_buttons.png -->
 ![Snapshot Save and Open buttons](tutorials/assets/snapshots/header_buttons.png)
 
 <h2 id="help-snapshots-what-is-a-snapshot">What is a snapshot?</h2>
@@ -24,7 +23,6 @@ Bundles travel through ordinary channels — email attachments, Slack uploads, s
 
 <h2 id="help-snapshots-save">Save a snapshot</h2>
 
-<!-- TODO(screenshot): the standard SaveSnapshotDialog with the filename input pre-populated from the selected data block names, description textarea, and Save button. Use Concordance or Token Frequency as the example tool. Save as tutorials/assets/snapshots/save_dialog_standard.png -->
 ![Save snapshot dialog](tutorials/assets/snapshots/save_dialog_standard.png)
 
 After running an analysis, click the **Save snapshot** button (camera icon) in the tool header.
@@ -43,7 +41,6 @@ Hover the disabled button to see the exact reason.
 
 <h2 id="help-snapshots-open">Open a snapshot</h2>
 
-<!-- TODO(screenshot): the LoadSnapshotDialog showing the list of locally-saved snapshots for the active tool, with one row hovered to expose its delete button. Save as tutorials/assets/snapshots/load_dialog.png -->
 ![Open snapshot dialog](tutorials/assets/snapshots/load_dialog.png)
 
 Click **Open snapshot** (folder-plus icon) in the tool header. The dialog lists every snapshot in your local folder for **this tool** — concordance snapshots show in Concordance only, token-frequency snapshots in Token Frequency only, and so on.
@@ -52,7 +49,6 @@ Each row shows the snapshot's filename, captured-at date, source data blocks, an
 
 Loaded snapshots open with a coloured banner across the top of the analysis card:
 
-<!-- TODO(screenshot): a tool in snapshot mode showing the snapshot banner across the top of the AnalysisCardLayout, with the filename, captured-at date, and Exit button visible. Save as tutorials/assets/snapshots/snapshot_banner.png -->
 ![Snapshot view banner](tutorials/assets/snapshots/snapshot_banner.png)
 
 The banner shows the snapshot filename, when it was captured, and an **Exit** button that returns the card to live mode.
@@ -78,7 +74,6 @@ Tool-specific frontend-only controls:
 
 <h2 id="help-snapshots-trends">Trends snapshots: capture configuration</h2>
 
-<!-- TODO(screenshot): the TrendsSnapshotConfigDialog open over a Trends result, showing the Finest time bin dropdown, the Group-by checklist with cardinality counts next to each ticked column, the estimated row count summary, and the Save button. Save as tutorials/assets/snapshots/trends_capture_dialog.png -->
 ![Trends snapshot configuration dialog](tutorials/assets/snapshots/trends_capture_dialog.png)
 
 Trends snapshots are **data-rich captures** — they save more granular detail than what's currently on screen, so the viewer can re-aggregate locally. When you click Save in Trends, you get a custom dialog instead of the standard one:
@@ -98,7 +93,6 @@ When the estimate creeps past half the cap, a **Verify actual row count** button
 
 <h2 id="help-snapshots-trends-reagg">Trends: client-side re-aggregation</h2>
 
-<!-- TODO(screenshot): a Trends snapshot loaded in the viewer with the frequency dropdown open showing only coarser-or-equal options (e.g. snapshot captured at daily, dropdown shows daily, weekly, monthly, quarterly, yearly with hourly/minute greyed out or absent). Save as tutorials/assets/snapshots/trends_reagg_dropdown.png -->
 ![Trends snapshot frequency dropdown showing only coarser options](tutorials/assets/snapshots/trends_reagg_dropdown.png)
 
 Trends is the only tool where the parameter panel stays interactive in snapshot view. Because the snapshot captured rows at the finest bin (and at all group dimensions), the viewer can:

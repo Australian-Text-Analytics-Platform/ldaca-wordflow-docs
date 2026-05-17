@@ -152,7 +152,6 @@ Trends and Sequence results are saved in the backend so the tab can reload and r
 
 <h3 id="help-sequential-snapshot">Save snapshot — capture at the finest bin</h3>
 
-<!-- TODO(screenshot): the TrendsSnapshotConfigDialog open over a Trends result, showing the Finest time bin dropdown, the Group-by checklist with cardinality counts next to each ticked column, the estimated row count summary, and the Save button. (Same screenshot as snapshots.md trends_capture_dialog.png — reuse the asset.) Save as tutorials/assets/snapshots/trends_capture_dialog.png -->
 ![Trends snapshot configuration dialog](tutorials/assets/snapshots/trends_capture_dialog.png)
 
 The Trends card header carries **Save snapshot** and **Open snapshot** buttons, like every other tool, but Trends uses a richer Save dialog. The dialog asks for:
@@ -165,7 +164,6 @@ The estimated row count updates as you tick / untick columns. The cap is **200 0
 
 <h3 id="help-sequential-snapshot-reagg">Open snapshot — re-aggregate locally</h3>
 
-<!-- TODO(screenshot): a Trends snapshot loaded in the viewer with the frequency dropdown open showing only coarser-or-equal options. Reuse the snapshots/trends_reagg_dropdown.png asset. Save as tutorials/assets/snapshots/trends_reagg_dropdown.png -->
 ![Trends snapshot frequency dropdown showing only coarser options](tutorials/assets/snapshots/trends_reagg_dropdown.png)
 
 Trends is the only tool where the parameter panel stays interactive in snapshot view. Because the snapshot captured rows at the finest bin and at all group dimensions, the viewer can:
