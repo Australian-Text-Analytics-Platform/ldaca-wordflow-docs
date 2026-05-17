@@ -102,7 +102,6 @@ The Datasets tab shows each collection with a status chip (*Bundled* / *Availabl
 
 <h3 id="help-data-loader-import-demo-snapshots">Import demo snapshots</h3>
 
-<!-- TODO(screenshot): the Sample Data dialog with the Demo Snapshots tab active, showing 3-4 snapshot cards (Concordance, Trends, Topic Modelling examples), each with a status chip, source dataset, captured-at date, and description. One card hovered to reveal its download button. Save as tutorials/assets/data_loader/demo_snapshots_tab.png -->
 ![Demo Snapshots tab in the Sample Data dialog](tutorials/assets/data_loader/demo_snapshots_tab.png)
 
 The **Demo Snapshots** tab in the Sample Data dialog lists curated `.ldaca-snapshot` bundles published with the sample-data catalogue — one or two for each analysis tool, demonstrating a typical use case against a publicly-available corpus. Pick one, click **Download**, and the snapshot drops into your local snapshots folder. Open it from the matching tool's **Open snapshot** button.
