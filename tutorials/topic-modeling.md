@@ -173,6 +173,12 @@ Both controls operate on the live cached result. Detach a topic (or topics) afte
 
 Topic modelling results are saved in the backend so this tab can reload and keep persistent pages of the last run. **Clear Results** clears the cached result in the backend and resets the tab.
 
+<h3 id="help-topic-modeling-snapshot">Save / open a snapshot</h3>
+
+The Topic Modelling card header carries **Save snapshot** and **Open snapshot** buttons. A snapshot freezes the fitted topics + per-topic representative words into a small `.ldaca-snapshot` bundle. In snapshot view the **post-fit stopword filter**, the **Words per topic** slider (adjustable up to the cap stored at fit time — `max(50, fit_value × 2)`), the bubble-chart zoom / pan / legend, and the topic selection still work; Run, Update, Clear Results, and Add to Workspace are disabled.
+
+See the [Demo Snapshots tutorial](./snapshots.md) for the full Save / Open flow.
+
 <h3 id="help-topic-modeling-embedding-cache">Embedding cache</h3>
 
 The slowest stage of topic modelling — converting each document into an embedding vector — is cached on disk. Each time the model encodes a document, the resulting vector is stored under a hash of that exact text. The next time topic modelling encounters the same text (in this corpus or any other), the embedding is read from disk in milliseconds instead of being recomputed. The cache is per-user and shared across all your workspaces, and it builds up automatically as you run topic modelling.

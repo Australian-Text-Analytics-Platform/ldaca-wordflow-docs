@@ -238,6 +238,12 @@ If a block has already been processed via Process All, the detach reuses the cac
 
 Concordance results are saved in the backend so the tab can reload and preserve your last results. **Clear Results** removes the cached result from the backend and resets the tab. Clearing also discards any Process All caches associated with that task.
 
+<h3 id="help-concordance-snapshot">Save / open a snapshot</h3>
+
+The Concordance card header carries **Save snapshot** and **Open snapshot** buttons. A snapshot freezes the current hits + parameters into a small `.ldaca-snapshot` bundle you can re-open or share with a collaborator without re-running the search. In snapshot view the table, dispersion plot, sorting, legend toggles, and download still work; Run, Process All, and Add to Workspace are disabled with a hover tooltip explaining the lock.
+
+See the [Demo Snapshots tutorial](./snapshots.md) for the full Save / Open flow, file format, and per-block row caps.
+
 <h2 id="help-concordance-troubleshooting">Troubleshooting</h2>
 
 | Symptom | Likely cause | What to try |

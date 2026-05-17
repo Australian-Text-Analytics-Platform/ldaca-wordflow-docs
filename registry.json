@@ -104,6 +104,16 @@
       "anchor": "help-data-loader-import-sample-button",
       "label": "Import sample data"
     },
+    "data-loader.import-demo-snapshots": {
+      "file": "tutorials/data-loader.md",
+      "anchor": "help-data-loader-import-demo-snapshots",
+      "label": "Import demo snapshots"
+    },
+    "data-loader.dtype-normalization": {
+      "file": "tutorials/data-loader.md",
+      "anchor": "help-data-loader-dtype-normalization",
+      "label": "Column type normalisation on load"
+    },
     "data-loader.import-ldaca.button": {
       "file": "tutorials/data-loader.md",
       "anchor": "help-data-loader-import-ldaca-button",
@@ -259,6 +269,11 @@
       "anchor": "help-token-frequency-clear-results",
       "label": "Clear results"
     },
+    "analysis.token-frequency.snapshot": {
+      "file": "tutorials/token-frequency.md",
+      "anchor": "help-token-frequency-snapshot",
+      "label": "Save / open a snapshot"
+    },
     "analysis.token-frequency.reference": {
       "file": "tutorials/token-frequency.md",
       "anchor": "help-token-frequency-reference",
@@ -329,6 +344,11 @@
       "anchor": "help-concordance-clear-results",
       "label": "Clear results"
     },
+    "analysis.concordance.snapshot": {
+      "file": "tutorials/concordance.md",
+      "anchor": "help-concordance-snapshot",
+      "label": "Save / open a snapshot"
+    },
     "analysis.concordance.search-term": {
       "file": "tutorials/concordance.md",
       "anchor": "help-concordance-search-term",
@@ -368,6 +388,11 @@
       "file": "tutorials/topic-modeling.md",
       "anchor": "help-topic-modeling-clear-results",
       "label": "Clear results"
+    },
+    "analysis.topic-modeling.snapshot": {
+      "file": "tutorials/topic-modeling.md",
+      "anchor": "help-topic-modeling-snapshot",
+      "label": "Save / open a snapshot"
     },
     "analysis.topic-modeling.results": {
       "file": "tutorials/topic-modeling.md",
@@ -444,6 +469,16 @@
       "anchor": "help-sequential-clear-results",
       "label": "Clear results"
     },
+    "analysis.sequential-analysis.snapshot": {
+      "file": "tutorials/sequential-analysis.md",
+      "anchor": "help-sequential-snapshot",
+      "label": "Save snapshot — capture at the finest bin"
+    },
+    "analysis.sequential-analysis.snapshot-reagg": {
+      "file": "tutorials/sequential-analysis.md",
+      "anchor": "help-sequential-snapshot-reagg",
+      "label": "Open snapshot — re-aggregate locally"
+    },
     "analysis.sequential-analysis.time-column": {
       "file": "tutorials/sequential-analysis.md",
       "anchor": "help-sequential-time-column",
@@ -469,6 +504,11 @@
       "anchor": "help-quotation-results",
       "label": "Quotation results"
     },
+    "analysis.quotation.snapshot": {
+      "file": "tutorials/quotation.md",
+      "anchor": "help-quotation-snapshot",
+      "label": "Save / open a snapshot"
+    },
     "analysis.quotation.clear-results": {
       "file": "tutorials/quotation.md",
       "anchor": "help-quotation-clear-results",
@@ -483,6 +523,41 @@
       "file": "tutorials/quotation.md",
       "anchor": "help-quotation-english-only",
       "label": "Quotation — English-only language gate"
+    },
+    "snapshots.tab": {
+      "file": "tutorials/snapshots.md",
+      "anchor": "help-snapshots-section",
+      "label": "Demo Snapshots overview"
+    },
+    "snapshots.save": {
+      "file": "tutorials/snapshots.md",
+      "anchor": "help-snapshots-save",
+      "label": "Save a snapshot"
+    },
+    "snapshots.open": {
+      "file": "tutorials/snapshots.md",
+      "anchor": "help-snapshots-open",
+      "label": "Open a snapshot"
+    },
+    "snapshots.read-only": {
+      "file": "tutorials/snapshots.md",
+      "anchor": "help-snapshots-read-only",
+      "label": "What's read-only in snapshot view"
+    },
+    "snapshots.trends": {
+      "file": "tutorials/snapshots.md",
+      "anchor": "help-snapshots-trends",
+      "label": "Trends snapshots: capture configuration"
+    },
+    "snapshots.trends-reagg": {
+      "file": "tutorials/snapshots.md",
+      "anchor": "help-snapshots-trends-reagg",
+      "label": "Trends snapshots: re-aggregate locally"
+    },
+    "snapshots.import": {
+      "file": "tutorials/snapshots.md",
+      "anchor": "help-snapshots-import",
+      "label": "Import demo snapshots from the sample catalogue"
     },
     "analysis.export.tab": {
       "file": "tutorials/export.md",
