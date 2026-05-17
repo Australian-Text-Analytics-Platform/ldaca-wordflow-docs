@@ -57,6 +57,16 @@ Most operations (filtering, sampling, joining, stacking, detaching etc.) on a da
 
 > **Placeholder (image):** Add a hero screenshot of the workspace with highlighted side panels.
 
+## What's new in v0.5
+
+Wordflow v0.5 adds **Demo Snapshots** — save the current view of any analysis to a small `.ldaca-snapshot` bundle and re-open it later or share with a collaborator without re-running the analysis:
+
+- **Save / Open snapshot** buttons in every analysis tool's header — see the [Demo Snapshots tutorial](./snapshots.md).
+- **Trends client-side re-aggregation** — Trends snapshots are captured at the finest time bin you pick + up to 3 group-by columns; the viewer coarsens the time axis, drops group dimensions, and case-folds the legend locally. See [Trends → Snapshot re-aggregation](./sequential-analysis.md#help-sequential-snapshot-reagg).
+- **Demo Snapshots tab in the Sample Data dialog** — browse and download curated `.ldaca-snapshot` bundles bundled with the catalogue. See [Data Loader → Import demo snapshots](./data-loader.md#help-data-loader-import-demo-snapshots).
+- **Column type normalisation on load** — narrow integers, mixed-precision floats, and naïve datetimes are coerced to a canonical profile (`Int64` / `Float64` / `Datetime[μs, UTC]` / `Utf8`) at ingest, with one consolidated warning per file. See [Data Loader → Column type normalisation](./data-loader.md#help-data-loader-dtype-normalization).
+- **Snapshot-disabled tooltip** — every read-only control in snapshot view shows the same instant-display hover tooltip explaining the lock.
+
 ## What's new in v0.4
 
 Wordflow v0.4 introduces end-to-end multilingual support and a workspace-graph refresh:
@@ -79,6 +89,7 @@ Wordflow v0.4 introduces end-to-end multilingual support and a workspace-graph r
 - [Topic modeling](./topic-modeling.md) — discover themes with BERTopic.
 - [Sequential analysis](./sequential-analysis.md) — analyze sequences over time.
 - [Quotation extraction](./quotation.md) — capture quoted segments with context.
+- [Demo Snapshots](./snapshots.md) — save and share frozen views of any analysis.
 - [Export](./export.md) — download tables or reports.
 
 ## Questions to check your understanding

@@ -144,6 +144,12 @@ The full table can be downloaded as a CSV file. For further reading on keyword a
 
 Token Frequency results are saved in the backend so the tab can reload and retain your last run. **Clear Results** removes the cached result and resets the tab. You must clear first before switching to a different data block.
 
+<h3 id="help-token-frequency-snapshot">Save / open a snapshot</h3>
+
+The Token Frequency card header carries **Save snapshot** and **Open snapshot** buttons. A snapshot freezes the captured tokens + frequencies into a small `.ldaca-snapshot` bundle. In snapshot view the **stop-words filter**, **sort**, **cloud / list display caps**, and the **right-click add-to-stop-words** action stay live — these are all frontend-only projections of the captured rows, so re-applying them doesn't require a fresh fit. Run, Apply Stop Words (server-side), Tokenise, and Add to Workspace are disabled.
+
+See the [Demo Snapshots tutorial](./snapshots.md) for the full Save / Open flow.
+
 <h2 id="help-token-frequency-troubleshooting">Troubleshooting</h2>
 
 | Symptom | Likely cause | What to try |

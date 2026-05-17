@@ -71,15 +71,44 @@ Click this button to upload a file from your local machine. Supported formats:
 
 Supported file types can be previewed before being added to the workspace as a data block.
 
+<h3 id="help-data-loader-dtype-normalization">Column type normalisation on load</h3>
+
+When a file is loaded, every column dtype is coerced to a small **canonical profile** so downstream tools (filtering, joining, sampling, workspace save / reopen, snapshot capture) behave the same regardless of the source's exact type. The canonical types are:
+
+| Source family | Canonical | Notes |
+|---|---|---|
+| `Int8` / `Int16` / `Int32` / `Int64` / `UInt*` | `Int64` | Wider integer; never overflows on the targets Wordflow analyses produce. |
+| `Float32` / `Float64` / `Decimal` | `Float64` | Wider float; rounding behaviour matches polars defaults. |
+| `Datetime(*, *)` / `Date` / naïve timestamps | `Datetime[μs, UTC]` | Naïve timestamps assume UTC; convert before upload if your data is in another zone. |
+| `String` / `Utf8` / `Categorical` | `Utf8` | Categoricals are demoted so all string ops apply uniformly. |
+| `Boolean` | `Boolean` | Unchanged. |
+| `List[T]` / `Struct[…]` | preserved as-is | Inner element types follow the rules above. |
+
+If anything gets promoted at load time, you'll see a single consolidated banner listing every coerced column and its source vs. canonical type — once per file, not once per column. The data block then loads normally.
+
+**Why this exists.** Before v0.5 a workspace save could fail to round-trip if a single column was `Int8` instead of `Int64` (some sample-data feeds shipped narrow integer columns). Normalising on load makes the workspace's wire format predictable; the cost is a small one-time upcast on ingest.
+
 <h2 id="help-data-loader-import-sample-button">Import sample data</h2>
 
 ![Sample data catalogue picker](tutorials/assets/data_loader/sample_data_catalogue.png)
 
-Opens the **sample-data catalogue picker** — a multi-collection dialog populated from a remote catalogue published alongside the app (`ldaca-analytics-sample-data`). For each collection it shows a status chip (*Bundled* / *Available* / *Not installed*), a one-line description, and an eye icon that opens the dataset README.
+Opens the **sample-data catalogue picker** — a multi-collection dialog populated from a remote catalogue published alongside the app (`ldaca-analytics-sample-data`). The dialog has two tabs: **Datasets** for raw text corpora (see below), and **Demo Snapshots** for pre-made analysis snapshots (see [Import demo snapshots](#help-data-loader-import-demo-snapshots) further down).
+
+The Datasets tab shows each collection with a status chip (*Bundled* / *Available* / *Not installed*), a one-line description, and an eye icon that opens the dataset README.
 
 - Tick the collections you want and click **Import selected**. Bundled datasets are copied instantly; larger remote datasets download in the background and appear in the file browser when ready.
 - **Why the change in v0.4?** Previously a single button copied everything bundled with the app; the new picker lets the catalogue grow without inflating the app install size, and gives you per-dataset citation context up front. See [Citation and licensing notices](#help-data-loader-citation-notice) below.
 - All sample data is publicly available and may be freely tested or removed. If sample data is used in a research output, please cite <img alt="citemark" src="references/assets/mark_ref.png" style="display: inline; height: 1em; vertical-align: middle;"> the dataset appropriately.
+
+<h3 id="help-data-loader-import-demo-snapshots">Import demo snapshots</h3>
+
+<!-- TODO(screenshot): the Sample Data dialog with the Demo Snapshots tab active, showing 3-4 snapshot cards (Concordance, Trends, Topic Modelling examples), each with a status chip, source dataset, captured-at date, and description. One card hovered to reveal its download button. Save as tutorials/assets/data_loader/demo_snapshots_tab.png -->
+![Demo Snapshots tab in the Sample Data dialog](tutorials/assets/data_loader/demo_snapshots_tab.png)
+
+The **Demo Snapshots** tab in the Sample Data dialog lists curated `.ldaca-snapshot` bundles published with the sample-data catalogue — one or two for each analysis tool, demonstrating a typical use case against a publicly-available corpus. Pick one, click **Download**, and the snapshot drops into your local snapshots folder. Open it from the matching tool's **Open snapshot** button.
+
+- **Conflict handling.** If you already have a snapshot with the same filename locally, the picker skips it by default and flags a conflict warning. Click **Replace** if you want to overwrite your local copy with the catalogue version.
+- These are full Wordflow snapshots — same `.ldaca-snapshot` format you produce from Save snapshot. See the [Demo Snapshots tutorial](./snapshots.md) for what's inside a bundle.
 
 <h2 id="help-data-loader-import-ldaca-button">Import from LDaCA</h2>
 

@@ -86,6 +86,12 @@ The detached data block can then be analysed with other tools. For example, use 
 
 Quotation results are saved in the backend so the tab can reload and keep persistent pages. **Clear Results** clears the cached result in the backend and resets the tab.
 
+<h3 id="help-quotation-snapshot">Save / open a snapshot</h3>
+
+The Quotation card header carries **Save snapshot** and **Open snapshot** buttons. A snapshot freezes the extracted quotations + parameters into a small `.ldaca-snapshot` bundle you can re-open or share with a collaborator without re-running the extraction. In snapshot view the table, pagination, metadata toggles, and column visibility still work; Run, Process All, and Add to Workspace are disabled with a hover tooltip.
+
+See the [Demo Snapshots tutorial](./snapshots.md) for the full Save / Open flow.
+
 <h2 id="help-quotation-troubleshooting">Troubleshooting</h2>
 
 | Symptom | Likely cause | What to try |
