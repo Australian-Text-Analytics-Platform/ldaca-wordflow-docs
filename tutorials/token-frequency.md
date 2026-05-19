@@ -128,17 +128,29 @@ The **Keyword Analysis** table summarises token-level differences between the tw
 | O1 / O2 | Observed frequency in each data block (O1 = reference block, O2 = study block) |
 | %1 / %2 | Percentage of total tokens in each data block |
 | LL | Log-likelihood G² statistic — higher means a more significant difference |
-| %DIFF | Percentage-point difference between the two data blocks |
-| Bayes | Bayes factor (BIC) |
-| ELL | Effect size for log-likelihood |
-| RRisk | Relative risk ratio |
-| LogRatio | Log of relative frequencies — positive values skew toward the study block |
-| OddsRatio | Odds ratio between data blocks |
-| Significance | \*\*\*\* p < 0.0001, \*\*\* p < 0.001, \*\* p < 0.01, \* p < 0.05 |
+| %DIFF | Percent change in normalised frequency from the reference to the study block, per Gabrielatos & Marchi (2012): `((NF_study − NF_reference) / NF_reference) × 100`. Positive values skew toward the study block. `+∞` when the token is absent from the reference. |
+| Bayes | Bayes factor (BIC), per Wilson (2013): `LL − ln(N)`, where N is the total token count across both blocks. |
+| ELL | Effect size for log-likelihood, per Johnston et al. (2006): `LL / (N × ln(E_min))`. Ranges 0–1. |
+| RRisk | Relative risk: `NF_reference / NF_study`. |
+| LogRatio | Log₂ of the relative frequencies, per Hardie (CASS blog): `log₂(NF_study / NF_reference)`. Positive values skew toward the study block. |
+| OddsRatio | 2×2 odds ratio between the two data blocks. |
+| Significance | See the legend below; click an asterisk badge in the table to read the matching p-level inline. |
+
+**Significance asterisks** track the log-likelihood critical values at 1 degree of freedom (matches the [Lancaster log-likelihood wizard](https://ucrel.lancs.ac.uk/llwizard.html)):
+
+| Asterisks | p-level | Log-likelihood threshold |
+|---|---|---|
+| **** | p < 0.0001 | LL ≥ 15.13 |
+| *** | p < 0.001 | LL ≥ 10.83 |
+| ** | p < 0.01 | LL ≥ 6.63 |
+| * | p < 0.05 | LL ≥ 3.84 |
+| n.s. | not significant | LL < 3.84 |
+
+The same legend is repeated under the keyword-analysis section heading in the app, and hovering a badge in the table surfaces the matching p-level as a tooltip.
 
 Use the **Head / Tail Rows (N)** control to show the first and last N rows of the sorted table. Sorting always applies to the full dataset before trimming.
 
-The full table can be downloaded as a CSV file. For further reading on keyword analysis methodology, see the [Lancaster corpus linguistics resource](https://www.lancaster.ac.uk/fss/courses/ling/corpus/blue/l03_2.htm).
+The full table can be downloaded as a CSV file. For further reading on keyword analysis methodology, see the [Lancaster corpus linguistics resource](https://www.lancaster.ac.uk/fss/courses/ling/corpus/blue/l03_2.htm) and the [Lancaster log-likelihood + effect-size wizard](https://ucrel.lancs.ac.uk/llwizard.html), which is the canonical source for the formulas the table uses.
 
 <h3 id="help-token-frequency-clear-results">Clear results</h3>
 
