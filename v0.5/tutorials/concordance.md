@@ -47,8 +47,7 @@ When the column you pick for analysis has no derived tokens but a *different* co
 
 Type the word or phrase you want to study. The search is case-insensitive by default (enable **Case Sensitive** to override). Each match is shown with the surrounding left and right context.
 
-<a id="help-concordance-regex-toggle"></a>
-**Regular expressions**
+<h4 id="help-concordance-regex-toggle">Regular expressions</h4>
 
 Enable **Use Regular Expression** to search using pattern matching. This lets you find word variants, multiple terms at once, or complex patterns.
 
