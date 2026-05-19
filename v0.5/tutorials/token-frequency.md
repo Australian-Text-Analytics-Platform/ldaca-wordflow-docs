@@ -26,11 +26,11 @@ When the selected node has been tokenised **more than once on the same source co
 
 If the chosen column has no derived tokens at all, the same **mismatch nudge** described in the [Concordance tutorial](./concordance.md#help-concordance-tokens-mismatch) appears here, listing the columns that *do* carry tokens.
 
-<h3 id="help-token-frequency-reference">Step 2 — Reference Data Block (comparison mode)</h3>
+<h3 id="help-token-frequency-reference">Step 2 — Study Data Block (comparison mode)</h3>
 
-When two data blocks are selected, a **Reference Data Block** toggle appears below the data-block selectors. Click the coloured circle next to a block to designate it as the reference (Corpus 1).
+When two data blocks are selected, a **Study Data Block** toggle appears below the data-block selectors. Click the coloured circle next to a block to designate it as the study corpus — the focus of your comparison. The other block becomes the reference (Corpus 1).
 
-The reference block provides the baseline for the statistical keyword analysis: its frequencies appear as **O1** and **%1** in the statistics table, and the other block appears as **O2** and **%2**. Swapping the reference flips which side each statistic measures from, which can change the sign of directional measures like LogRatio.
+The study block is the side you're investigating: its frequencies appear as **O2** and **%2** in the statistics table, and the reference block appears as **O1** and **%1**. Swapping the study block flips which side each statistic measures from, which can change the sign of directional measures like LogRatio.
 
 <h3 id="help-token-frequency-stop-words">Step 3 — Stop words</h3>
 
@@ -125,14 +125,14 @@ The **Keyword Analysis** table summarises token-level differences between the tw
 
 | Column | What it shows |
 |---|---|
-| O1 / O2 | Observed frequency in each data block (O1 = reference block) |
+| O1 / O2 | Observed frequency in each data block (O1 = reference block, O2 = study block) |
 | %1 / %2 | Percentage of total tokens in each data block |
 | LL | Log-likelihood G² statistic — higher means a more significant difference |
 | %DIFF | Percentage-point difference between the two data blocks |
 | Bayes | Bayes factor (BIC) |
 | ELL | Effect size for log-likelihood |
 | RRisk | Relative risk ratio |
-| LogRatio | Log of relative frequencies — positive values skew toward the reference block |
+| LogRatio | Log of relative frequencies — positive values skew toward the study block |
 | OddsRatio | Odds ratio between data blocks |
 | Significance | \*\*\*\* p < 0.0001, \*\*\* p < 0.001, \*\* p < 0.01, \* p < 0.05 |
 
@@ -167,7 +167,7 @@ See the [Demo Snapshots tutorial](./snapshots.md) for the full Save / Open flow.
 | Setting | Default | Notes |
 |---|---|---|
 | Data blocks | None | Up to 2; comparison mode activates when 2 are selected. If more than 2 are selected workspace-wide, only the 2 most recent show in the panel. |
-| Reference Data Block | First selected block | Changes O1/O2 assignment in the statistics table |
+| Study Data Block | First selected block | Picks which block becomes O2/%2 (study) vs O1/%1 (reference) in the statistics table |
 | Stop words | Empty | Click **Fill Default** for a built-in English list |
 | Cloud display limit | 50 | Range 10–100; mirrors to list limit |
 | List display limit | 50 | Range 10 – vocabulary size; values > 100 diverge from cloud |
@@ -177,7 +177,7 @@ See the [Demo Snapshots tutorial](./snapshots.md) for the full Save / Open flow.
 1. Select a data block and click **Analyze** with the default settings.
 2. Click **Fill Default** to apply the built-in stop-word list, then **Apply Stop Words** and compare the top tokens.
 3. Right-click one of the remaining high-frequency words in the cloud to add it as a custom stop word. Confirm it appears at the start of the stop-word list.
-4. Select a second data block. Use the **Reference Data Block** toggle to set which block is the baseline, then re-run.
+4. Select a second data block. Use the **Study Data Block** toggle to pick which block is your study focus (the other becomes the reference baseline), then re-run.
 5. Switch to **List view** and use **Filter tokens** with a wildcard pattern (e.g. `*ing`) to find all gerund-form tokens.
 6. In **List view**, scroll one frequency list and observe that the other list scrolls in sync.
 7. Sort the statistics table by **LogRatio** to find the words most distinctively associated with each data block.
