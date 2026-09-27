@@ -1,5 +1,5 @@
 <!-- markdownlint-disable MD033 -->
 
-<h2 id="info-preprocessing-overview">About Data Preprocessing</h2>
+<h2 id="info-preprocessing-overview">About Data Builder</h2>
 
-Data Preprocessing lets you clean and reshape your data before analysis. Filter, Find, Create, and Polars Expression can create a new Data Block or explicitly update the selected one. Sample, Join, and Stack always create a new Derived Data Block.
+The Data Builder makes new Data Blocks from existing ones, ready for analysis. Its tools are Filter, Group, Join, Segment, Aggregate, Sample, Deduplicate, and Stack. Each one creates new Data Blocks and never changes its sources. To add or change columns on a Data Block in place (combine, count, duplicate, extract, split, find and replace, or clean text), use the Data Editor below the Project Graph.

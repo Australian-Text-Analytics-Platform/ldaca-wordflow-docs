@@ -1,48 +1,73 @@
 {
   "meta": {
-    "version": "0.7.3",
-    "generated": "2026-08-27"
+    "version": "0.7.8-dev",
+    "generated": "2026-09-27"
   },
   "tutorial": {
     "ui.tool-choice": {
       "file": "tutorials/ui.md",
       "anchor": "help-ui-tool-choice",
-      "label": "Tool Choice"
+      "label": "Views"
     },
     "ui.data-selection": {
       "file": "tutorials/ui.md",
       "anchor": "help-ui-data-selection",
-      "label": "Data Selection"
+      "label": "Data Blocks"
     },
     "ui.task-centre": {
       "file": "tutorials/ui.md",
       "anchor": "help-ui-task-centre",
-      "label": "Task Centre"
+      "label": "Tasks"
     },
     "ui.workspace-graph-view": {
       "file": "tutorials/ui.md",
       "anchor": "help-ui-workspace-graph-view",
-      "label": "Workspace Graph View"
+      "label": "Project Graph"
     },
     "ui.data-viewer": {
       "file": "tutorials/ui.md",
       "anchor": "help-ui-data-viewer",
-      "label": "Data Viewer"
+      "label": "Data Editor"
     },
     "ui.working-directory": {
       "file": "tutorials/ui.md",
       "anchor": "help-ui-working-directory",
-      "label": "Working Directory"
+      "label": "Data folder"
     },
     "ui.help-feedback": {
       "file": "tutorials/ui.md",
       "anchor": "help-ui-help-feedback",
       "label": "Help and Feedback"
     },
+    "ui.change-project": {
+      "file": "tutorials/ui.md",
+      "anchor": "help-ui-change-project",
+      "label": "Switch Project"
+    },
+    "ui.data-editor.column-tools": {
+      "file": "tutorials/ui.md",
+      "anchor": "help-ui-data-editor-column-tools",
+      "label": "Data Editor column tools"
+    },
+    "ui.analysis-layout": {
+      "file": "tutorials/ui.md",
+      "anchor": "help-ui-analysis-layout",
+      "label": "Parameters and results layout"
+    },
+    "ui.preview-run-clear": {
+      "file": "tutorials/ui.md",
+      "anchor": "help-ui-preview-run-clear",
+      "label": "How Preview, Run and Clear work"
+    },
+    "ui.regular-expressions": {
+      "file": "tutorials/ui.md",
+      "anchor": "help-ui-regular-expressions",
+      "label": "Regular expressions"
+    },
     "data-loader.active-workspace.section": {
       "file": "tutorials/data-loader.md",
       "anchor": "help-data-loader-active-workspace",
-      "label": "Active workspace overview"
+      "label": "Active Project overview"
     },
     "data-loader.tab": {
       "file": "tutorials/data-loader.md",
@@ -52,27 +77,27 @@
     "data-loader.workspace-manager.section": {
       "file": "tutorials/data-loader.md",
       "anchor": "help-data-loader-workspace-manager",
-      "label": "Workspace manager overview"
+      "label": "Project manager overview"
     },
     "data-loader.create-workspace.name": {
       "file": "tutorials/data-loader.md",
       "anchor": "help-data-loader-create-workspace-name",
-      "label": "Workspace name input"
+      "label": "Project name input"
     },
     "data-loader.create-workspace.button": {
       "file": "tutorials/data-loader.md",
       "anchor": "help-data-loader-create-workspace-button",
-      "label": "Create workspace button"
+      "label": "Create Project button"
     },
     "data-loader.rename-workspace.input": {
       "file": "tutorials/data-loader.md",
       "anchor": "help-data-loader-rename-workspace-input",
-      "label": "Rename workspace input"
+      "label": "Rename Project input"
     },
     "data-loader.unload.button": {
       "file": "tutorials/data-loader.md",
       "anchor": "help-data-loader-unload-button",
-      "label": "Unload workspace"
+      "label": "Close Project"
     },
     "data-loader.files.section": {
       "file": "tutorials/data-loader.md",
@@ -92,12 +117,22 @@
     "data-loader.import-ldaca.button": {
       "file": "tutorials/data-loader.md",
       "anchor": "help-data-loader-import-ldaca-button",
-      "label": "Import from LDaCA"
+      "label": "Import LDaCA collections"
     },
     "data-loader.add.button": {
       "file": "tutorials/data-loader.md",
       "anchor": "help-data-loader-add-button",
-      "label": "Add file to workspace"
+      "label": "Add file to Project"
+    },
+    "data-loader.add-folder": {
+      "file": "tutorials/data-loader.md",
+      "anchor": "help-data-loader-add-folder",
+      "label": "Add a folder or ZIP"
+    },
+    "data-loader.file-organisation": {
+      "file": "tutorials/data-loader.md",
+      "anchor": "help-data-loader-file-organisation",
+      "label": "Organising files"
     },
     "preprocessing.join.tab": {
       "file": "tutorials/preprocessing.md",
@@ -122,7 +157,7 @@
     "preprocessing.common.node-selection": {
       "file": "tutorials/preprocessing.md",
       "anchor": "help-preprocessing-common-node-selection",
-      "label": "Data block selection"
+      "label": "Data Block selection"
     },
     "preprocessing.common.apply-button": {
       "file": "tutorials/preprocessing.md",
@@ -157,7 +192,7 @@
     "preprocessing.slice.offset": {
       "file": "tutorials/preprocessing.md",
       "anchor": "help-preprocessing-slice-offset",
-      "label": "Slice offset"
+      "label": "Slice start row"
     },
     "preprocessing.slice.length": {
       "file": "tutorials/preprocessing.md",
@@ -174,6 +209,26 @@
       "anchor": "help-preprocessing-concat-section",
       "label": "Stack sub-tab overview"
     },
+    "preprocessing.segment.tab": {
+      "file": "tutorials/preprocessing.md",
+      "anchor": "help-preprocessing-segment-section",
+      "label": "Segment overview"
+    },
+    "preprocessing.split-group.tab": {
+      "file": "tutorials/preprocessing.md",
+      "anchor": "help-preprocessing-split-group-section",
+      "label": "Group overview"
+    },
+    "preprocessing.summarise.tab": {
+      "file": "tutorials/preprocessing.md",
+      "anchor": "help-preprocessing-summarise-section",
+      "label": "Aggregate overview"
+    },
+    "preprocessing.dedupe.tab": {
+      "file": "tutorials/preprocessing.md",
+      "anchor": "help-preprocessing-dedupe-section",
+      "label": "Deduplicate overview"
+    },
     "preprocessing.concat.new-node-name": {
       "file": "tutorials/preprocessing.md",
       "anchor": "help-preprocessing-concat-new-node-name",
@@ -187,52 +242,22 @@
     "preprocessing.concat.schema-status": {
       "file": "tutorials/preprocessing.md",
       "anchor": "help-preprocessing-concat-schema-status",
-      "label": "Schema status"
-    },
-    "preprocessing.aggregate.tab": {
-      "file": "tutorials/preprocessing.md",
-      "anchor": "help-preprocessing-aggregate-section",
-      "label": "Create sub-tab overview"
-    },
-    "preprocessing.aggregate.builder": {
-      "file": "tutorials/preprocessing.md",
-      "anchor": "help-preprocessing-aggregate-builder",
-      "label": "Expression builder"
-    },
-    "preprocessing.aggregate.expression": {
-      "file": "tutorials/preprocessing.md",
-      "anchor": "help-preprocessing-aggregate-expression",
-      "label": "Advanced expression"
-    },
-    "preprocessing.aggregate.column-name": {
-      "file": "tutorials/preprocessing.md",
-      "anchor": "help-preprocessing-aggregate-column-name",
-      "label": "Computed column name"
-    },
-    "preprocessing.find.tab": {
-      "file": "tutorials/preprocessing.md",
-      "anchor": "help-preprocessing-find-replace",
-      "label": "Find sub-tab overview"
-    },
-    "preprocessing.expression.tab": {
-      "file": "tutorials/preprocessing.md",
-      "anchor": "help-preprocessing-expression-section",
-      "label": "Expression sub-tab overview"
+      "label": "Column check"
     },
     "analysis.token-frequency.tab": {
       "file": "tutorials/token-frequency.md",
       "anchor": "help-token-frequency-section",
-      "label": "Token frequency overview"
+      "label": "Frequency overview"
     },
     "analysis.token-frequency.parameters": {
       "file": "tutorials/token-frequency.md",
       "anchor": "help-token-frequency-parameters",
-      "label": "Token frequency parameters"
+      "label": "Frequency parameters"
     },
     "analysis.token-frequency.results": {
       "file": "tutorials/token-frequency.md",
       "anchor": "help-token-frequency-results",
-      "label": "Token frequency results"
+      "label": "Frequency results"
     },
     "analysis.token-frequency.clear-results": {
       "file": "tutorials/token-frequency.md",
@@ -277,7 +302,7 @@
     "analysis.token-frequency.run": {
       "file": "tutorials/token-frequency.md",
       "anchor": "help-token-frequency-run",
-      "label": "Run token frequency"
+      "label": "Run Frequency"
     },
     "analysis.concordance.tab": {
       "file": "tutorials/concordance.md",
@@ -369,20 +394,25 @@
       "anchor": "help-topic-modeling-words-per-topic",
       "label": "Words per topic"
     },
+    "analysis.topic-modeling.color-by": {
+      "file": "tutorials/topic-modeling.md",
+      "anchor": "help-topic-modeling-color-by",
+      "label": "Colour by"
+    },
     "analysis.sequential-analysis.tab": {
       "file": "tutorials/sequential-analysis.md",
       "anchor": "help-sequential-section",
-      "label": "Sequential analysis overview"
+      "label": "Trends overview"
     },
     "analysis.sequential-analysis.parameters": {
       "file": "tutorials/sequential-analysis.md",
       "anchor": "help-sequential-parameters",
-      "label": "Sequential analysis parameters"
+      "label": "Trends parameters"
     },
     "analysis.sequential-analysis.results": {
       "file": "tutorials/sequential-analysis.md",
       "anchor": "help-sequential-results",
-      "label": "Sequential analysis results"
+      "label": "Trends results"
     },
     "analysis.sequential-analysis.clear-results": {
       "file": "tutorials/sequential-analysis.md",
@@ -392,7 +422,7 @@
     "analysis.sequential-analysis.time-column": {
       "file": "tutorials/sequential-analysis.md",
       "anchor": "help-sequential-time-column",
-      "label": "Time column selector"
+      "label": "Time or number column"
     },
     "analysis.sequential-analysis.frequency": {
       "file": "tutorials/sequential-analysis.md",
@@ -414,6 +444,11 @@
       "anchor": "help-annotation-setup",
       "label": "Annotation setup"
     },
+    "analysis.annotation.row-viewer": {
+      "file": "tutorials/annotation.md",
+      "anchor": "help-annotation-row-viewer",
+      "label": "Row viewer"
+    },
     "analysis.quotation.parameters": {
       "file": "tutorials/quotation.md",
       "anchor": "help-quotation-parameters",
@@ -433,6 +468,11 @@
       "file": "tutorials/quotation.md",
       "anchor": "help-quotation-context-length",
       "label": "Quotation context length"
+    },
+    "analysis.quotation.quote-types": {
+      "file": "tutorials/quotation.md",
+      "anchor": "help-quotation-quote-types",
+      "label": "Quote types"
     },
     "analysis.export.tab": {
       "file": "tutorials/export.md",
@@ -474,7 +514,7 @@
     "preprocessing.overview": {
       "file": "information/preprocessing.md",
       "anchor": "info-preprocessing-overview",
-      "label": "About Data Preprocessing"
+      "label": "About Data Builder"
     },
     "concordance.overview": {
       "file": "information/concordance.md",
@@ -489,12 +529,12 @@
     "sequential-analysis.overview": {
       "file": "information/sequential-analysis.md",
       "anchor": "info-sequential-analysis-overview",
-      "label": "About Sequential Analysis"
+      "label": "About Trends Analysis"
     },
     "token-frequency.overview": {
       "file": "information/token-frequency.md",
       "anchor": "info-token-frequency-overview",
-      "label": "About Token Frequency Analysis"
+      "label": "About Frequency Analysis"
     },
     "topic-modeling.overview": {
       "file": "information/topic-modeling.md",
@@ -517,6 +557,11 @@
       "file": "references/general.md",
       "anchor": "ref-general-platform",
       "label": "Cite LDaCA Wordflow"
+    },
+    "general.stop-word-lists": {
+      "file": "references/general.md",
+      "anchor": "ref-stop-word-lists",
+      "label": "Stop-word lists: sources and licences"
     }
   }
 }

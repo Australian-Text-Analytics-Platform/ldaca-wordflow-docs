@@ -10,8 +10,8 @@ working with another genre or English variety.
 
 - What do I select?
   Add one Data Block and choose its source text column. A fresh selector uses
-  the Data Block's Document Column Preference when available, while a reopened
-  Analysis keeps the exact column stored in its immutable request.
+  the Data Block's document column preference when available, while a reopened
+  result keeps the exact column it was made with.
 
 - Which engine should I use?
   **Built-in** runs the bundled local quotation engine and requires no service
@@ -19,17 +19,16 @@ working with another genre or English variety.
   operator; it does not accept an arbitrary service URL. Ask the operator for a
   valid ID and confirm that the service's data-handling policy is suitable.
 
-- What do Preview, Run All, and Review do?
-  **Preview** creates a Preview Analysis and computes requested pages from its
-  retained input snapshot. **Run All** may be started directly and creates an
-  independent Run All Analysis with a complete immutable table Result.
-  **Review** reads that Result directly and can page by highlighted documents
-  or raw quotation matches. **Add to Workspace** publishes selected
-  columns as a Derived Data Block only when you request it.
+- What do Preview and Run do?
+  **Preview** works out each page you open, from the data as it was when you
+  chose Preview. **Run** can be started directly and finds every quotation.
+  **Quotation Results** then shows the complete result and pages by quotation,
+  one per row; click a row to open Row Details scrolled to the quote. **Add to Project** publishes selected
+  columns as a new Data Block only when you request it.
 
 - How does sorting work?
   The `QUOTE_extraction` header sorts by the selected source text column, and
-  source metadata columns remain sortable. Generated quotation fields are
+  source metadata columns remain sortable. Generated quotation columns are
   display-only.
 
 - Where can I read more?
