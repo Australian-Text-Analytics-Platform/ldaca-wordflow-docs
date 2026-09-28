@@ -81,8 +81,8 @@ capitalisation should be displayed and filtered as one group.
 
 Choose **Run** to start. Settings are locked while it works. After it finishes,
 Run turns on again only when you change a setting that affects the counts.
-Minimum group count, Chart, Spacing, selection, visibility, and Ignore capitals
-only change what is shown, so they do not turn Run on. See
+Minimum group count, Chart, Spacing, Normalise to 100%, selection, visibility, and
+Ignore capitals only change what is shown, so they do not turn Run on. See
 [How Preview, Run and Clear work](./ui.md#help-ui-preview-run-clear).
 
 <h2 id="help-sequential-results">Result panel</h2>
@@ -96,7 +96,7 @@ period-selection controls together. Time column, period or interval, and
 Group By settings remain visible in the parameter panel instead of being
 repeated in the result.
 
-![Chart controls: Chart, Spacing, download, Select range, and zoom](tutorials/assets/sequential_analysis/chart_toolbar.png)
+![Chart controls: Chart, Spacing, download, and zoom](tutorials/assets/sequential_analysis/chart_toolbar.png)
 
 <h3 id="help-sequential-minimum-group-count">Minimum group count</h3>
 
@@ -116,10 +116,13 @@ with the threshold.
 
 <h3 id="help-sequential-chart-type">Chart type</h3>
 
-Three plot modes are available in the **Chart** list:
+Four plot modes are available in the **Chart** list:
 
 - **Line**: best for continuous trends across time, especially when groups overlap or you want to compare rates of change.
-- **Bars**: best for highlighting contrast between groups at each period.
+- **Bars**: best for highlighting contrast between groups at each period. Each period's groups sit side by side, and every other period has a light background so its bars read as one group.
+- **Stacked bars**: stacks each period's groups into one bar. Shows the total per period and its make-up, and fits many more periods than side-by-side bars. With **Normalise to 100%** every bar reaches 100%.
+
+When there are too many periods to draw bars at a readable width (side-by-side bars need more room than stacked ones), the chart shows only as many periods as fit and says so: drag the slider under the chart to move through the rest, or choose **Line** or **Area** to see every period at once.
 - **Area**: stacks all groups on top of each other. Works best when groups emerge or disappear over time and you want to see total volume alongside composition.
 
 <h3 id="help-sequential-x-axis">Spacing: Even or To scale</h3>
@@ -133,21 +136,34 @@ Dates on the chart and in its tooltip read the same in both spacings, in the tim
 
 **Empty periods.** A period with no rows at all is hidden in Even spacing and leaves a gap on the axis in To scale spacing. Within a period that is shown, a group with no rows counts as zero, so its line dips to zero rather than breaking: "no occurrences" is genuinely zero, not unknown.
 
-The vertical axis shows counts of rows and has no title. When nothing is grouped, the single series is named after the Data Block.
+The vertical axis shows counts of rows and has no title (percentages when **Normalise to 100%** is on). When nothing is grouped, the single series is named after the Data Block.
+
+<h3 id="help-sequential-normalise">Normalise to 100%</h3>
+
+Periods often hold very different amounts of data, for example many more tweets in an election week than in the month before. Select **Normalise to 100%** next to **Spacing** to show each group as a percentage of all rows in the same period instead of as a count. The groups in each period then add up to 100%, so you can compare how the mix of groups changes over time whatever the amount of data. Hover the checkbox for a short reminder.
+
+- The option appears when at least two groups meet the [minimum group count](#help-sequential-minimum-group-count). With one group every period would read 100%.
+- Each period's total counts every group listed in the legend, including hidden groups. Hiding a group therefore does not change the other percentages. Groups below the minimum group count are not counted, so changing that number can change the percentages.
+- A period whose listed groups have no rows at all has no percentage: the line breaks and no bar is drawn.
+- The tooltip shows each group's count with its percentage, for example *412 (37.5%)*.
+- In **Area** charts the stacked groups fill the chart up to 100% when none are hidden. **Bars** stay side by side.
+- The counts themselves do not change: the legend, **Add to Project** and selected periods still use counts of rows. A downloaded chart notes that its values are percentages.
+
+The setting is kept for the tab while the Project is open, like **Chart**, and is off by default.
 
 <h3 id="help-sequential-download">Download chart</h3>
 
-Click the download button (↓ icon) in the results header to export the chart. A dialog lets you choose SVG, PNG, or JPEG. The exported file includes a header block with the Data Block name, time column, period, and row counts, plus a legend.
+Click the download button (↓ icon) in the results header to export the chart. A dialog lets you choose SVG, PNG, or JPEG. The exported file includes a header block with the Data Block name, time column, period, and row counts, plus a legend. When **Normalise to 100%** is on, the header also says the values are percentages of all rows in each period.
 
 <h3 id="help-sequential-legend">Legend and group visibility</h3>
 
 The legend below the chart lists groups that meet the minimum group count, with
-their colours, full-result count, and share of the counts among currently
-visible groups, for example *Speeches (40 · 30.0%)*. Hover the information icon
+their colours, full-result count, and share of the counts across every listed
+group, hidden ones included, for example *Speeches (40 · 30.0%)*. Hover the information icon
 at the start of the legend for a reminder of this format. Percentages use one decimal place and do not change when periods
-are selected. When periods are selected, each visible label shows *selected/total*
+are selected or groups are hidden. When periods are selected, each visible label shows *selected/total*
 before the percentage, for example *(12/40 · 30.0%)*. Click any legend item to hide or show that group.
-Hidden groups retain their count detail, show **Hidden**, and use a strikethrough
+Hidden groups retain their count and share, show **Hidden**, and use a strikethrough
 label with reduced opacity.
 
 Use this to focus on a subset of groups. Hidden groups are not plotted and are
@@ -162,17 +178,15 @@ selected periods, zoom, chart type, and axis mode.
 
 <h3 id="help-sequential-zoom">Zoom and navigation</h3>
 
-Drag the ends of the slider under the chart to zoom along the horizontal axis, or drag its middle to move the zoomed range. The toolbar also provides keyboard-accessible **Zoom in**, **Zoom out**, and **Reset zoom** buttons. Scrolling with the mouse wheel or trackpad does not zoom, so scrolling the page never changes the chart. Zoom changes only the viewport: it does not change the analysis result or clear selected periods.
+Drag the ends of the slider under the chart to zoom along the horizontal axis, or drag its middle to move the zoomed range. The toolbar also provides keyboard-accessible **Zoom in**, **Zoom out**, and **Reset zoom** buttons. A plain scroll with the mouse wheel or trackpad scrolls the page, even over the chart. To zoom with the wheel, hold ⌘ on a Mac (Ctrl elsewhere) while scrolling over the chart. Zoom changes only the viewport: it does not change the analysis result or clear selected periods.
 
 <h3 id="help-sequential-period-selection">Period selection</h3>
 
 Click anywhere inside the plot to select the time period nearest the vertical axis pointer. You do not need to target a line point, bar, or area segment. Selected periods are shaded with a soft band across the chart, and in line and area charts their points become large solid dots while the other points stay small hollow circles; in bar charts, unselected bars are dimmed to 25 % opacity.
 
-To select a range, click one period then **Shift-click** another: all periods between them are selected.
+Click a selected period again to deselect it. To select a range, click one period then **Shift-click** another: all periods between them are selected. A reminder of this sits under the chart.
 
-For drag selection, turn on **Select range** and drag across the periods you want. A new drag replaces the current selection; **Shift-drag** adds the brushed range. Turn the mode off, or press **Escape** while the chart is focused, to return to point selection.
-
-With keyboard focus on the chart, use **Left Arrow**, **Right Arrow**, **Home**, and **End** to inspect points. Press **Enter** or **Space** to select the focused point; hold **Shift** to extend the existing selection semantics.
+With keyboard focus on the chart, use **Left Arrow**, **Right Arrow**, **Home**, and **End** to inspect points. Press **Enter** or **Space** to select the focused point, or **Shift+Enter** to select every period between it and the last one you selected.
 
 Use **Clear selection** to deselect all periods without losing any other settings.
 
@@ -230,7 +244,6 @@ visibility.
 | Chart | Line | |
 | Spacing | Even (hide empty periods) | Switch to To scale to show gaps in time |
 | Zoom | Full range | Use Reset zoom to restore the complete result |
-| Select range | Off | Turn on before dragging across periods |
 
 ## Practice exercise
 
@@ -238,7 +251,7 @@ visibility.
 2. Run the analysis with the **Monthly** period to see the overall trend.
 3. Switch to **Weekly** and compare the granularity.
 4. Add a category or text column (e.g. author, genre, or platform) as a Group By column and choose **Run** again.
-5. Zoom into a period of high activity, turn on **Select range**, and drag across several periods.
+5. Zoom into a period of high activity, click one period, then **Shift-click** another to select every period between them.
 6. Download the chart in the format you need and compare it with the monthly view.
 
 [← Back to tutorial index](./index.md)
