@@ -23,7 +23,9 @@ two corpora.
 Each Data Block has an independent sampling percentage. The default is 100%.
 Lower sampling makes exploratory runs faster but can hide rare themes or make
 small topics less stable. The label reports the effective document count, for
-example **Sampling (1,380 documents)**. The **Colour** square sets the Data
+example **Sampling (1,380 documents)**. The sample uses the **Seed** setting, so
+the same Seed and percentage always pick the same documents, whichever order the
+Data Blocks are in. The **Colour** square sets the Data
 Block's colour in the bubble chart and topic lists.
 
 ![Two Data Block cards with sampling, and the model settings below them](tutorials/assets/topic_modelling/parameters.png)
@@ -94,7 +96,7 @@ you choose a fixed value.
 
 Controls stochastic dimensionality reduction. The default is 0. Keep the same
 seed to reproduce a configuration, or compare several seeds to assess topic
-stability.
+stability. The same seed also picks each Data Block's sample.
 
 <h2 id="help-topic-modeling-run">Step 4: Run the analysis</h2>
 
@@ -219,8 +221,9 @@ Without **Colour by**, every bubble uses the same opacity.
 
 **Words per topic** controls how many representative words appear in the topic
 list, search, and hover cloud. The default is 15 and the range is 3-100. Enable
-the stopword filter to apply the Tab's saved list. You can choose a language or
-edit that list while filtering is off; the switch controls filtering only.
+the stopword filter to apply the Tab's saved list. Choosing a list from the
+dropdown switches the filter on if it was off. You can edit the list while
+filtering is off.
 The dropdown's **From other tabs** group lists stop words saved in your other
 Frequency or Topic Modelling tabs; **Wordflow classic lists** offers the built-in
 lists earlier Wordflow versions used; **Languages (stopword library)** offers
