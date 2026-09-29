@@ -45,10 +45,11 @@ analysis without loading a whole-corpus result into the browser.
   right. Their frequency columns count those values across the complete Run
   Result. Table view gives matched text strong source-colour emphasis, then
   highlights the last exact L1 occurrence in the left context and first exact
-  R1 occurrence in the right context with a softer tint. Empty, missing, or
-  case-mismatched anchors remain plain. **Highlight L1/R1 in context** is on by
-  default and controls only those inline tints for the current tab session;
-  direct L1/R1 cells remain plain.
+  R1 occurrence in the right context in bold source-colour text. Empty, missing, or
+  case-mismatched anchors remain plain. **Highlight L1/R1 for sorting** is on
+  by default and, for the current tab session, controls that L1/R1 colouring and
+  makes the left and right context headers sort by L1 and R1 (off, they sort by
+  their own text); direct L1/R1 cells remain plain.
 
 - **What do Preview and Run do?**
   **Preview** works out only the page you open. **Run** can be started
