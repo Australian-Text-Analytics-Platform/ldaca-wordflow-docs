@@ -1,7 +1,7 @@
 {
   "meta": {
-    "version": "0.7.9",
-    "generated": "2026-09-29"
+    "version": "0.7.10",
+    "generated": "2026-10-02"
   },
   "tutorial": {
     "ui.tool-choice": {
@@ -379,6 +379,16 @@
       "anchor": "help-topic-modeling-max-segment-tokens",
       "label": "Maximum tokens per segment"
     },
+    "analysis.topic-modeling.topic-size": {
+      "file": "tutorials/topic-modeling.md",
+      "anchor": "help-topic-modeling-min-cluster-size",
+      "label": "Topic size"
+    },
+    "analysis.topic-modeling.top-topics-per-row": {
+      "file": "tutorials/topic-modeling.md",
+      "anchor": "help-topic-modeling-top-topics-per-row",
+      "label": "Top topics per document"
+    },
     "analysis.topic-modeling.number-of-clusters": {
       "file": "tutorials/topic-modeling.md",
       "anchor": "help-topic-modeling-number-of-clusters",
@@ -428,6 +438,16 @@
       "file": "tutorials/sequential-analysis.md",
       "anchor": "help-sequential-frequency",
       "label": "Frequency selector"
+    },
+    "analysis.sequential-analysis.spacing": {
+      "file": "tutorials/sequential-analysis.md",
+      "anchor": "help-sequential-x-axis",
+      "label": "Spacing"
+    },
+    "analysis.sequential-analysis.legend": {
+      "file": "tutorials/sequential-analysis.md",
+      "anchor": "help-sequential-legend",
+      "label": "Legend"
     },
     "analysis.quotation.tab": {
       "file": "tutorials/quotation.md",
@@ -556,7 +576,7 @@
     "general.platform": {
       "file": "references/general.md",
       "anchor": "ref-general-platform",
-      "label": "Cite LDaCA Wordflow"
+      "label": "Cite Wordflow"
     },
     "general.stop-word-lists": {
       "file": "references/general.md",

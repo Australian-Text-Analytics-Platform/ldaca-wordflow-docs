@@ -30,6 +30,8 @@ The pencil icon next to the heading (**Edit visible views**) opens a list of the
 
 ![The Edit visible views list](tutorials/assets/ui/edit_visible_views.png)
 
+When Wordflow starts, the **Views** list is as tall as its entries, and it grows or shrinks when you show or hide a view with the pencil button beside the heading. Drag the line below it to choose a height yourself; that height then stays until Wordflow is started again. In a short window the list keeps the space the other sections need and scrolls.
+
 <h2 id="help-ui-data-selection">2. Data Blocks</h2>
 
 Below the tool list, the **Data Blocks** panel shows every Data Block in the active Project. It is both a quick selector and a live indicator of what is selected in the [Project Graph](#help-ui-workspace-graph-view) (section 4): selecting a Data Block here is equivalent to clicking the corresponding node in the graph, and the two panels always stay in sync. It is especially useful when the right column is hidden.
@@ -225,10 +227,9 @@ The centre column is the main working area and shows the interface of whichever 
 - The tool name and a short description appear at the top.
 - Sub-tabs (e.g. Filter, Group, Join, and Stack in the Data Builder) let you switch between related operations within the same tool.
 - Most tools follow a common workflow: configure parameters → review a preview → create the result. Data Builder tools always create new Data Blocks and leave their sources unchanged; the Data Editor's column tools always update the selected Data Block in place without changing its rows.
-<span id="help-ui-analysis-layout"></span>
-- In the analysis tools (Frequency, Concordance, Trends, Topic Modelling, Quotation, Annotation), the parameters sit above the results, and each part scrolls on its own. Once there are results, drag the bar between them to give either part more height, or use the arrow keys when the bar is focused; double-click the bar to go back to the default. Each tool remembers its own setting.
+- <span id="help-ui-analysis-layout"></span>In the analysis tools (Frequency, Concordance, Trends, Topic Modelling, Quotation, Annotation), the parameters sit above the results, and each part scrolls on its own. Once there are results, drag the bar between them to give either part more height, or use the arrow keys when the bar is focused; double-click the bar to go back to the default. Each tool remembers its own setting.
 - The main results (tables, lists, and charts) fill the space below the bar, sharing it when there are several, so the bar makes them taller or shorter. To size one result on its own, drag its bottom-right corner, as with the Stop words box; the others share the space that is left. Double-click the corner to let it fill the space again. For example, in Topic Modelling make the bubble chart shorter to give the topic lists more room. Word clouds keep their width-based height until you resize them.
-- Help icons (**?**) are placed next to individual controls and link directly to the relevant written Help section.
+- Help icons (**?**) are placed next to individual controls. Hover one for a short reminder of what the control does; click it to open the matching Help section with more detail. A blue **i** opens the **About** page for a tool, and a quote mark opens a reference (how to cite, or a source and its licence).
 - The arrows at the top of the window go back and forward between the tools you have visited. The search box beside them (**Open quick access**) lists the analysis tabs of the open Project, for example **Frequency: F-1**: type to filter them, and choose one to open it.
 
 ![Quick access list of analysis tabs](tutorials/assets/ui/quick_access.png)
@@ -292,7 +293,7 @@ The **Help** and **Feedback** buttons at the very bottom of the left sidebar pro
 - **Help** opens the built-in written guides in a floating window (the one you are currently reading). Clicking any **?** icon scrolls Help to the relevant section.
 - **Feedback** opens a form where you can report bugs, request features, or ask questions. Your feedback goes directly to the developer team. Please do not include any confidential information.
 - When something goes wrong, the message says what happened in plain words. Many messages also have **Details**: technical text that helps the developers find the problem. Use **Copy details**, then **Send feedback**, and paste the details into the form. If the same error keeps happening, please report it this way.
-- In the title bar, the icons beside the **Wordflow** name open **About Wordflow** (i) and **Cite LDaCA Wordflow** (quote mark). Select the **Wordflow** name to open the [Wordflow website](https://sih.tools/wordflow), where the desktop app can be downloaded, or the LDaCA logo to open the [LDaCA website](https://www.ldaca.edu.au/). Both open in a new tab (in the desktop app, in your web browser).
+- In the title bar, the icons beside the **Wordflow** name open **About Wordflow** (i) and **Cite Wordflow** (quote mark). Select the **Wordflow** name to open the [Wordflow website](https://sih.tools/wordflow), where the desktop app can be downloaded, or the LDaCA logo to open the [LDaCA website](https://www.ldaca.edu.au/). Both open in a new tab (in the desktop app, in your web browser).
 
 ![Wordflow name, About and Cite icons, and the LDaCA logo in the title bar](tutorials/assets/ui/title_bar.png)
 
