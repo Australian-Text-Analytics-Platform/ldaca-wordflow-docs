@@ -103,7 +103,7 @@ When two Data Blocks are selected, the Juxtorpus cloud appears below the clouds 
 - **Size** reflects combined frequency across both Data Blocks.
 - **Colour** shifts toward the Data Block where the word has the higher proportional share, so differences in corpus size do not dominate the palette.
 - Words are ranked by log₁₀(O<sub>S</sub> + O<sub>R</sub>) × LogRatio; the cloud shows the highest and lowest N words by that score (up to twice the cloud display limit).
-- The colour bar at the top shows which colour stands for the **Reference** corpus and which for the **Study** corpus.
+- The colour bar at the top names the **Reference** and **Study** Data Blocks beside their colours. A downloaded Juxtorpus cloud carries the same names and colours in a header and legend, so it can be read outside Wordflow.
 
 ![Juxtorpus cloud comparing the Study corpus (blue) with the Reference corpus (green)](tutorials/assets/token_frequency/juxtorpus.png)
 
@@ -156,7 +156,7 @@ Results created before Wordflow 0.7.8 measured the Reference corpus against the 
 
 The table is paged: use **Words per page** and the page controls below it. Sorting always applies to the whole table before paging.
 
-The full table can be downloaded as a CSV file; when the shared token filter is active, the download contains all matching rows. The CSV uses the same column names as the table, with each corpus's name added (for example `OR_speeches`), plus `Expected_…`, the count the token would have in that corpus if both corpora used it equally, and `Total_…`, the corpus's total number of tokens. For further reading on keyword analysis methodology, see the [Lancaster corpus linguistics resource](https://www.lancaster.ac.uk/fss/courses/ling/corpus/blue/l03_2.htm) and Paul Rayson's [log-likelihood and effect size calculator](https://ucrel.lancs.ac.uk/llwizard.html), which these formulas follow.
+The full table can be downloaded as a CSV file, in the order the table is sorted; when the shared token filter is active, the download contains all matching rows. The CSV uses the same column names as the table, with each corpus's name added (for example `OR_speeches`), plus `Expected_…`, the count the token would have in that corpus if both corpora used it equally, and `Total_…`, the corpus's total number of tokens. For further reading on keyword analysis methodology, see the [Lancaster corpus linguistics resource](https://www.lancaster.ac.uk/fss/courses/ling/corpus/blue/l03_2.htm) and Paul Rayson's [log-likelihood and effect size calculator](https://ucrel.lancs.ac.uk/llwizard.html), which these formulas follow.
 
 <h3 id="help-token-frequency-clear-results">Clear results</h3>
 

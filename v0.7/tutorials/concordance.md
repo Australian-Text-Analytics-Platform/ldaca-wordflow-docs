@@ -32,7 +32,10 @@ choose to display.
   it. A space, comma, or `|` between terms means *any of them*, not a phrase:
   `cat dog` finds every *cat* and every *dog*. A different word form is a
   different token (*went* does not find *go*). For a phrase or several word
-  forms, use Text mode with a regular expression.
+  forms, use Text mode with a regular expression. The tokeniser lowercases
+  tokens and drops punctuation, so Tokens mode always ignores capitals
+  (*apple* also finds *Apple*) and has no **Case sensitive** or **Ignore
+  punctuation** option.
 
 Running Tokens mode requires a tokeniser model for every selected Data Block.
 The selector saves each model as that Data Block's Tokeniser Preference,
@@ -60,7 +63,10 @@ In Text mode, tick **Use regular expression** to search for a pattern instead of
 
 Use [regex101.com](https://regex101.com/) (choose the **Rust** flavour) to test unfamiliar patterns. **Whole
 word** excludes partial-word matches, and **Case sensitive** keeps letter case
-distinct: with it ticked, *Apple* finds *Apple* but not *apple*. You can also
+distinct: with it ticked, *Apple* finds *Apple* but not *apple*. It also decides
+how the words just before and after a match (L1 and R1) are counted, and how
+the matched text, L1 and R1 sort: with it off, the default, *The* and *the*
+count as one word and sort together; their text keeps its own capitals. You can also
 ask a generative AI tool to write a pattern for you, but carefully review and
 test it before relying on the results. Whole word relies on spaces between words, so it does not apply to
 Japanese, Chinese, Thai, or other text written without them: there it matches
@@ -132,9 +138,11 @@ the table.
 **L1** (`CONC_l1`) is the token immediately left of the match and **R1**
 (`CONC_r1`) is the token immediately right. Their frequency columns count each
 value across the complete Run Result. The matched-text cell always uses
-strong source-colour emphasis. The last exact, case-sensitive L1 occurrence in
-the left context and the first R1 occurrence in the right context are shown in
-bold text in the source colour. Empty or unmatched anchors remain plain. The direct L1/R1
+strong source-colour emphasis. The last L1 occurrence in the left context and
+the first R1 occurrence in the right context are shown in bold text in the
+source colour. An exact match is used when there is one; otherwise capitals are
+ignored, because in Tokens mode L1 and R1 are lowercased tokens (*australian*
+marks *Australian* in the context). Empty or unmatched anchors remain plain. The direct L1/R1
 cells remain plain and available for sorting, frequencies, export, and
 **Add to Project**.
 
@@ -225,9 +233,11 @@ terms while preserving selected bins.
 
 ![Plot download dialog](tutorials/assets/concordance/download_dialog.png)
 
-Download the current chart as PNG, SVG, or JPEG. The export includes the
-visible term series, complete legend with hidden-state indication, and active
-bin and term-filter summary.
+Download the current chart as PNG, SVG, JPEG or **Interactive HTML**. An image
+download includes the visible term series, complete legend with hidden-state
+indication, and active bin and term-filter summary.
+
+**Interactive HTML** saves the chart as one web page that opens in any browser, offline: it shows the chart exactly as it is on screen (the same groups, selected bins, zoom and theme colours), and keeps its tooltips, a legend whose entries hide or show groups, and the zoom slider (hold Command on a Mac or Control on Windows while scrolling to zoom; plain scrolling moves the page). Its last line links to the Wordflow home page. It is a picture you can explore, not a copy of Wordflow: it cannot change the search or the terms, or add anything to a Project.
 
 <h3 id="help-concordance-metadata">Show metadata</h3>
 
@@ -251,7 +261,11 @@ applied to two Data Blocks at once.
 In Separated mode, each source has independent hidden terms and selected bins.
 In Combined mode, one frontend-only filter is applied separately to both
 source Results before their pages are interleaved. Terms, rather than sources,
-remain the chart series.
+remain the chart series: each line counts its term in both Data Blocks together,
+which keeps the chart readable with several terms and works for area and bar
+charts. A note under the chart title names the combined Data Blocks, and
+downloads list them as combined. For one chart per Data Block, choose Separated
+view.
 
 <h3 id="help-concordance-run-all">Run and Concordance Results</h3>
 
@@ -269,9 +283,21 @@ to each source. After Run, there is no page-local Found summary.
 After Run, separated Table view can sort selected metadata, the left and right
 contexts (by L1 and R1 while **Highlight L1/R1 for sorting** is on), matched
 text, L1/R1 and their frequencies across the complete Result. Sorting is
-case-sensitive, and empty values come first in either direction. Equal values
-have no guaranteed secondary order. The document header remains plain, and the
-combined table remains unsorted.
+case-sensitive, except that the matched text, L1 and R1 (and the contexts
+sorted by them) ignore capitals unless **Case sensitive** was on for the
+search, so *The* and *the* sort as one word. Empty values come
+first in either direction. Rows with equal values keep their order in the Data
+Block: by document, then by position in it, so matches of one word from one
+document stay together in reading order. Rows are shaded in alternate bands by
+source document, so consecutive matches from one document read as a group.
+Clicking a header again reverses the order; **Original order** in the source's
+header returns to the Data Block order. The document header remains plain, and
+the combined table remains unsorted.
+
+What you see is what you get: **Add to Project** from Table view writes the
+matches in the order each source's table shows, sorted or in Data Block order.
+Combined view is never sorted, so its Data Blocks keep the Data Block order, as
+do Data Blocks added from Dispersion view.
 
 After Run, the density chart always summarises the complete result, not only
 the visible page.
@@ -334,10 +360,10 @@ Preview and Run stay off until you choose **Clear**. See [How Preview, Run and C
 |---|---|---|
 | Search mode | Text | Select Tokens explicitly to enable tokeniser selection |
 | Left / Right context | 10 tokens each | Range 0–50 |
-| Whole word | Off | Text mode only |
+| Whole word | On | Text mode only; off while Use regular expression is ticked |
 | Regular expression | Off | Text mode only |
-| Case sensitive | Off | Text mode only |
-| Ignore punctuation | On | Text mode only; punctuation remains visible but does not consume context tokens |
+| Case sensitive | Off | Text mode only (Tokens mode always ignores capitals); also decides whether L1/R1 counts and sorting ignore capitals |
+| Ignore punctuation | On | Text mode only; punctuation remains visible but does not consume context tokens or become L1/R1; it never changes what the search or a regular expression matches |
 | Documents per page | 20 | Controls source documents evaluated per Preview page |
 | View | Table | Returning to Concordance starts in Table view |
 | Highlight L1/R1 for sorting | On | Local table-display state: L1/R1 shown in the source colour, and context headers sort by L1/R1; off, the contexts are plain text (matched text stays emphasised) and sort by their text |

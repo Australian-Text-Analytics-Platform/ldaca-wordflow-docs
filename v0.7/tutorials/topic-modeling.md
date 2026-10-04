@@ -140,7 +140,10 @@ show a fixed disabled control.
 
 The lower bound appears to the left of the slider. Change the topic count with
 either the slider or the number field on its right; both stay synchronised.
-Wordflow updates the topics once you finish changing either control. The current
+Wordflow updates the topics once you finish changing either control: when you
+release the slider, after a short pause in the arrow keys, or when you press
+Enter or leave the number field. The slider stays selected after each update, so
+the arrow keys can step the count again straight away. The current
 chart remains visible with
 **Updating topics…** until the new representative words, coordinates, sizes,
 and document assignments arrive. A failed request restores the previous value.
@@ -184,7 +187,8 @@ Each value counts the documents whose Top topics per document include the
 topic, the same rule as bubble size. To stop common values dominating, each
 count is divided by how many documents have that value, and the bubble blends
 the two values most over-represented in the topic, as in a two-corpus run. The
-hover card and topic list show every value's count, a legend under the graph
+hover card and topic list show every value's count and percentage (see
+[Counts and percentages](#help-topic-modeling-sizes)), a legend under the graph
 maps colours to values, and a downloaded graph includes that legend. Choose
 **Data Block colour** to return to the usual colouring. The choice is not
 saved and resets when you run the analysis again. No re-run is needed.
@@ -242,11 +246,38 @@ Each bubble is a discovered topic. Bubble size reflects source rows whose
 positive share for that Topic is within the displayed Top topics per document; in a
 two-corpus run, colour composition compares the Topic's share of each analysed
 corpus, then normalises those two shares for the colour blend. This prevents a
-larger corpus from dominating the colour solely because it has more rows. A row
+larger corpus from dominating the colour solely because it has more rows. With
+two Data Blocks, a **Bubble colour** legend under the graph names each Data
+Block beside its colour, and the blend between them; downloads carry the same
+legend. A row
 may count in multiple bubbles, so bubble totals need not equal the source-row
-count. Nearby bubbles have more similar topic representations. Bubbles may overlap, but positions are nudged apart just enough that no topic is hidden: the centre (and label) of the smaller of two bubbles always stays outside the larger one, the smaller bubble moves more, and bubbles stay as close to their original positions as possible. Smaller bubbles are drawn on top. Segments with **No topic** have no bubble. Topics with a total
+count. Nearby bubbles have more similar topic representations. Only closeness matters: left, right, up and down have no meaning, so the map is stretched to fill the chart area, from 2.5 times as wide as it is tall to 2.5 times as tall as it is wide, and is laid out again when you resize the chart. Bubbles may overlap, but positions are nudged apart just enough that no topic is hidden: the centre (and label) of the smaller of two bubbles always stays outside the larger one, the smaller bubble moves more, and bubbles stay as close to their original positions as possible. Smaller bubbles are drawn on top. Segments with **No topic** have no bubble. Topics with a total
 bubble count of zero are omitted from the graph but remain available in the
 Topic lists and Result data.
+
+<h4 id="help-topic-modeling-sizes">Counts and percentages</h4>
+
+The hover card and the topic list show a topic's size as one coloured chip per
+Data Block, or per value when **Colour by** is on, followed by the total. Each
+chip has two numbers, for example **296 · 7.9%**:
+
+- **The count** is how many documents from that group are in the topic. These
+  are the rows you get from that group when you add the topic to your Project.
+- **The percentage** is that count out of all the group's documents in this run
+  (after sampling). Hover over a chip to see both numbers, for example
+  *Senate: 353 of 2,871 documents (12.3%)*.
+
+The percentages in one topic do not add up to 100%, because each one is out of
+a different group. A topic that every group talks about can hold 70% of each
+group's documents, and a small topic may hold 2% of each.
+
+When **Top topics per document** is more than 1, one document can be in several
+topics. Then a group's percentages across all the topics can add up to more
+than 100%.
+
+The bubble colour compares these percentages, not the counts. That is why a
+group with few documents can colour a bubble with only a few of them: 1 of 15
+documents (6.7%) weighs about as much as 296 of 3,729 (7.9%).
 
 ![Hovering over a bubble shows its representative words and its counts in each corpus](tutorials/assets/topic_modelling/bubble_hover.png)
 
@@ -261,7 +292,10 @@ around. Select topics directly, or enable the lasso control and draw around
 several Topic centres. Lasso mode remains active and later strokes add to the
 filter shown in **All Topics**; use **Clear filter** in the graph toolbar to
 remove that accumulated filter without changing manually selected Topics.
-Search further narrows the filtered list. Click a topic in the chart or in **All
+Search further narrows the filtered list and fades the other topics in the
+graph. A topic matches when the search text is found in its words; `*` (any
+letters) and `?` (one letter) match within a single word, so `gs*` and `gs?`
+both find topics with *gst* wherever it is in their list. Click a topic in the chart or in **All
 Topics** to add it to **Selected Topics**; the **×** removes it and **Clear**
 removes them all.
 
@@ -312,6 +346,18 @@ for older results, re-run the analysis first.
 The download control exports the current panned and zoomed graph viewport. Its
 header records Data Block, cluster count, Top topics per document, random seed, and
 Topic count. CSV output still contains every topic and its current counts.
+
+Choose **Interactive HTML** to save the graph as one web page that opens in any
+browser, offline. It shows the graph exactly as on screen (positions, colours,
+selection rings and faded topics) and keeps three things to explore: hover a
+bubble for its words, sized by count, and the same size chips as the app
+(per colour-by value, or per Data Block); type in **Find topics** to highlight
+matching topics, with the same rules as the app's search; and drag to move, or
+hold Command (Mac) or Control (Windows) while scrolling to zoom. Once zoomed in,
+plain scrolling moves the graph in any direction; at full size it scrolls the
+page. **Reset view** returns to the whole graph. The last line
+links to the Wordflow home page. It cannot change the topics or
+add anything to a Project.
 
 <h3 id="help-topic-modeling-clear-results">Clear results</h3>
 

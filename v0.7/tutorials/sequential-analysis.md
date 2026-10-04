@@ -155,7 +155,9 @@ The setting is kept for the tab while the Project is open, like **Chart**, and i
 
 <h3 id="help-sequential-download">Download chart</h3>
 
-Click the download button (↓ icon) in the results header to export the chart. A dialog lets you choose SVG, PNG, or JPEG. The exported file includes a header block with the Data Block name, time column, period, and row counts, plus a legend. When **Normalise to 100%** is on, the header also says the values are percentages of all rows in each period.
+Click the download button (↓ icon) in the results header to export the chart. A dialog lets you choose SVG, PNG, JPEG or **Interactive HTML**. An image download has a header with the Data Block name, time column, period and groups, plus a legend; long headers wrap onto a second line. When **Normalise to 100%** is on, the header also says the values are percentages of all rows in each period.
+
+**Interactive HTML** saves the chart as one web page that opens in any browser, offline: it shows the chart exactly as it is on screen (the same groups, selected periods, zoom and theme colours), and keeps its tooltips, a legend whose entries hide or show groups, and the zoom slider (hold Command on a Mac or Control on Windows while scrolling to zoom; plain scrolling moves the page). Its last line links to the Wordflow home page. It is a picture you can explore, not a copy of Wordflow: it cannot change the Period, stop words or groups, or add anything to a Project.
 
 <h3 id="help-sequential-legend">Legend and group visibility</h3>
 
@@ -190,7 +192,7 @@ selected periods, zoom, chart type, and axis mode.
 
 <h3 id="help-sequential-zoom">Zoom and navigation</h3>
 
-Drag the ends of the slider under the chart to zoom along the horizontal axis, or drag its middle to move the zoomed range. The toolbar also provides keyboard-accessible **Zoom in**, **Zoom out**, and **Reset zoom** buttons. A plain scroll with the mouse wheel or trackpad scrolls the page, even over the chart. To zoom with the wheel, hold ⌘ on a Mac (Ctrl elsewhere) while scrolling over the chart. Zoom changes only the viewport: it does not change the analysis result or clear selected periods.
+Drag the ends of the slider under the chart to zoom along the horizontal axis, or drag its middle to move the zoomed range. The shape inside the slider is an overview of the whole result: the total of the groups shown, for each period, laid out like the chart, so with **To scale** spacing empty periods show as gaps there too. With **Normalise to 100%** on, the overview still shows counts. The toolbar also provides keyboard-accessible **Zoom in**, **Zoom out**, and **Reset zoom** buttons. A plain scroll with the mouse wheel or trackpad scrolls the page, even over the chart. To zoom with the wheel, hold ⌘ on a Mac (Ctrl elsewhere) while scrolling over the chart. Zoom changes only the viewport: it does not change the analysis result or clear selected periods.
 
 <h3 id="help-sequential-period-selection">Period selection</h3>
 

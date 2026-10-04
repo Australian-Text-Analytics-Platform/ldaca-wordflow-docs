@@ -67,6 +67,9 @@ Define one or more column-based filter conditions. The behaviour of each conditi
 - Click **Add condition** to add more conditions.
 - Select **AND** or **OR** to control how conditions are combined.
 - Check **Negate** on any individual condition to invert it.
+- For a number or a date column, **between** keeps the rows from the first
+  value to the second, both included; leave one end empty for an open range
+  (for example, ages from 26).
 - For a text column with the *contains* operator, tick **regular expression** to match a pattern instead of the exact text (see [Regular expressions](./ui.md#help-ui-regular-expressions)), and **case sensitive** to keep letter case distinct.
 - When a selected column contains missing values, a warning reports how many.
   Ordinary filter conditions do not match those rows; choose **is empty** to
@@ -122,7 +125,7 @@ The random sample option extracts a randomly selected set of rows.
 The random seed controls reproducibility. Using the same seed on the same data always produces the same rows.
 
 - Use any non-negative integer (e.g. 0).
-- Check **No random seed** to draw a truly random sample. Note that this makes the sample irreproducible and the randomness propagates to all child Data Blocks made from it.
+- Check **No random seed** to let Wordflow pick the seed: a new random draw each time you create a Data Block this way. The seed Wordflow picked is recorded in the new Data Block's description, so the Data Block keeps the same rows when you reload the Project or build on it, and you can reuse that seed to reproduce the draw.
 
 <h3 id="help-preprocessing-slice-new-node-name">New Data Block name</h3>
 
@@ -185,7 +188,7 @@ The Stack sub-tab puts two or more Data Blocks one below the other. Use it when 
 
 ![Column check screenshot](tutorials/assets/preprocessing/concat_schema_status.png)
 
-The **Column check** panel tells you whether all the Data Blocks share the same columns. If they don't, **These columns don't match** lists, for each Data Block, the columns it is missing, the extra columns it has, and any column whose type is different. Fix the column differences (e.g. by renaming or removing columns) before stacking.
+The **Column check** panel tells you whether all the Data Blocks share the same columns. If they don't, **These columns don't match** lists, for each Data Block, the columns it is missing, the extra columns it has, and any column whose type is different. Category columns match whatever their values; a category column and a text column of the same name do not, so change one of them in the Data Editor first. Fix the column differences (e.g. by renaming or removing columns) before stacking.
 
 <h3 id="help-preprocessing-concat-deduplicate">Deduplicate</h3>
 
