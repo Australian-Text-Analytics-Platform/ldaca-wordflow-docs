@@ -1,7 +1,7 @@
 {
   "meta": {
-    "version": "0.7.10",
-    "generated": "2026-10-04"
+    "version": "0.7.11",
+    "generated": "2026-10-07"
   },
   "tutorial": {
     "ui.tool-choice": {
@@ -394,6 +394,11 @@
       "anchor": "help-topic-modeling-number-of-clusters",
       "label": "Number of topics"
     },
+    "analysis.topic-modeling.topic-sampling": {
+      "file": "tutorials/topic-modeling.md",
+      "anchor": "help-topic-modeling-topic-sampling",
+      "label": "Topic sampling"
+    },
     "analysis.topic-modeling.random-seed": {
       "file": "tutorials/topic-modeling.md",
       "anchor": "help-topic-modeling-random-seed",
@@ -438,6 +443,11 @@
       "file": "tutorials/sequential-analysis.md",
       "anchor": "help-sequential-frequency",
       "label": "Frequency selector"
+    },
+    "analysis.sequential-analysis.group-by": {
+      "file": "tutorials/sequential-analysis.md",
+      "anchor": "help-sequential-group-by",
+      "label": "Group By columns"
     },
     "analysis.sequential-analysis.spacing": {
       "file": "tutorials/sequential-analysis.md",
