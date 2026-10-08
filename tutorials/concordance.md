@@ -106,9 +106,10 @@ source documents the current page evaluates: 10, 20, 50, 100, 200, 400, or
 800. A page can contain fewer visible rows because documents without a match
 are omitted, while a document with several matches contributes several rows.
 
-The footer reports the matches and matching documents found after processing
-the current source-document batch. An empty page does not mean later pages are
-empty.
+The footer reports the matches and matching documents found in the current
+page of documents, and how many of the Data Block's documents that page checked,
+for example "after checking 20 of 26,163 documents". No matches in a Preview
+does not mean the word is absent: choose **Run** to search every document.
 
 ![Preview footer: matches found so far and Documents per page](tutorials/assets/concordance/documents_per_page.png)
 
@@ -154,7 +155,9 @@ right context header sorts by R1, the usual way to read a concordance; each
 header's tooltip says so. Turn it off to show the contexts in plain text and sort each context
 alphabetically by its own text. With **Ignore punctuation** on, R1 can differ
 from the first word of the right context, so the two sorts can give different
-orders.
+orders. With it off, L1 or R1 can be a punctuation mark, and marks sort by
+character: commas, full stops and straight apostrophes come before letters,
+while curly apostrophes (’) come after them.
 
 The table leaves out where each match starts and ends in the document
 (`CONC_start_idx` and `CONC_end_idx`, character positions). A Data Block made
