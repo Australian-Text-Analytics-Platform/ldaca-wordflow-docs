@@ -118,7 +118,7 @@ To switch Projects without going to the Data Loader, use **Switch Project** at t
 
 - More of the graph is visible when you make the right column wider (drag its left edge) or give the graph more height (drag the line between the graph and the Data Editor). A copy is named after the original with `_copy` added (for example `speeches_copy`). Undo and Redo availability comes from that Data Block's current backend session history.
 - Use **Rename** beside the Project name in the title bar to rename the active Project.
-- To move around a large Project, drag an empty part of the graph, or scroll with two fingers on a trackpad (or with the mouse wheel). To zoom, pinch on a trackpad, or hold Ctrl (⌘ on a Mac) while scrolling.
+- To move around a large Project, drag anywhere on the graph, also over a Data Block, or scroll with two fingers on a trackpad (or with the mouse wheel). Data Blocks stay where the layout places them; they cannot be dragged. To zoom, pinch on a trackpad, or hold Ctrl (⌘ on a Mac) while scrolling.
 - To select several Data Blocks at once, hold Shift and drag a box around them, or switch the panel's drag button to **Drag to select** and drag without Shift. Every Data Block the box touches is added to the selection, as if you had clicked it. In **Drag to select** mode, drag with the right mouse button to move the graph.
 
 ![Project Graph control panel, with the drag-mode button showing its name](tutorials/assets/ui/graph_controls.png)
@@ -153,8 +153,9 @@ The **Data Editor** fills the bottom-right area. It shows the contents of the se
 ![Data Editor column tools, with the Add column menu open](tutorials/assets/ui/data_editor_tools.png)
 
 - **Column tools** in the Data Editor header (**Add column**, **Find & replace**, **Clean text**) change the selected Data Block without creating a new one, and never add, remove, or reorder rows:
-  - **Add column**: **Combine columns** (write a template such as `{title}: {body}`: type `{` to pick a column from a filtered list, or use **Insert column**; any other text, such as separators or labels, is kept as written, and columns of any type are joined as text; choose whether a missing value counts as blank text or leaves the combined value empty. A template with no column, such as `Hansard`, gives every row that same fixed value), **Count** (words, characters with or without spaces, or matches of a text or pattern, in a new column right of the source; words are runs of text between spaces or line breaks), **Copy column** (the copy is placed right of the original and named like a copied file, for example `text copy`, then `text copy 2`), **Extract text** (copy the matches of a text or pattern into a new column), and **Split column** (choose the number of columns, then type each delimiter and press Enter to add it: punctuation, a space, or several characters; tick **Also split at each new line** for line breaks; split from the left so the last column keeps the rest, or from the right so the first column keeps the rest).
+  - **Add column**: **Combine columns** (write a template such as `{title}: {body}`: type `{` to pick a column from a filtered list, or use **Insert column**; any other text, such as separators or labels, is kept as written, and columns of any type are joined as text; choose whether a missing value counts as blank text or leaves the combined value empty. A template with no column, such as `Hansard`, gives every row that same fixed value), **Count** (words, characters with or without spaces, or matches of a text or pattern, in a new column right of the source; words are runs of text between spaces or line breaks), **Copy column** (the copy is placed right of the original and named like a copied file, for example `text copy`, then `text copy 2`), **Extract text** (copy the matches of a text or pattern into a new column), **Map values** (see below), and **Split column** (choose the number of columns, then type each delimiter and press Enter to add it: punctuation, a space, or several characters; tick **Also split at each new line** for line breaks; split from the left so the last column keeps the rest, or from the right so the first column keeps the rest).
   - **Find & replace**: replace a text, in the same column or a new one.
+  - **Map values**: make a new column by typing a new value for each value of a column, for example to group parties into sides or fix spelling variants, without regular expressions. Each value is listed with its number of rows, 50 to a page, most common first; choose **A to Z, ignoring case** to bring variants such as *greens* and *Greens* together. Type the new value beside each one: values you have typed are suggested in the other boxes, so several values can share one group. A blank box leaves the cell empty, and a warning says how many rows will be empty. **Fill the rest** copies the original value into every blank box, so you need only type the changes. At most the 500 most common values are listed; a note says how many more there are, and whether they keep their value or become empty. Empty cells have their own **(empty)** row. Numbers and dates are listed and matched as shown, and the new column is text.
   - When a tool can write to **A new column, right of it**, the new column gets a suggested name (for example `text replaced`, `text cleaned`, or `text matches`) so the preview appears straight away. Press Tab to accept the grey suggestion and edit it, or type your own name.
   - Find & replace, Extract text, and Count match plain text as written. Tick **Use regular expression** to match a pattern instead; for example, a plain `.` finds only dots, while the regular expression `.` matches any character. See [Regular expressions](#help-ui-regular-expressions) for what a pattern is, with examples.
   - **Clean text**: trim spaces, collapse repeated spaces, change case (lowercase, UPPERCASE, Title Case), or remove punctuation, digits, web links, HTML tags, or XML tags and markup (declarations, comments, and CDATA wrappers too, with `&amp;`-style entities decoded), in the same column or a new one.
@@ -166,7 +167,7 @@ The **Data Editor** fills the bottom-right area. It shows the contents of the se
 ![Clean text open above the table: the text column is highlighted and the panel reports 1,779 rows changed](tutorials/assets/ui/column_tool_panel.png)
 
 - If you select another Data Block while a tool has unfinished settings, Wordflow asks whether to **Keep editing** or **Discard** them.
-- **Delete columns** opens a list of the Data Block's columns: tick the ones to remove (filter, **Select all**, **Select none**), then confirm. They are removed in one step, so a single **Undo** brings them all back. At least one column must remain.
+- **Delete columns** opens a list of the Data Block's columns, each followed by its first value as an example (*(empty)* when the column has none): tick the ones to remove (filter, **Select all**, **Select none**), then confirm. They are removed in one step, so a single **Undo** brings them all back. At least one column must remain.
 
 ![Delete columns dialog with three columns ticked](tutorials/assets/ui/delete_columns.png)
 
@@ -237,6 +238,7 @@ The centre column is the main working area and shows the interface of whichever 
 
 - The tool name and a short description appear at the top.
 - Sub-tabs (e.g. Filter, Group, Join, and Stack in the Data Builder) let you switch between related operations within the same tool.
+- Each analysis tool can hold several tabs, so you can keep several analyses side by side: **+** in the tab strip opens another. Tabs are on by default; to keep one tab in each tool, turn off **Enable multi-tab** under **Settings → General** (the **+** button's tooltip says so too). A hint at **+** offers **Turn off tabs…**, which shows the way there step by step.
 - Most tools follow a common workflow: configure parameters → review a preview → create the result. Data Builder tools always create new Data Blocks and leave their sources unchanged; the Data Editor's column tools always update the selected Data Block in place without changing its rows.
 - <span id="help-ui-analysis-layout"></span>In the analysis tools (Frequency, Concordance, Trends, Topic Modelling, Quotation, Annotation), the parameters sit above the results, and each part scrolls on its own. Once there are results, drag the bar between them to give either part more height, or use the arrow keys when the bar is focused; double-click the bar to go back to the default. Each tool remembers its own setting.
 - The main results (tables, lists, and charts) fill the space below the bar, sharing it when there are several, so the bar makes them taller or shorter. To size one result on its own, drag its bottom-right corner, as with the Stop words box; the others share the space that is left. Double-click the corner to let it fill the space again. For example, in Topic Modelling make the bubble chart shorter to give the topic lists more room. Word clouds keep their width-based height until you resize them.
@@ -272,8 +274,9 @@ What to expect:
 - **Settings are locked while a task runs.** Use **Stop** to cancel it. The
   running task also appears in **Tasks**.
 - **After a failure or a stop**, you can edit the settings again, but Preview
-  and Run stay off until you choose **Clear**. The message explains what went
-  wrong; **Details** has the technical text for a feedback report.
+  and Run stay off until you choose **Clear**. Annotation is the exception: its
+  Preview and Run replace the tab's earlier results, so they turn on again
+  without **Clear**. The message explains what went wrong; **Details** has the technical text for a feedback report.
 - **Results stay with the tab.** They are still there when you move to another
   tool, or close and reopen the Project.
 
@@ -324,19 +327,52 @@ The **Help** and **Feedback** buttons at the very bottom of the left sidebar pro
 
 <span id="help-ui-hint-system"></span>
 - Each of the nine functions can show brief **Contextual Hints** as you reach
-  useful milestones. Several hints may form a progressive sequence, but each
-  is acknowledged independently. Choose **Got it** or press **Enter** to
-  acknowledge the current version and continue to another milestone already
-  reached.
+  useful milestones. A hint never dims or blocks the page: it outlines what it
+  points at (pulsing when it is a button to click), and you can keep working
+  while it shows. Using what it points at, such as clicking the button or a
+  button in the area it outlines, does its job and counts as **Got it**; so
+  does choosing **Got it** or pressing **Enter**. The next hint
+  waits until your next click or key press, so you can first do what the hint
+  showed.
 - Choose **Not now** or press **Escape** to pause hints for the current function
   visit without acknowledging anything. Switching Analysis Tabs does not
   resume them; leave the function and return to retry the earliest eligible
   unacknowledged hint.
-- Contextual Hints can be disabled under **Settings → Guidance**. The same page
+- Contextual Hints are turned off, and back on, under **Settings → Guidance**.
+  A hint's **Turn off hints…** shows the way there: it points at the Settings
+  gear at the top right, then Settings points out **Guidance** and the
+  **Show contextual hints** option, which you untick yourself. The same page
   can reset acknowledgement history for the current user, causing eligible hint
   versions to appear again on this device.
 - A replayable **Guided Tour** is shown in Help only when one is available. A
   tour is started deliberately and is unaffected by the Contextual Hint switch.
+
+<span id="help-ui-suggestions"></span>
+- **Suggestions** appear when a result or run looks off, with a lightbulb
+  beside it, and a pulsing border marks the settings that may help while the
+  suggestion shows. They never stop you and need no closing: they fade once
+  you carry on with other things (typing in a field does not count), or choose
+  **Dismiss** to close one at once. Either way it comes back when the same
+  situation happens again. Buttons that lose work, such as
+  **Clear** and **Stop**, are named but never marked. Suggestions appear when:
+  - a Concordance **Preview** finds no matches in the documents it checked,
+    while the Data Block has more: show more **Documents per page**, or
+    **Run** to search them all;
+  - Topic Modelling puts most segments in one topic (try a lower **Max topic
+    size**), finds only a few topics, or leaves many documents
+    [Ungrouped](./topic-modeling.md#help-topic-modeling-ungrouped) (try a
+    slightly lower **Min topic size**, which may help only a little), then
+    **Run** again;
+  - a Topic Modelling run is still splitting or reading the text after five
+    minutes: reading takes most of a first run, so **Stop**, then lower
+    **Sampling** to read fewer documents;
+  - a Topic Modelling input is large (from about 15,700 documents or 66,000
+    segments): a sample of documents or segments gives a faster first run.
+- Clicking a disabled **Run** outlines what it is waiting for, such as an
+  empty **Tokeniser model** in Frequency.
+- Suggestions are turned off, and back on, under **Settings → Guidance**
+  (**Show suggestions**). A suggestion's **Turn off suggestions…** shows the
+  way there, as **Turn off hints…** does.
 
 <h2 id="help-ui-regular-expressions">Regular expressions</h2>
 

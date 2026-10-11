@@ -78,6 +78,9 @@ height, drag its bottom-right corner; double-click the corner to let it fill the
 space again. The height is shared by Manual, Preview, and Review, and the table
 scrolls inside its frame when a page does not fit.
 
+Drag a column header's grip to move the column; a correction column and its
+arrow stay beside the annotation column. The tab remembers the order.
+
 **Compare to** and **Show metadata** are exclusive roles: a selected column is
 disabled in the other menu, and **Select all** skips disabled columns. The
 active correction column appears in neither menu. Add a correction column when
@@ -114,14 +117,41 @@ Analysis; groups with fewer examples contribute every usable row.
 
 **Advanced settings** include the instruction prompt, the settings for the
 selected provider, and the Run settings. Each provider's settings offer
-**Thinking** (the model thinks step by step before it answers: slower, but
-often more accurate) and, where the model uses it, **Temperature** (lower gives
-more consistent answers). Anthropic has no temperature setting. Below them,
-the Run settings apply to every provider: **Which rows to annotate** (**Annotate
-all rows again**, or **Only rows without an annotation**), **Rows per request**
-(how many rows go to the model at once), and **Retries if a request fails**. Defaults are a good
+**Thinking** (the model reasons before it answers; see
+[Thinking](#help-annotation-thinking) for when to turn it on) and, where the
+model uses it, **Temperature** (lower gives more consistent answers). Anthropic
+has no temperature setting.
+Below them, the Run settings apply to every provider: **Which rows to
+annotate** (**Only rows without an annotation**, the default, or **Annotate all
+rows again**), **Rows per request** (how many rows go to the model in each
+request), **Requests at once** (how many requests Run sends at the same time:
+2 for a Custom provider, 10 for the others, kept for each provider), and
+**Retries if a request fails**. A server on your own computer usually works on
+one or two requests at a time; set **Requests at once** to its own limit, so
+requests don't wait in its queue until they time out. Defaults are a good
 starting point. Change one setting deliberately, because provider capability,
 cost, latency, and repeatability vary by model.
+
+<h3 id="help-annotation-thinking">Thinking</h3>
+
+**Thinking** is off by default. With it off, the model answers with the labels
+straight away, so Preview and Run are much faster and cost less.
+
+Turn it on when the codes are complicated: subtle distinctions, codes that
+depend on irony or stance, or descriptions with several conditions. The model
+then reasons before it answers, which can make the labels more precise. The
+trade-off is cost and speed: the reasoning can take thousands of extra output
+tokens per request, which you pay for, and each request takes longer.
+**Thinking effort** (low, medium or high) sets how much room the model has to
+think; more room can help hard cases and costs more.
+
+To decide, Preview the same rows with **Thinking** off and on, and compare both
+with rows you have labelled yourself. Keep it on only if the labels clearly
+improve.
+
+Not every model can think. For a Custom provider, **Thinking** off also turns
+off the thinking of models that think by default, such as Qwen on oMLX or vLLM;
+turn it on if you want them to think.
 
 <h3 id="help-annotation-preview">Preview</h3>
 
@@ -129,8 +159,10 @@ Choose **Preview** to see predicted labels for a sample of rows without writing
 to the annotation column. Page through the predictions,
 compare them with existing labels, add corrections if useful, then revise the
 Codebook, examples, model, or settings when the errors show a pattern.
-Preview waits as long as the provider allows; choose **Stop** when you no longer
-want to wait. After a Preview, the button turns on again when you change a
+Pages you have seen are kept with the tab and saved with the Project, so going
+back to a page, reloading or reopening the tab doesn't ask the provider again;
+a new Preview or **Clear** removes them. Preview waits as long as the provider
+allows; choose **Stop** when you no longer want to wait. After a Preview, the button turns on again when you change a
 setting. See [How Preview, Run and Clear work](./ui.md#help-ui-preview-run-clear).
 
 <h3 id="help-annotation-run-all">Run and review</h3>
@@ -143,7 +175,34 @@ controls. A reviewed
 correction column can also be selected as the Example annotation column for a
 later run.
 
-A provider-wide failure is shown in Annotation and Tasks and writes no labels.
+Run sends each distinct text once: rows with the same text, such as repeated
+replies or retweets, share one answer, so the provider is asked (and paid) only
+once for them. While Run works, **Tasks** shows how many texts are classified so
+far, about how long is left, any failed batches, and that the run is waiting for
+the AI provider between answers. A slow provider can take minutes per batch; the
+run is still alive while Tasks keeps updating.
+
+The labels that have come back are kept as the run goes, in a temporary Data
+Block named after yours with *annotation in progress* (the text column and the
+annotation column, one row per distinct text). When the run finishes, its labels
+go into the annotation column and the temporary Data Block is removed. If the run
+stops before that (you click **Stop**, close the tab, Wordflow or the computer
+restarts), the temporary Data Block stays, so the labels already paid for are not
+lost. The Annotation tab then offers **Write them into the column**, which fills
+the rows with those texts and keeps every other value, and **Remove**. After
+writing them, it says which rows the next Run sends. With the default, **Only
+rows without an annotation**, Run sends only the rest; if the tab is set to
+**Annotate all rows again**, it offers **Annotate only the empty rows**. The tab
+keeps that choice for later Runs; change it in **Advanced settings**. You can
+also join the temporary Data Block to your Data Block on the text column
+yourself.
+
+A request that times out or finds the provider busy is tried again (see
+**Retries if a request fails**). If it still fails, its rows count as failed and
+the run goes on. If three requests in a row fail that way, or the provider never
+answers, the run stops; the labels that came back are kept as above. Other
+provider-wide failures, such as a wrong API key, are shown in Annotation and
+Tasks and write no labels.
 When only individual rows cannot fit the provider context or produce a valid
 response, successful rows are published and a warning reports failed rows and
 batches. Failed rows keep their existing values in **Annotate all rows again** and
@@ -162,8 +221,9 @@ the latest manual edit, AI write, or column creation. Undo history lasts only
 until the Project is closed.
 
 Settings are locked while Preview or Run is working. After a failure or a stop,
-you can edit the settings again, but Preview and Run stay off until you choose
-**Clear**. Tables on screen keep the settings of the Preview, Run or Start that
+you can edit the settings and choose Preview or Run again straight away; the new
+Preview or Run replaces the tab's earlier results, so **Clear** is not needed
+first. Tables on screen keep the settings of the Preview, Run or Start that
 made them while you edit the next setup. See [How Preview, Run and Clear work](./ui.md#help-ui-preview-run-clear).
 
 Before using labels downstream, sample every code, inspect uncertain or costly

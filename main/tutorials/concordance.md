@@ -245,7 +245,15 @@ indication, and active bin and term-filter summary.
 <h3 id="help-concordance-metadata">Show metadata</h3>
 
 Open **Show metadata** and tick the source columns to display beside matches; the
-number in brackets shows how many are shown.
+number in brackets shows how many are shown. The analysed text column is in the
+list too, unticked at first. With a long list, type in the box at the top to
+find a column by name.
+
+To move a column, drag the grip at the left of its header (or focus the grip,
+press Space, move with the arrow keys and press Space again). Clicking the rest
+of a header still sorts. A column can go anywhere, for example before the left
+context or between L1 and R1. The tab remembers the shown columns and their
+order, and **Add to Project** and downloads of the matches keep the same order.
 With two Data Blocks, common columns and source-specific columns are grouped
 and colour-coded. Generated Concordance columns are already part of the Result
 and do not become source-metadata sort keys.
@@ -310,9 +318,20 @@ Project**. It opens the same window, with the same column choices, and saves
 the table as CSV or Excel (a ZIP when you choose several sources), in the
 order the table shows, without adding anything to the Project.
 
+The document column is ticked and marked *recommended*: with it you can check
+each result against the original text later. **Select none** leaves it ticked;
+only unticking it yourself leaves it out. Excel cells hold at most 32,767
+characters, so a long document cannot go in an Excel file. Untick the document
+column to download the other columns as Excel;
+its character positions (`CONC_start_idx` and `CONC_end_idx`) are left out with it, since they only make
+sense with the document. Excel also breaks a CSV with such long text into extra
+rows when it opens the file, so the columns no longer line up; the CSV itself
+is correct and opens properly in other programs.
+
 Use **Add to Project** to create new Data Blocks after reviewing the
 result. From Table view, **Add Concordance Matches to Project** creates a Data
-Block with one row per match and the columns you select. From Dispersion view,
+Block with one row per match and the columns you select; the document column
+is recommended and starts selected, and you can untick it. From Dispersion view,
 **Add Concordance Documents to Project** creates a Data Block with one row per
 qualifying original row. It contains the required original document, required
 `CONC_extraction` (surviving KWIC extractions joined with plain newlines), and
