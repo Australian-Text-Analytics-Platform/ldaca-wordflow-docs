@@ -65,7 +65,9 @@ To see more rows at once, drag the table's bottom-right corner down
 
 Click a row to inspect the full source document in Row Details, which opens
 scrolled to the highlighted quote. The metadata selector (**Show metadata**)
-can add source columns and generated quotation columns to the table. Date and
+can add source columns and generated quotation columns to the table; drag a
+header's grip to move its column, and the tab, **Add to Project** and downloads
+keep that order. Date and
 date-time columns are shown as dates. The
 `QUOTE_extraction` document header sorts by the selected text column. Other
 metadata headers can be sorted too. Generated quotation headers cannot be
@@ -90,13 +92,46 @@ Details**, where the document scrolls to the quotation and the metadata below
 it shows which document the extract comes from. After Run, the results do not
 show the Preview page summary.
 
+Run uses several processor cores at once (half of those available, up to 8,
+fewer when memory is short), and each distinct text is checked once. While it
+works, **Quotation Results so far** shows the quotations found in order and
+updates every few seconds; sorting, downloads and **Add to Project** wait
+until the Run finishes or is stopped.
+
+**Stop** keeps what the Run has found: it finishes the few documents it is
+checking at that moment, which takes a few seconds, then shows everything
+found as the result, marked *Stopped early* with the number of documents
+checked, and you can download it or add it to the Project. Choose **Stop**
+again to end the Run straight away. When a Run is ended that way, fails, or
+Wordflow or the computer restarts, the quotations found are kept in a Data
+Block named after yours and the text column, with *quotations in progress*.
+Each text column keeps its own, so you can search another column in between
+and come back.
+
+While such quotations are kept for the selected Data Block, text column and
+engine, **Run** reads **Resume**: it continues from where the last Run
+stopped, without choosing **Clear** first. To check every document again
+instead, choose **Remove** on the note about the kept quotations; the button
+then reads **Run**. A complete Run removes the kept quotations.
+
 To save the Result table as a file instead, click the download icon beside
 **Add to Project**: choose the same columns, then CSV or Excel. Nothing is
 added to the Project.
 
+The document column is ticked and marked *recommended*: with it you can check
+each result against the original text later. **Select none** leaves it ticked;
+only unticking it yourself leaves it out. Excel cells hold at most 32,767
+characters, so a long document cannot go in an Excel file. Untick the document
+column to download the other columns as Excel;
+its character positions (`QUOTE_..._start_idx` and `QUOTE_..._end_idx`) are left out with it, since they only make
+sense with the document. Excel also breaks a CSV with such long text into extra
+rows when it opens the file, so the columns no longer line up; the CSV itself
+is correct and opens properly in other programs.
+
 Use **Add to Project** to publish selected Result columns as a new Data
-Block. The document column is required, metadata columns start unselected, and
-analysis columns start selected. You can run Quotation on that Data Block again:
+Block. The document column and the analysis columns start selected, and
+metadata columns start unselected; the document column is recommended, and
+unticking it also leaves out its character positions. You can run Quotation on that Data Block again:
 the new run replaces its Quotation columns (`QUOTE_extraction`, `QUOTE_speaker`,
 `QUOTE_quote`, `QUOTE_verb`, `QUOTE_quote_type` and the other `QUOTE_` fields)
 with its own, so it keeps one set; a column of yours with one of these names is
@@ -135,8 +170,9 @@ in other software.
 
 The tab keeps its results when you move to another tool or reopen the Project.
 **Clear** removes them. Settings are locked while Preview or Run is working,
-and **Stop** cancels it. After a failure or a stop, Preview and Run stay off
-until you choose **Clear**. See [How Preview, Run and Clear work](./ui.md#help-ui-preview-run-clear).
+and **Stop** stops it (a Run keeps what it found, see above). After a failure
+or a Run ended with a second **Stop**, Preview and Run stay off until you choose **Clear**
+(unless **Resume** is offered). See [How Preview, Run and Clear work](./ui.md#help-ui-preview-run-clear).
 
 <h2 id="help-quotation-troubleshooting">Troubleshooting</h2>
 
