@@ -1,7 +1,7 @@
 {
   "meta": {
-    "version": "0.7.11",
-    "generated": "2026-10-08"
+    "version": "0.7.12",
+    "generated": "2026-10-11"
   },
   "tutorial": {
     "ui.tool-choice": {
@@ -384,6 +384,16 @@
       "anchor": "help-topic-modeling-min-cluster-size",
       "label": "Topic size"
     },
+    "analysis.topic-modeling.max-topic-size": {
+      "file": "tutorials/topic-modeling.md",
+      "anchor": "help-topic-modeling-max-cluster-size",
+      "label": "Max topic size"
+    },
+    "analysis.topic-modeling.ungrouped": {
+      "file": "tutorials/topic-modeling.md",
+      "anchor": "help-topic-modeling-ungrouped",
+      "label": "Ungrouped"
+    },
     "analysis.topic-modeling.top-topics-per-row": {
       "file": "tutorials/topic-modeling.md",
       "anchor": "help-topic-modeling-top-topics-per-row",
@@ -473,6 +483,11 @@
       "file": "tutorials/annotation.md",
       "anchor": "help-annotation-setup",
       "label": "Annotation setup"
+    },
+    "analysis.annotation.thinking": {
+      "file": "tutorials/annotation.md",
+      "anchor": "help-annotation-thinking",
+      "label": "Thinking"
     },
     "analysis.annotation.row-viewer": {
       "file": "tutorials/annotation.md",
