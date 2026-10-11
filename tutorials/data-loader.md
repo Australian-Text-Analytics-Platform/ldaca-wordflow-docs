@@ -18,9 +18,11 @@ for saving and closing.
 <h3 id="help-data-loader-upload-button">Choose or drop files</h3>
 
 Local files opens by default. Choose **Choose files…** or drop files onto Data
-Loader or the exposed graph. Supported formats are CSV, TSV, Parquet, JSON,
-JSONL and NDJSON. Choosing or dropping files starts importing immediately, with
-all columns included. The Rust browser preview accepts absolute paths on its host.
+Loader or the exposed graph. Desktop also provides **Choose folders…**. Supported
+table formats are CSV/TSV, JSON/JSONL/NDJSON, Parquet, Avro, Arrow/IPC/Feather and
+XLSX/XLS/XLSM/XLSB/ODS. Text extensions are TXT, TEXT, MD, RST and LOG. ZIPs and
+folders can contain both texts and tables. The Rust browser preview accepts
+absolute paths on its host.
 
 **Recent files** shows filenames, parent folders, file-type icons and current file
 sizes. Click one to import it again, or drag it onto Data Loader or the graph.
@@ -29,18 +31,36 @@ unavailable**. Recent files update after a successful import.
 
 <h3 id="help-data-loader-add-button">Import into the project</h3>
 
-Each file creates a Data Block named after the file. If that name already exists,
+Each table file creates a Data Block named after the file. If that name already exists,
 a numeric suffix is added. Rename the Data Block or remove unwanted columns
-after import using its menu and Data Viewer. There is no staging or confirmation
-step for these formats. Excel workbooks are not currently supported.
+after import using its menu and Data Viewer. Ordinary files and text-only folders
+import immediately. Mixed folders/ZIPs and multi-sheet workbooks show content
+choices, with all files and sheets initially selected. Workbook outputs use
+`file_sheet` names; sheet choices appear only when a workbook has multiple sheets.
+
+Texts combine into one Data Block, with one whole file per row and columns
+`file_path`, `base_name`, `extension` and `document`. Rows follow relative-path
+order. Hidden paths, `__MACOSX` and links are ignored. Nested ZIPs and unsupported
+files are skipped and reported. Invalid UTF-8 text is also skipped and reported.
+Overlapping selections import each file once. A malformed table aborts the complete
+selection without adding any Data Blocks.
 
 Follow progress or cancel in **Tasks**. You can import more files or switch sources
 while an import runs. Failed imports leave the project unchanged; select the file
-again to retry.
+again or use **Retry** beside the original error.
+
+On the server, browse folders and select files/folders together. Texts use the
+name `folder_selection` or `selected_files`. Folder creation, Move, Delete and
+ZIP download operate on the selected entries; ZIP downloads preserve folders.
+Upload cards show byte progress, then **Finishing…** until the server acknowledges.
+They remain visible when you leave the file list. A late cancellation may leave
+the uploaded file on the server: use **Refresh destination** to check, or
+**Dismiss** to remove its explanatory card. Receiving folders and their ancestors
+cannot be moved or deleted until upload cleanup finishes.
 
 Local data is stored inside the project. Imports preserve an internal raw Table
 and show a View over it. You can move or remove the original file afterward.
-To edit stored cells, choose **Materialize**, then **More → Edit Table**.
+To edit stored cells, choose **Materialise**, then **More → Edit Table**.
 New Data Blocks appear in the graph and sidebar without changing selection or
 opening the Data Viewer. Use **Preview data** or select a sidebar row to inspect them.
 
@@ -57,16 +77,20 @@ Views keep their original revision when newer samples are published.
 
 <h2 id="help-data-loader-import-ldaca-button">LDaCA</h2>
 
-Open **LDaCA**, search by keyword or collection ID, and use the collection and
-file-type filters to narrow the results. **Manage Portal access** opens
-**Settings → Portal** when a collection requires credentials. Data Loader uses
-the configured token automatically. Public collections need no token; credentials
-never enter the project. See [the interface guide](./ui.md) for storage choices.
+Open **LDaCA** to browse collections. **Filter collections** narrows loaded names
+and descriptions immediately. You can also search by keyword or collection ID,
+then use the collection and file-type filters. Expand **Access token** to enter
+an **LDaCA access token**, then choose **Refresh collections** to update access.
+The token stays in this window, including when switching projects, and is not
+saved in settings or the project. Reloading the window discards it.
 
 Review each result's source, access information and licence. **Details** exposes
 the complete description and identifier; the title opens its source portal page.
-Choose **Import** to embed an importable collection in the project. Search results
-remain available afterward.
+Choose **Import** to embed accessible text and metadata, or **Import metadata only**
+for public metadata without downloading text. Restricted text remains disabled.
+Member crates import together atomically. Invalid text encoding is replaced,
+with affected files reported and their rows retained. Search results remain
+available afterward; failures retain their diagnostic and **Retry**.
 
 All imports appear in **Tasks**, which owns progress and cancellation. You can
 switch sources or leave Data Loader while accepted work continues. Cancelling

@@ -12,7 +12,7 @@ source Table; a saved AI result is a report of its Run.
 1. Add one Data Block and choose its document column.
 2. Choose an annotation destination, or create a string column. AI Preview does
    not require a destination. To write labels into a View, explicitly choose
-   **Materialize in place** first.
+   **Materialise in place** first.
 3. Select a Codebook and its code and description columns. **Create Codebook**
    creates an empty Table; **Edit Codebook** opens staged editing. Views can be
    used as read-only Codebooks.
@@ -55,7 +55,7 @@ are different. Without a Codebook, nonblank labels are eligible. Comparison and
 metadata roles are disjoint, and document/annotation/correction columns retain
 their dedicated roles. Metadata stays beside the labels in a horizontally
 scrollable table. The table defaults to ten rows per page; drag its bottom-right
-resize handle to adjust its shared height, bounded by the window.
+resize handle to adjust its shared height, bounded by the window. Click row text or whitespace to open read-only Row Details. It includes all source fields, current unsaved label/correction drafts and comparison masks. Previous/Next follows the current filtered and sorted pages without saving edits.
 
 <h2 id="help-annotation-ai">AI workflow</h2>
 
