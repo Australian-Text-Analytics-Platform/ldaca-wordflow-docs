@@ -1,7 +1,7 @@
 {
   "meta": {
-    "version": "0.7.12",
-    "generated": "2026-10-11"
+    "version": "0.7.14",
+    "generated": "2026-10-14"
   },
   "tutorial": {
     "ui.tool-choice": {
@@ -550,6 +550,11 @@
       "file": "information/general.md",
       "anchor": "info-general-overview",
       "label": "About Wordflow"
+    },
+    "general.new-versions": {
+      "file": "information/general.md",
+      "anchor": "info-general-new-versions",
+      "label": "New versions"
     },
     "data-loader.overview": {
       "file": "information/data-loader.md",
