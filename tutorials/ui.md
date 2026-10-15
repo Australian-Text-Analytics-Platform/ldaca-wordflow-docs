@@ -62,7 +62,10 @@ hidden and unregistered objects across user schemas without evaluating View rows
 The sidebar and Builder inputs continue to use visible Data Blocks.
 
 - Click a card to toggle selection. Its eye button opens or closes its preview.
-- Double-click a card or use **Add to tool** to choose Builder inputs.
+- Double-click a card or use **Add to tool** to choose inputs for the active tool.
+  Plain drag previews a transfer to an input panel. Hold **Command** on macOS or
+  **Ctrl** elsewhere while dragging to move the graph card. Double-click does not
+  zoom the graph.
 - Hover or keyboard-focus a card to use Rename, Clone, Export and Delete. Views
   also offer Materialise, Edit SQL definition and one query-layer Undo. Tables
   offer Edit Table with its own Save/Cancel session.
@@ -70,7 +73,8 @@ The sidebar and Builder inputs continue to use visible Data Blocks.
   View row counts. Unavailable objects retain their diagnostic.
 - Keep normal pan/zoom gestures, or enable **Box selection** and drag a rectangle.
   Middle/right drag remains available for panning in selection mode. The control
-  panel also has Zoom in, Zoom out, Zoom to fit and Clear selection.
+  panel also has Zoom in, Zoom out, Fit view and Clear selection. Fit stops at
+  a readable minimum zoom of 0.35; manual zoom keeps its existing limits.
 - Delete opens the complete SQL-dependent closure for review. Untick entries to
   keep them; keeping a dependent also keeps selected sources it requires. Confirm
   one atomic deletion. A changed dependency or engine constraint leaves the
@@ -92,6 +96,9 @@ cloning and creating Data Blocks do not replace your current preview.
 Page, sort, column widths and presentation choices are remembered for each Data
 Block in this window. Reset sort clears sorting and returns to page one. The
 header and controls remain available while pages load or fail.
+
+The Editor's **Download Data Block** button exports all committed rows as CSV,
+XLSX, JSON or Parquet. An unapplied edit preview does not change this download.
 
 Double-click a Data Block or column name to rename, or use its menu. Newly entered
 names trim outer whitespace; existing exact names and internal whitespace remain.
@@ -166,11 +173,17 @@ window closes. Public collections work without a token.
 **Storage** shows the application's resolved folders and web project/data
 libraries. Web locations are on the server or worker, not your local computer.
 Desktop can open existing folders; web can copy their paths. This page does not
-change storage locations.
+change storage locations. **Inspect cache sizes** reads reusable token and
+embedding cache sizes on demand. Each **Clear** requires its own confirmation and
+is unavailable while that cache is in use. Models, assets, projects and saved
+analysis outputs are retained. After clearing embeddings, a Topic adjustment may
+ask you to Rerun if it needs segment vectors that are no longer cached.
 
 **Guidance** enables contextual hints and resets their history after confirmation.
 Hints explain the active tool's setup, main action, results and next steps.
-An outline highlights the area the hint explains. **Got it** remembers the hint;
+An outline highlights the area the hint explains. **Got it** or using the target
+control remembers the hint and removes its outline. Another hint waits until a
+later user action;
 **Not now**, its close icon, clicking outside or Escape pauses hints until the
 next visit to that tool. **Disable hints** turns
 them off. Hints leave keyboard focus alone and pause during dialogs, editing or
@@ -179,6 +192,9 @@ running work. Resetting history keeps your current enable choice.
 <h2 id="help-ui-help-feedback">Help and Feedback</h2>
 
 Help opens bundled guides with a pinned title, partner logos and zoom controls.
+The desktop **Help → Wordflow Help** menu opens the Help home. On macOS, the
+native Help search also finds bundled Wordflow sections. Help stays available
+while an analysis is running.
 A **?** opens its section once below the header. Information and References use
 the same viewer. References shows the application version, acknowledgement
 citation, concept DOI and contributors.

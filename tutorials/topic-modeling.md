@@ -9,6 +9,8 @@ Topic modelling discovers recurring themes in a collection. Wordflow divides
 each document into **Topic Segments**, embeds those segments, groups similar
 segments, and rolls their topic assignments back up to each source document.
 
+<img src="tutorials/assets/ui/topic_results.png" alt="Native Topic results with retained-stage controls, source counts and an explanation of Colour by availability" width="2582" height="1800" />
+
 <h2 id="help-topic-modeling-parameters">Parameter panel</h2>
 
 <h3 id="help-topic-modeling-data-block">Step 1 — Select your data</h3>
@@ -45,7 +47,7 @@ used for every selected Data Block.
 
 | Method | Boundary behavior | Oversized text |
 | --- | --- | --- |
-| **Automatic** | Keeps nonempty paragraphs separate, including short text; never packs across paragraphs | Split without overlap or lost tail text |
+| **Automatic** | Packs neighbouring whole paragraphs within the token budget, retaining short text | Split oversized paragraphs without overlap or lost tail text |
 | **Line** | Starts from each trimmed, non-empty newline-delimited line | Recursively split within the token cap |
 | **Sentence** | Starts from each Unicode UAX #29 sentence | Split at token boundaries within the cap |
 
@@ -65,14 +67,14 @@ more context.
 All modes split over-cap text into non-overlapping source spans. No mode silently
 discards the tail of an oversized semantic unit.
 
-<h4 id="help-topic-modeling-min-cluster-size">Min topic size</h4>
+<h4 id="help-topic-modeling-min-cluster-size">Topic size and count</h4>
 
-Sets the smallest number of Topic Segments that can form a natural HDBSCAN
-Topic. The default is 10 and the minimum is 2. Smaller values can produce more,
-finer natural Topics but may be noisier; larger values require more supporting
-segments per natural Topic. The request controls apply on the next Run.
-In Results, **Adjust retained stages** changes clustering on the captured data.
-An optional maximum topic size must exceed the minimum; it defaults to unlimited.
+HDBSCAN uses an internal minimum of 10 segments and its default density settings.
+**Limit maximum topic size** sets a hard segment limit above 10; it defaults to
+unlimited. **Request a number of Topics** sets a target for merging the fitted
+hierarchy; the default is the natural Topic count. Wordflow fits once, respects
+the hard maximum during merges and reports the achieved count when the target
+cannot be reached. It never silently increases the maximum or retries fitting.
 
 <h4 id="help-topic-modeling-random-seed">Random seed</h4>
 
@@ -107,13 +109,13 @@ cooperative; an in-progress PaCMAP or HDBSCAN stage must finish before cleanup.
 <h2 id="help-topic-modeling-results">Result panel</h2>
 
 
-<h3 id="help-topic-modeling-number-of-clusters">Number of topics</h3>
+<h3 id="help-topic-modeling-number-of-clusters">Requested number of Topics</h3>
 
-The Result starts at HDBSCAN's natural number of real Topics. Use **Number of
-topics** to merge that fit down to one Topic without rerunning document embedding or clustering. The merged topic map is
-projected from the retained model context. Topic −1 is an outlier group, remains unchanged, and
-does not count toward the displayed number. Results with zero or one real Topic
-show a fixed disabled control.
+The Result starts at the requested target, or HDBSCAN's natural count by default.
+Use **Requested number of Topics** to adjust the retained hierarchy without
+embedding or clustering again. A hard maximum can prevent further merges; the
+display shows the achieved count. Outliers remain separate and do not count as
+Topics. A zero-Topic result has no hierarchy to merge.
 
 The lower bound appears to the left of the slider. Change the topic count with
 either the slider or the number field on its right; both stay synchronized.
@@ -126,8 +128,8 @@ stop words, and Words per topic remain in place.
 
 A successfully applied non-default projection is remembered for the same
 Analysis. If a lower cluster count cannot support the current Top topics per
-row, Wordflow sends one update with that value clamped to the new count.
-Rerunning creates a new Analysis at its natural count and Top 2. Export and Add
+row, Wordflow clamps that value to the achieved count.
+Rerunning creates a fresh Analysis using its requested target and up to Top 2. Export and Add
 to Project use the displayed successful projection and are unavailable while
 an update is pending.
 
@@ -147,16 +149,30 @@ search, lasso filters, pan, zoom, or an open Add to Project dialog.
 
 ### Adjust retained stages and Colour by
 
-The Results controls for minimum/maximum topic size and representative-word
+The Results controls for maximum topic size and representative-word
 tokenizer reuse saved intermediates after a short delay. Clustering reuses reduced
 vectors; tokenizer changes reuse assignments. Successful adjustments replace the
 result atomically. Failure keeps the last valid chart with the original diagnostic
 and Retry. Older results without required intermediates ask for Rerun; Wordflow
 does not silently rebuild them.
 
-For one Data Block, **Colour by** offers retained fields with 2–8 nonmissing
-groups. Missing values are grey. Legend counts and all count chips use the captured
-run or sampled Preview population, even after source edits. Shares use each group’s
+True outliers appear in a grey footer with dominant-document counts and each
+source or metadata group's own share. **View outlier documents** opens inspection
+and direct downloads. Processed empty texts remain eligible for the population
+but are not presented as outliers. Selected Topic cards stay visible but faded
+when search or lasso excludes them; the newest selection appears first.
+
+New Runs fit distinct exact texts independently within each Data Block. Outputs
+attach to current source rows by exact processed text, preserving duplicate rows.
+Source metadata and document counts update live without changing fitted assignments
+or map coordinates. Unprocessed new texts are absent; edited/removed texts stop
+matching. Processed empty outcomes remain part of the eligible population. A
+missing source produces the normal database error. Historical results keep their
+snapshot meaning until Rerun.
+
+For one Data Block, **Colour by** offers current fields with 2–8 nonmissing groups.
+Missing values are grey. Legend counts and count chips use current matching source
+rows for Run and only the sampled population for Preview. Shares use each group’s
 own denominator: whole percentages from 10%, one decimal below, and `<0.1%` for tiny
 positive shares. Tooltips give exact counts and populations. Colours blend the two
 strongest population-adjusted groups; opacity ranges from 0.25 to 0.8 with
@@ -217,8 +233,8 @@ result and its current counts.
 <h3 id="help-topic-modeling-clear-results">Clear results</h3>
 
 **Clear results** releases Preview and removes saved output, retaining the
-submitted request and Analysis identity. Published Tables remain independent. The selected
-segmentation method, maximum-token value, and minimum cluster size remain
+submitted request and Analysis identity. Published outputs remain independent. The selected
+segmentation method, maximum-token value, maximum Topic size and count target remain
 available for the next run.
 
 <h2 id="help-topic-modeling-troubleshooting">Troubleshooting</h2>
@@ -238,11 +254,12 @@ available for the next run.
 | Run scope | Every row |
 | Preview sampling | Up to 1,000 documents per Data Block |
 | Embedding model | English MiniLM |
-| Representative tokenizer | Plain words (English), shared |
+| Representative tokenizer | Plain words (languages with spaces), shared |
 | Segmentation method | Automatic |
 | Maximum tokens per segment | 256 |
-| Min topic size | 10 |
+| Internal minimum Topic size | 10 segments |
 | Max topic size | Unlimited |
+| Requested Topic count | Natural count |
 | Random seed | 0 |
 | Top topics per document | 2, or the available Topic count when smaller |
 | Words per topic | 15 |
@@ -258,7 +275,16 @@ available for the next run.
 
 [← Back to tutorial index](./index.md)
 
-Use **View documents** beside a topic to inspect its saved or sampled documents. Select a source, optional metadata and a page. Coverage is ordered highest first and Top-N cutoff ties are included. Expand text to read it in full. This dialog is read-only and never retrains the model. Downloads include a topic ID/word/count key.
+Use **View documents** beside a topic to inspect its saved or sampled documents. Select a source, optional metadata and a page. Coverage is ordered highest first and Top-N cutoff ties are included. Expand text to read it in full. This dialog is read-only and never retrains the model. **Download** exports all
+matching source documents across pages as CSV, XLSX, JSON or Parquet; **Download
+sample** uses all matching sampled documents without refitting. Document text can
+be omitted from downloads. Figure downloads include a topic ID/word/count key.
+
+New Add to Project outputs are live Views with independently copied generated
+assignments. The original document is always retained and source metadata stays
+live. Clear, Rerun and tab deletion cannot alter published outputs. A missing source
+retains its SQL reference and normal database error; deleting the published Data
+Block cleans up its hidden generated outputs.
 
 The shared Stopwords section places its selector beside an inline word editor, stacking them in narrow panes. Add/remove words, paste lists, sort and add language presets directly there. Changes save immediately to the shared Table. Views require **Create editable copy** before editing. Turning stopwords off hides the content but retains the selected list.
 

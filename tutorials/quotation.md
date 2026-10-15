@@ -61,7 +61,12 @@ inspect its full text, highlights and metadata, then use Previous/Next to move
 between rows. **Metadata and fields** opens a column-selection popover for original columns and generated
 quotation fields in separate groups, each with Select all/none. Tables have bounded scrolling and sticky headers; text selection does not open the inspector. Context, visible fields and source color are saved with the tab.
 
+Row Details stays anchored to the clicked text. If source edits move that document,
+refresh results and reopen it before fetching its full matches.
+
 Quotation cells show up to three lines. Clipped cells reveal their full highlighted content on hover or focus. Row Details uses a shorter scrollable document box and reveals the clicked quotation; extraction-pattern explanations appear beside their codes.
+
+<img src="tutorials/assets/ui/row_details.png" alt="Quotation Row Details with the clicked quotation highlighted and complete nested source metadata" width="2582" height="1800" />
 
 Click **Document** or a source metadata header to sort. The Reset sort icon restores original order and page one. In Preview, sorting is
 applied before source pagination; only the resulting page is extracted. Generated
@@ -70,26 +75,46 @@ has already been calculated.
 
 <h3 id="help-quotation-run-all">Step 3 — Run</h3>
 
-**Run** extracts the complete input as a native task. It saves matching original
-rows and quotations inside the project. First it saves the submitted request and
-clears previous output atomically. A later failure or cancellation leaves the
-request but no completed result. You can
+**Run** extracts the complete input as a native task. It processes distinct exact texts and saves checked-text records and quotations
+inside the project, including checked texts with no quotations. First it saves the submitted request and
+clears previous output atomically. Bounded native workers each own an extractor;
+completed batches save their checked texts and quotations together. Stop, a later
+failure or a crash retains those batches. **Resume** explicitly skips checked exact
+texts, including texts with no quotations, under the same extraction settings.
+Changing input/settings requires a fresh Run. Reopening never starts extraction
+automatically. You can
 edit the next request while a task runs; its captured input does not change.
-Finish any Table editing session before starting Run. Progress appears in the progress card and in Tasks.
+Finish any Table editing session before starting Run. Progress appears in the
+progress card and in Tasks. Partial results are available during execution and
+after Stop. Refresh, Resume and completion keep the current page and page size;
+only an out-of-range page is clamped.
 
-A successful Run replaces the Preview display automatically; there is no Preview/Saved results switch. The **Quotations** tab is selected by default and shows one occurrence per row. **Documents** groups quotations into their original rows. Saved pages offer numbered navigation and page jumps; Preview uses document lookahead without counting the whole source. Saved results remain readable after source edits, deletion, Save As and
-project reopening. Rerunning requires a valid current input.
+A successful Run replaces the Preview display automatically; there is no Preview/Saved results switch. The **Quotations** tab is selected by default and shows one occurrence per row. **Documents** groups quotations into their original rows. Saved pages offer numbered navigation and page jumps; Preview uses document lookahead without counting the whole source. New results attach to current source rows by exact processed text, keeping
+duplicate rows and live metadata. Unprocessed new texts are absent; edited/removed
+texts stop matching. A missing source produces the normal database error. Historical
+results remain snapshots until Rerun.
 
-**Add to Project → Quotations** creates one row per saved quotation. **Add to Project → Documents** creates one row per matching document with `QUOTE_extraction` joining
-its quotation text. Choose a new Table name and optional fields. The original
-document is always included; existing objects are never overwritten. These new
-Data Blocks own their rows independently of the analysis.
+Search **Metadata and fields**, then use **Column order** to drag columns or move
+them with arrow buttons or Alt + ↑ / ↓. Presentation order is saved independently
+of sorting. **Download** exports all filtered/sorted pages as CSV, XLSX, JSON or
+Parquet. **Download Preview** uses only the completed current page. Document text
+can be omitted from downloads, together with its dependent position fields.
+
+**Add to Project → Quotations** creates a live View with one row per saved quote.
+**Add to Project → Documents** creates a live View with `QUOTE_extraction` joining
+quotation text. Checked texts with no quotation remain included with empty outputs.
+The original document is required. Publication copies generated outputs into
+independent hidden relations owned by the published Data Block, so later analysis
+cleanup cannot alter them. Metadata stays live; a missing source retains its SQL
+reference and normal database error. Deleting the published Data Block removes its
+hidden output relations.
 
 <h3 id="help-quotation-clear-results">Cancel and Clear results</h3>
 
 **Cancel** cancels the current Preview request or requests cancellation of Run.
-A document already being extracted may finish first. **Clear results** removes the
-Preview and completed result but retains the tab, saved Run request, draft and display preferences, and re-enables Preview. It is unavailable
+A native batch already being extracted may finish cleanup first. Completed batches
+remain available for Resume. **Clear results** removes the Preview, partial checkpoint
+and completed result but retains the tab, saved Run request, draft and display preferences, and re-enables Preview. It is unavailable
 while Run is active. Neither clearing nor deleting an analysis removes Data
 Blocks previously published from it. Failed runs can be tried again without Clear.
 
@@ -102,7 +127,7 @@ Blocks previously published from it. Failed runs can be tried again without Clea
 | Precision is low | Validate a sample against the news-style assumptions of the rules |
 | Generated header cannot sort | Use the saved Quotations tab; Preview sorts source columns before extraction |
 | Results use older settings | Click Preview or Run to submit the current request |
-| Saved source is missing | Saved results still work; select a replacement before rerunning |
+| Saved source is missing | Live results show the database error; restoring a compatible source under the same name can resolve it |
 
 <h2 id="help-quotation-defaults">Quick-reference defaults</h2>
 
