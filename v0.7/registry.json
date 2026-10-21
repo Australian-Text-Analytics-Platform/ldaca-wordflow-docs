@@ -1,7 +1,7 @@
 {
   "meta": {
-    "version": "0.7.14",
-    "generated": "2026-10-14"
+    "version": "0.7.15",
+    "generated": "2026-10-21"
   },
   "tutorial": {
     "ui.tool-choice": {
@@ -543,6 +543,11 @@
       "file": "tutorials/export.md",
       "anchor": "help-export-run",
       "label": "Export action"
+    },
+    "analysis.export.excel-limit": {
+      "file": "tutorials/export.md",
+      "anchor": "help-export-excel-limit",
+      "label": "Excel's cell limit"
     }
   },
   "info": {

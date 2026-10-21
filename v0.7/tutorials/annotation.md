@@ -29,6 +29,14 @@ either directly or with predictions from a configured AI provider.
    code's descriptions or merge them, or give each code its own description.
    AI Preview and Run wait until each code has one description.
 
+   **Task context** (optional, at the top of the Edit dialog) says what the
+   texts are and what the codes are for, for example "Posts from a workers'
+   forum, 2019 to 2023; the codes record attitudes to working from home". It
+   is saved with the Codebook, so it goes wherever the Codebook is used, and
+   AI annotation sends it after the **Prompt**, before the codes. In the
+   Codebook Data Block it is one row named `__task_context__`; that row is
+   never a code.
+
 4. Use the **Manual / AI** switch to choose a mode. The source and Codebook are
    shared between both modes.
 
@@ -114,6 +122,10 @@ saving, but a built-in provider marked **Needs API key** cannot list models,
 Preview, or Run until you add one. Custom endpoints may be keyless. Editing
 a key updates future requests; a Run already queued or running keeps the key
 captured when it was submitted.
+When the provider describes its models (OpenRouter, Google, or a LiteLLM
+gateway with model descriptions set), the **Model** list shows a one-line
+description under each model to help you choose; the model name is still what
+is used.
 An **Example Data Block** is optional; if used, choose both its text column and
 an existing annotation column containing reviewed labels. Set **Max examples
 per code**, then choose **Random**, **First N**, or **Last N**. Random sampling
