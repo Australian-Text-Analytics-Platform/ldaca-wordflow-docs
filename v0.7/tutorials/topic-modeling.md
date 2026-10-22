@@ -39,6 +39,42 @@ Block's colour in the bubble chart and topic lists.
 
 <h3 id="help-topic-modeling-options">Step 3: Configure the model</h3>
 
+<h4 id="help-topic-modeling-embedding-model">Model (embedding model)</h4>
+
+The model reads each Topic Segment and turns it into numbers, so that segments
+about the same subject end up close together. There are two:
+
+| Model | Languages | Max tokens |
+| --- | --- | --- |
+| **English** (the default) | English | up to 256 |
+| **Multilingual** | Chinese, Japanese, Korean and about 50 other languages | up to 128 |
+
+The English model can read Chinese, Japanese or Korean text, but it does not
+understand it: it mostly matches the characters two segments share, so topics
+form around common characters and function words rather than subjects. The
+Multilingual model understands these languages, and also places a Chinese
+sentence close to its English translation. It reads at most 128 tokens per
+segment and is slower than the English model.
+
+**Multilingual** is chosen for you, and **Max tokens** drops to 128, when:
+
+- a selected Data Block's tokeniser (set in Frequency Analysis) is a Chinese,
+  Japanese or Korean one, such as Jieba or IPADIC; or
+- otherwise, its text column looks like a language other than English. Wordflow
+  guesses the language from the first 100 rows, as it does for the stop word
+  lists.
+
+A note under the settings says why. You can switch back to **English**, which
+restores your Max tokens. With **Suggestions** on, choosing English for such a
+Data Block shows a suggestion with a **Use Multilingual** button. A saved run
+keeps the model it used.
+
+On a Mac with Apple silicon, Wordflow reads the text on the graphics processor,
+which is several times faster than on the processor. The first run after
+installing or updating Wordflow prepares the model for it once, which can add
+up to a minute; later runs start straight away. Results on a Mac can differ very
+slightly from those on another computer, so topics may differ a little.
+
 <h4 id="help-topic-modeling-segmentation-method">Segments (segmentation method)</h4>
 
 This setting controls which spans become Topic Segments. The same method is
@@ -86,9 +122,11 @@ algorithm, so abbreviations may occasionally form a short segment.
 
 <h4 id="help-topic-modeling-max-segment-tokens">Max tokens (maximum tokens per segment)</h4>
 
-Sets the maximum size of a Topic Segment in model tokens. The default is 256
-and the allowed range is 32–256. Tokens may be complete words or parts of
-words, and the cap includes special tokens added by the embedding model. A
+Sets the maximum size of a Topic Segment in model tokens: **32**, **64**,
+**128** or **256** (the default), or up to 128 with the **Multilingual** model.
+These are the fixed lengths the model is prepared for, so every segment fits
+one exactly. A run saved with another value opens at the size below it.
+Tokens may be complete words or parts of words, and the cap includes special tokens added by the embedding model. A
 smaller cap gives more local observations; a larger cap gives each observation
 more context. With **Automatic**, the cap is also how far short paragraphs are
 packed together, so a larger cap gives fewer, fuller segments.
@@ -98,6 +136,54 @@ tiny leftovers and letterless segments described above, no text is discarded.
 Very small caps (such as 32 tokens) produce many short, fragment-like segments,
 which can make the number of topics unstable; 128–256 tokens usually gives more
 stable topics.
+
+With **Suggestions** on, Wordflow measures the first 200 documents of the first
+selected Data Block in the model's tokens: the sentences for **Sentence**, the
+paragraphs for **Paragraph**, and for **Automatic** whole texts (or their
+paragraphs, when nearly every text is longer than the model reads). When at
+least 9 in 10 of them fit whole in a smaller cap of 32, 64 or 128 tokens, a
+suggestion such as "Your sentences are short: 64 tokens per segment is plenty"
+offers to set it. Most segments then stay as they are, and the few longer ones
+are split into pieces of about that size. It only ever suggests a smaller cap.
+
+<h4 id="help-topic-modeling-remote-gpu">Remote GPU</h4>
+
+**This needs access to a GPU server for Topic Modelling, which most people
+don't have.** Your university, a research cloud or a shared Wordflow server may
+offer one; you then get its address and an API key. Without one, nothing
+changes: Topic Modelling reads the text on this computer, and **Remote GPU**
+isn't shown at all.
+
+Reading the text into the model takes most of a first run. **Remote GPU**,
+beside **Max tokens**, has a Topic Modelling server do that part on a remote
+graphics processor, which takes seconds where this computer can take many
+minutes on a large corpus. Everything else (segments, grouping, topic words)
+still runs here, and the text read is kept for later runs as usual.
+
+- **Where the servers come from.** On a shared Wordflow server, it provides
+  them and you can see them under **Settings → Servers**, in **Topic
+  Modelling**. On the desktop app, add your own there: a name, the address
+  (ending in `/v1`) and an API key if the server needs one, then **Check**.
+  Check lists the server's embedding models, which also confirms the key;
+  choose which of them is **English** and which is **Multilingual** (likely
+  names are chosen for you) before you can save. Wordflow picks the model a
+  run needs, so there is no default model to set. These servers are listed apart
+  from the generative AI ones Annotation uses, although one gateway can
+  provide both.
+- **A suggestion after a slow run.** On the desktop app, when a run took five
+  minutes or more reading the text on this computer's processor and no server
+  is set up, a suggestion asks whether you have access to one, and **Show me
+  in Settings** walks you to where it is added.
+- **When the tick is available.** It appears once a server is set up, and can
+  be ticked when that server serves the selected **Model**; otherwise it is
+  greyed out and the text is read on this computer (or the Wordflow server). With more than one server for the
+  model, choose which one beside the tick.
+- **If the server fails.** A run that can't reach the server, or that the
+  server refuses, stops with the server's error. It doesn't switch to
+  reading on this computer part way, because the two give very slightly
+  different results. Untick **Remote GPU** to run here instead.
+- **Saved runs** remember the server they used. The text read remotely is
+  kept apart from text read on this computer, so switching reads it again once.
 
 <h4 id="help-topic-modeling-min-cluster-size">Topic size: minimum (Min topic size)</h4>
 
