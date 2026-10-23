@@ -289,18 +289,28 @@ selected. See [How Preview, Run and Clear work](./ui.md#help-ui-preview-run-clea
 
 <h2 id="help-topic-modeling-results">Result panel</h2>
 
-![Topic Modelling results: the bubble chart, Result settings, and the topic list beside the examples of Topic 12](tutorials/assets/topic_modelling/results.png)
+![Topic Modelling results: the bubble chart with the Display options beside it, and the topic list beside the examples of Topic 12](tutorials/assets/topic_modelling/results.png)
 
-The **Result settings** row below the bubble chart holds **Topics**, **Per
-document**, **Words**, the stop word controls, **Colour by**, and **Find
-topics**, with **Add to Project** at its right. Question-mark icons beside some of these controls give a short
-explanation. Below it, the topic list takes the left third and the
+The **Display options** change how the result is shown: **Topics**, **Topics
+per doc** (top topics per document), **Words per topic**, **Colour by**, the stop word controls and the
+**Search term**, with **Add to Project**. Question-mark icons beside some of
+these controls give a short explanation. On a wide results panel the options
+sit beside the bubble chart, with the colour legend: one option per row, the
+search term last and **Add to Project** at the bottom, and the chart keeps a
+4:3 shape. Drag the divider between the chart and the options to widen or
+narrow the chart (double-click it to go back to 4:3). The panel icon at the
+right of the Display options heading moves the options below the chart, in a
+compact row, and back beside it. On a narrower panel they always sit below the
+chart. Click **Display options** to fold them to one summary line, such as "2
+topics per doc · 15 words per topic · Colour: Data Block · Stop words on"; the
+search term and Add to Project stay available. The tab remembers these choices
+on this computer. Below the chart and options, the topic list takes the left third and the
 [examples of one topic](#help-topic-modeling-examples) the rest; drag the
 divider between them to widen the list (double-click it to go back to a
 third). In a narrow window the list sits above the examples. The area has its own
 resize grip, like the chart itself.
 
-![Result settings: Topics, Per document, Words, the stop words switch and list, and Find topics](tutorials/assets/topic_modelling/result_settings.png)
+![Display options moved below the chart, in a compact row: Topics, Topics per doc, Words per topic, Colour by, the stop words switch and list, the search term and Add to Project](tutorials/assets/topic_modelling/result_settings.png)
 
 <h3 id="help-topic-modeling-number-of-clusters">Topics (number of topics)</h3>
 
@@ -350,8 +360,8 @@ Ungrouped: none of their text is in any Topic. Selecting it works like
 selecting a Topic. Its examples are shown in random order, since Ungrouped has
 no centre to rank them by.
 
-**Why only fully Ungrouped documents.** Ungrouped is not ranked in **Per
-document** (Top topics per document), because it is not a theme: it is the
+**Why only fully Ungrouped documents.** Ungrouped is not ranked in **Topics
+per doc** (Top topics per document), because it is not a theme: it is the
 passages that matched none. If it were ranked, a document that is 60% Ungrouped
 and 40% about a sugar tax would leave the sugar tax bubble at Top 1, hiding the
 one thing it is about, and the Ungrouped bubble would hold two thirds of the
@@ -398,7 +408,7 @@ can be about one percentage point. A larger size can put almost everything into
 one Topic. With **Suggestions** on, a result with many Ungrouped documents
 suggests trying a smaller Min topic size.
 
-<h3 id="help-topic-modeling-top-topics-per-row">Per document (top topics per document)</h3>
+<h3 id="help-topic-modeling-top-topics-per-row">Topics per doc (top topics per document)</h3>
 
 **Top topics per document** controls how many of each source row's strongest
 positive real-topic shares contribute to bubble counts. The default is 2. Topic
@@ -468,7 +478,7 @@ opacity ≈ 0.26. Hovering over a bubble lifts it above this range, and selected
 topics are marked by an outline, so neither changes what the opacity means.
 Without **Colour by**, every bubble uses the same opacity.
 
-<h3 id="help-topic-modeling-words-per-topic">Words (words per topic) and stop words</h3>
+<h3 id="help-topic-modeling-words-per-topic">Words per topic and stop words</h3>
 
 **Words per topic** controls how many representative words appear in the topic
 list, search, and hover cloud. The default is 15 and the range is 3-100. The
@@ -540,10 +550,14 @@ around. Select topics directly, or enable the lasso control and draw around
 several Topic centres. Lasso mode remains active and later strokes add to the
 filter of the topic list; use **Clear filter** in the graph toolbar to
 remove that accumulated filter without changing manually selected Topics.
-**Find topics** further narrows the list and fades the other topics in the
-graph. A topic matches when the search text is found in its words; `*` (any
-letters) and `?` (one letter) match within a single word, so `gs*` and `gs?`
-both find topics with *gst* wherever it is in their list.
+A **Search term** further narrows the list and fades the other topics in the
+graph. Spaces, commas and other punctuation separate several terms, and a topic
+matches when any one of its words contains any one term: `chil, home` finds
+topics with *child*, *children* or *chill*, and topics with *home* or
+*homeless*. `*` (any letters) and `?` (one letter) match a whole word, so `gs*`
+and `gs?` both find topics with *gst* wherever it is in their list. Matching
+words are bold in the topic list and in a bubble's word cloud, in one colour
+per term: orange for the first term, then blue, green, purple, red and yellow.
 
 <h3 id="help-topic-modeling-topic-list">Topic list</h3>
 
@@ -564,7 +578,7 @@ list, or right-click its bubble. Its example segments then appear beside the
 list, and an eye marks its card and its bubble. Only one topic is shown at a
 time: showing another replaces it. Click the eye or right-click the bubble
 again, or close the examples with **×**, to stop showing them. Faded bubbles
-cannot be right-clicked. Find topics and the lasso never hide the examples; if
+cannot be right-clicked. The search term and the lasso never hide the examples; if
 they leave out the shown topic, a note says so, with **Clear filters**.
 
 ![The topic list, with two selected topics, beside the most typical examples of Topic 12](tutorials/assets/topic_modelling/topic_examples.png)
@@ -655,7 +669,7 @@ Choose **Interactive HTML** to save the graph as one web page that opens in any
 browser, offline. It shows the graph exactly as on screen (positions, colours,
 selection rings and faded topics) and keeps three things to explore: hover a
 bubble for its words, sized by count, and the same size chips as the app
-(per colour-by value, or per Data Block); type in **Find topics** to highlight
+(per colour-by value, or per Data Block); type a **Search term** to highlight
 matching topics, with the same rules as the app's search; and drag to move, or
 hold Command (Mac) or Control (Windows) while scrolling to zoom. Once zoomed in,
 plain scrolling moves the graph in any direction; at full size it scrolls the
@@ -690,8 +704,8 @@ available for the next run.
 | Topic size | 10 to Auto |
 | Seed | 0 |
 | Topic sampling | Off; suggested for very large corpora |
-| Per document | 2, or the available Topic count when smaller |
-| Words | 15 |
+| Topics per doc | 2, or the available Topic count when smaller |
+| Words per topic | 15 |
 
 ## Practice exercise
 
