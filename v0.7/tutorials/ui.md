@@ -89,9 +89,16 @@ from the active Project together with your retained User File Imports.
   cancel, clear, or re-run it.
 - Queued and running User File Imports show **Stop**. The row remains visible if
   cancellation fails so you can try again.
-- Successful, failed, and cancelled User File Imports remain available until
-  you click **Clear**. Clearing the task removes its retained history record,
-  not any files it successfully imported.
+- A successful import or upload leaves the panel on its own 10 minutes after
+  it finishes; it dims in its last minute. Failed and cancelled ones stay until
+  you click **Clear** in their details, so you don't miss an error.
+- The brush button beside the **Tasks** heading clears every finished import
+  and upload at once; running ones stay.
+- Finished imports are also cleared when a session ends: when you start the
+  desktop app (or `pip`/Binder Wordflow) again, and when you sign out of a
+  shared server. A shared server also clears any older than a week.
+- Clearing a task removes only its record in Tasks, never the files it
+  imported.
 - The panel refreshes automatically, so you can keep working while tasks run
   in the background. The green dot beside the **Tasks** heading shows it is
   connected for these live updates; if the connection drops, a message and a
@@ -358,7 +365,7 @@ The **Help** and **Feedback** buttons at the very bottom of the left sidebar pro
   - a Concordance **Preview** finds no matches in the documents it checked,
     while the Data Block has more: show more **Documents per page**, or
     **Run** to search them all;
-  - Topic Modelling puts most segments in one topic (try a lower **Max topic
+  - Topic Modelling puts most passages in one topic (try a lower **Max topic
     size**), finds only a few topics, or leaves many documents
     [Ungrouped](./topic-modeling.md#help-topic-modeling-ungrouped) (try a
     slightly lower **Min topic size**, which may help only a little), then
@@ -367,7 +374,7 @@ The **Help** and **Feedback** buttons at the very bottom of the left sidebar pro
     minutes: reading takes most of a first run, so **Stop**, then lower
     **Sampling** to read fewer documents;
   - a Topic Modelling input is large (from about 15,700 documents or 66,000
-    segments): a sample of documents or segments gives a faster first run.
+    passages): a sample of documents or passages gives a faster first run.
 - Clicking a disabled **Run** outlines what it is waiting for, such as an
   empty **Tokeniser model** in Frequency.
 - Suggestions are turned off, and back on, under **Settings → Guidance**
